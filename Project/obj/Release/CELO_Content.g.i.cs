@@ -12,6 +12,8 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/2p_karelia.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/8p_west_wall.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("disclaimer.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("gpl.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("license.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/first.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/history/coh1/mhv.xml")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/history/coh2/mhv.xml")]

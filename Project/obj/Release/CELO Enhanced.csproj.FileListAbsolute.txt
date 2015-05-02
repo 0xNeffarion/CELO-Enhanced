@@ -537,3 +537,163 @@ S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.baml
 S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO.g.resources
 S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Enhanced.Properties.Resources.resources
 S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\CELO.exe.config
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_cheneux.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_karelia.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_west_wall.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\disclaimer.txt
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\first.txt
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\history\coh1\mhv.xml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\history\coh2\mhv.xml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\maps.data
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\(2-4)_compound.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4_6_lemberg_fall.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_mud_valley.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_swamps.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6_8_brody.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_general_mud.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_narva_v2.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\maps.data
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\assemblies\paping.exe
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\overgrowth.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\volga_timber_yard.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\unknown.png
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_angermuende.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_coh2_city_17_winter_battlefield.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_coh2_city_17_spring_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_crossing_in_the_woods.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_don_river_v2.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_ettelbruck_station.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4_6_rostov.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_faymonville_approach.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_hill_331.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_hurtgen_forest.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_battlefield.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_spring_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_la_gleize.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2-4_langres_winter.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\langres.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_lazenrath_ambush.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\anotherstalingrad.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_lienne_forest.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_minsk_pocket_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_moscow_outskirts_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_moscow_outskirts_fall_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_coh2_okariver_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_prypiat_winter_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_prypiat_battlefield.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_rails_and_metal.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_road_to_kharkov.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_rzhev_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_rzhev_summer_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_semois_winter.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_semois.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_coh2_resistance.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_coh2_thesteppes_frontline.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_terek_lines.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_trois_pont.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_vaux_farmlands.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_angoville farms.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_beach_assault.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_beaux lowlands.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_bernieres-sur-mer.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_best.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_carpiquet.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_circle_wall.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_duclair v1-3.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_egletons.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_flooded_plains.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_industrial riverbed.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_langres.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_lyon.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_ruins_of_rouen.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_semois.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_sturzdorf.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_st_mere_dumont.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_verrieres_ridge.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_verrieres_ridge_no_bunkers.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_wrecked_train.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_achelous river.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_alsace moselle.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_bedum.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_coastal_harbour.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_duclair.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_ecliptic_fields.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_etavaux.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_linden.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_lorraine.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_lyon.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_mcgechaens war.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_point_du_hoc.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_rails and metal.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_road_to_montherme.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_st hilaire.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_vire river valley.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_wolfheze.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_close_river_combat.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_drekplaats.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_hedgerow_siege.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_hill 331.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_montherme.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_red_ball_express.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_refinery.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_seine_river_docks.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_villers_bocage.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_vimoutiers.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_best.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_king_of_the_hill.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_montargis region.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_route_n13.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_steel pact.jpg
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\CELO.exe
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\CELO.pdb
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\ExceptionReporter.WinForms.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\HtmlAgilityPack.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\Ionic.Zip.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\Microsoft.Threading.Tasks.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\MouseKeyboardActivityMonitor.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\Newtonsoft.Json.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\System.IO.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\System.Runtime.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Release\System.Threading.Tasks.dll
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\About.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\HotKeyGen.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\InputBox.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\LivestreamDisplayer.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\LoadingScreen.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\MatchHistoryViewer.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\Preferences.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\Replay Uploader.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\ReplayManager.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\ScriptCompiler.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\StartWindow.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\Updater.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\VersionChanger.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\About.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\HotKeyGen.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\InputBox.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\LivestreamDisplayer.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\LoadingScreen.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\MainWindow.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\MatchHistoryViewer.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\Preferences.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\Replay Uploader.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\ReplayManager.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\ScriptCompiler.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\StartWindow.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\Updater.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\VersionChanger.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\App.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO_Content.g.cs
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO_MarkupCompile.cache
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO_MarkupCompile.lref
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\App.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\MainWindow.baml
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO.g.resources
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO_Enhanced.Properties.Resources.resources
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO.exe
+C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Release\CELO.pdb
