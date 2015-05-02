@@ -34,6 +34,11 @@ Livestream Displayer - A handy tool for live-streamers which want their viewers 
 Hot-Key Creator - Lets you create AutoHotkey scripts with ease for Company of Heroes 2
 
 
+
+
+
+
+
 -------------------------------------------------------------------------------------------------------
 
 Company of ELO - Enhanced (CELO Enhanced) is free software: you can redistribute it and/or modify
