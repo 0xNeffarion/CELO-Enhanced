@@ -1,0 +1,539 @@
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\assemblies\paping.exe
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.pdb
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.dll
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\MySql.Data.dll
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.dll
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.pdb
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.xml
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.xml
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.g.cs
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.g.cs
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Content.g.cs
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.cache
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.lref
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.baml
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.g.resources
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Enhanced.Properties.Resources.resources
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
+C:\Users\Neffarion\Documents\Visual Studio 14\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_cheneux.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_karelia.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_west_wall.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\disclaimer.txt
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\first.txt
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh1\mhv.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh2\mhv.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\maps.data
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\(2-4)_compound.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4_6_lemberg_fall.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_mud_valley.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_swamps.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6_8_brody.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_general_mud.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_narva_v2.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\maps.data
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\assemblies\paping.exe
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\overgrowth.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\volga_timber_yard.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\unknown.png
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_angermuende.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_city_17_winter_battlefield.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_city_17_spring_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_crossing_in_the_woods.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_don_river_v2.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_ettelbruck_station.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4_6_rostov.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_faymonville_approach.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_hill_331.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_hurtgen_forest.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_battlefield.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_spring_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_la_gleize.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2-4_langres_winter.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\langres.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_lazenrath_ambush.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\anotherstalingrad.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_lienne_forest.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_minsk_pocket_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_moscow_outskirts_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_moscow_outskirts_fall_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_coh2_okariver_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_prypiat_winter_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_prypiat_battlefield.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rails_and_metal.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_road_to_kharkov.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rzhev_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rzhev_summer_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_semois_winter.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_semois.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_coh2_resistance.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_thesteppes_frontline.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_terek_lines.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_trois_pont.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_vaux_farmlands.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_angoville farms.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_beach_assault.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_beaux lowlands.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_bernieres-sur-mer.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_best.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_carpiquet.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_circle_wall.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_duclair v1-3.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_egletons.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_flooded_plains.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_industrial riverbed.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_langres.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_lyon.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_ruins_of_rouen.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_semois.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_sturzdorf.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_st_mere_dumont.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_verrieres_ridge.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_verrieres_ridge_no_bunkers.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_wrecked_train.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_achelous river.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_alsace moselle.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_bedum.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_coastal_harbour.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_duclair.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_ecliptic_fields.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_etavaux.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_linden.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_lorraine.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_lyon.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_mcgechaens war.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_point_du_hoc.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_rails and metal.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_road_to_montherme.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_st hilaire.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_vire river valley.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_wolfheze.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_close_river_combat.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_drekplaats.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_hedgerow_siege.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_hill 331.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_montherme.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_red_ball_express.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_refinery.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_seine_river_docks.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_villers_bocage.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_vimoutiers.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_best.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_king_of_the_hill.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_montargis region.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_route_n13.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_steel pact.jpg
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.pdb
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\ExceptionReporter.WinForms.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Ionic.Zip.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\MouseKeyboardActivityMonitor.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Runtime.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Threading.Tasks.dll
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.pdb
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\MouseKeyboardActivityMonitor.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Runtime.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Threading.Tasks.xml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.App.config
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Content.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.cache
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.lref
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.baml
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.g.resources
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Enhanced.Properties.Resources.resources
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+C:\Users\Vasco\Documents\Visual Studio 2013\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
+S:\Projects\C#\Projects V2\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
+S:\Projects\C#\Projects V2\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
+S:\Projects\C#\Projects V2\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_cheneux.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_karelia.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_west_wall.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\disclaimer.txt
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\first.txt
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh1\mhv.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh2\mhv.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\maps.data
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\(2-4)_compound.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4_6_lemberg_fall.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_mud_valley.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_swamps.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6_8_brody.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_general_mud.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_narva_v2.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\maps.data
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\assemblies\paping.exe
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\overgrowth.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\volga_timber_yard.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\unknown.png
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_angermuende.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_city_17_winter_battlefield.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_city_17_spring_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_crossing_in_the_woods.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_don_river_v2.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_ettelbruck_station.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4_6_rostov.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_faymonville_approach.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_hill_331.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_hurtgen_forest.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_battlefield.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_spring_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_la_gleize.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2-4_langres_winter.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\langres.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_lazenrath_ambush.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\anotherstalingrad.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_lienne_forest.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_minsk_pocket_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_moscow_outskirts_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_moscow_outskirts_fall_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_coh2_okariver_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_prypiat_winter_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_prypiat_battlefield.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rails_and_metal.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_road_to_kharkov.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rzhev_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rzhev_summer_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_semois_winter.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_semois.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_coh2_resistance.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_thesteppes_frontline.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_terek_lines.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_trois_pont.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_vaux_farmlands.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_angoville farms.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_beach_assault.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_beaux lowlands.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_bernieres-sur-mer.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_best.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_carpiquet.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_circle_wall.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_duclair v1-3.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_egletons.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_flooded_plains.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_industrial riverbed.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_langres.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_lyon.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_ruins_of_rouen.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_semois.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_sturzdorf.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_st_mere_dumont.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_verrieres_ridge.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_verrieres_ridge_no_bunkers.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_wrecked_train.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_achelous river.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_alsace moselle.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_bedum.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_coastal_harbour.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_duclair.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_ecliptic_fields.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_etavaux.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_linden.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_lorraine.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_lyon.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_mcgechaens war.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_point_du_hoc.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_rails and metal.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_road_to_montherme.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_st hilaire.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_vire river valley.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_wolfheze.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_close_river_combat.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_drekplaats.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_hedgerow_siege.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_hill 331.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_montherme.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_red_ball_express.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_refinery.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_seine_river_docks.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_villers_bocage.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_vimoutiers.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_best.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_king_of_the_hill.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_montargis region.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_route_n13.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_steel pact.jpg
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.pdb
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\ExceptionReporter.WinForms.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Ionic.Zip.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\MouseKeyboardActivityMonitor.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Runtime.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Threading.Tasks.dll
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.pdb
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\MouseKeyboardActivityMonitor.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Runtime.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Threading.Tasks.xml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.App.config
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Content.g.cs
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.cache
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.lref
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.baml
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.g.resources
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Enhanced.Properties.Resources.resources
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+H:\Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.App.config
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\About.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\Updater.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\About.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\Updater.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\App.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Content.g.cs
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.cache
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.lref
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_cheneux.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_karelia.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_west_wall.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\disclaimer.txt
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\first.txt
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh1\mhv.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh2\mhv.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\maps.data
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\(2-4)_compound.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4_6_lemberg_fall.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_mud_valley.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_swamps.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6_8_brody.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_general_mud.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_narva_v2.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\maps.data
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\assemblies\paping.exe
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\overgrowth.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\volga_timber_yard.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\unknown.png
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_angermuende.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_city_17_winter_battlefield.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_city_17_spring_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_crossing_in_the_woods.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_don_river_v2.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_ettelbruck_station.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4_6_rostov.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_faymonville_approach.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_hill_331.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_hurtgen_forest.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_battlefield.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_spring_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_la_gleize.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2-4_langres_winter.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\langres.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_lazenrath_ambush.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\anotherstalingrad.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_lienne_forest.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_minsk_pocket_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_moscow_outskirts_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_moscow_outskirts_fall_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_coh2_okariver_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_prypiat_winter_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_prypiat_battlefield.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rails_and_metal.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_road_to_kharkov.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rzhev_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_rzhev_summer_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_semois_winter.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_semois.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_coh2_resistance.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_coh2_thesteppes_frontline.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_terek_lines.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_trois_pont.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_vaux_farmlands.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_angoville farms.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_beach_assault.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_beaux lowlands.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_bernieres-sur-mer.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_best.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_carpiquet.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_circle_wall.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_duclair v1-3.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_egletons.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_flooded_plains.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_industrial riverbed.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_langres.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_lyon.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_ruins_of_rouen.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_semois.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_sturzdorf.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_st_mere_dumont.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_verrieres_ridge.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_verrieres_ridge_no_bunkers.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\2p_wrecked_train.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_achelous river.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_alsace moselle.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_bedum.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_coastal_harbour.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_duclair.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_ecliptic_fields.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_etavaux.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_linden.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_lorraine.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_lyon.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_mcgechaens war.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_point_du_hoc.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_rails and metal.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_road_to_montherme.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_st hilaire.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_vire river valley.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\4p_wolfheze.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_close_river_combat.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_drekplaats.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_hedgerow_siege.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_hill 331.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_montherme.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_red_ball_express.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_refinery.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_seine_river_docks.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_villers_bocage.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\6p_vimoutiers.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_best.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_king_of_the_hill.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_montargis region.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_route_n13.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_steel pact.jpg
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\CELO.pdb
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\ExceptionReporter.WinForms.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Ionic.Zip.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\MouseKeyboardActivityMonitor.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\System.Runtime.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\System.Threading.Tasks.dll
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.pdb
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\HtmlAgilityPack.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\MouseKeyboardActivityMonitor.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\System.Runtime.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\System.Threading.Tasks.xml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\App.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.baml
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO.g.resources
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Enhanced.Properties.Resources.resources
+S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache

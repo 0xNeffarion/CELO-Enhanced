@@ -1,0 +1,57 @@
+﻿<Window x:Name="VersionWindow" x:Class="CELO_Enhanced.VersionChanger"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="300" Width="615"
+        WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" MinHeight="300"
+        TextOptions.TextFormattingMode="Display" Title="CELO - Replay Version Changer" Loaded="VersionWindow_Loaded"
+        MinWidth="615" Icon="icon-modified.ico">
+    <Grid>
+        <Border BorderBrush="#FFD5DFE5" BorderThickness="1" HorizontalAlignment="Left" Height="181" Margin="10,73,0,0"
+                VerticalAlignment="Top" Width="302">
+            <Border BorderBrush="#FFC1CBD1" BorderThickness="1" HorizontalAlignment="Left" Height="53"
+                    Margin="148,120,0,0" VerticalAlignment="Top" Width="147">
+                <Label x:Name="txt_lastVersion" Content="Last Version:" HorizontalAlignment="Center" Margin="-1,6,-1,0"
+                       Width="147" HorizontalContentAlignment="Center" />
+            </Border>
+        </Border>
+
+        <GroupBox Header="        Warning" HorizontalAlignment="Left" Margin="322,10,0,0" VerticalAlignment="Top"
+                  Height="186" Width="266">
+            <Grid Margin="0,0,0,2">
+                <TextBlock HorizontalAlignment="Left" Margin="8,18,0,0" TextWrapping="Wrap"
+                           Text="Replays that are very old will not work due to the fact that the unit values are different and the game cannot sync the replay with the actual updated values of the units."
+                           VerticalAlignment="Top" Height="67" Width="236" />
+                <TextBlock HorizontalAlignment="Left" Margin="8,96,0,0" TextWrapping="Wrap"
+                           Text="Changing versions is mostly recommended when the game is patched/hotfixed recently and the replay is 1-2 patches old."
+                           VerticalAlignment="Top" Width="236" Height="59" />
+
+            </Grid>
+        </GroupBox>
+        <Image HorizontalAlignment="Left" Height="32" Margin="325,3,0,0"
+               RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased" Stretch="None"
+               VerticalAlignment="Top" Width="32" Source="Resources/warning.png" />
+        <Label x:Name="txt_original_name" Content="Name:" HorizontalAlignment="Left" Margin="10,18,0,0"
+               VerticalAlignment="Top" Width="302" />
+        <Label x:Name="txt_original_version" Content="Version:" HorizontalAlignment="Left" Margin="10,43,0,0"
+               VerticalAlignment="Top" Width="302" />
+        <RadioButton x:Name="rBtn_overwrite" Content="Overwrite replay" HorizontalAlignment="Left" Margin="24,89,0,0"
+                     VerticalAlignment="Top" IsChecked="True" Checked="rBtn_overwrite_Checked" TabIndex="1" />
+        <RadioButton x:Name="rBtn_backup" Content="Create backup" HorizontalAlignment="Left" Margin="210,89,0,0"
+                     VerticalAlignment="Top" Checked="rBtn_backup_Checked" TabIndex="2" />
+        <TextBox x:Name="tBox_name" HorizontalAlignment="Left" Height="23" Margin="107,121,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="195" IsEnabled="False" TextChanged="tBox_name_TextChanged" TabIndex="3" />
+        <TextBlock HorizontalAlignment="Left" Margin="24,124,0,0" TextWrapping="Wrap" Text="Backup name:"
+                   VerticalAlignment="Top" Width="83" />
+        <TextBox x:Name="tBox_version" HorizontalAlignment="Left" Height="23" Margin="138,164,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="164" TextChanged="tBox_version_TextChanged" MaxLines="1" MaxLength="5"
+                 PreviewTextInput="NumberValidationTextBox" TabIndex="4" />
+        <TextBlock HorizontalAlignment="Left" Margin="24,168,0,0" TextWrapping="Wrap" Text="New version:     3.0.0."
+                   VerticalAlignment="Top" />
+        <Button x:Name="btn_lastVersion" Content="Set last version" HorizontalAlignment="Left" Margin="24,210,0,0"
+                VerticalAlignment="Top" Width="122" Height="29" Click="btn_lastVersion_Click" TabIndex="5" />
+        <Button x:Name="btn_apply" Content="Apply" HorizontalAlignment="Left" Margin="335,207,0,0"
+                VerticalAlignment="Top" Width="134" Height="44" IsEnabled="False" TabIndex="6" Click="btn_apply_Click" />
+        <Button x:Name="btn_cancel" Content="Cancel" HorizontalAlignment="Left" Margin="497,207,0,0"
+                VerticalAlignment="Top" Width="91" Height="44" Click="btn_cancel_Click" TabIndex="7" />
+
+    </Grid>
+</Window>

@@ -1,0 +1,50 @@
+﻿<Window x:Name="LoadingScreenWindow" x:Class="CELO_Enhanced.LoadingScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Loading" Height="180" Width="420" WindowStyle="None" WindowStartupLocation="Manual"
+        UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" SizeToContent="WidthAndHeight"
+        ShowInTaskbar="False" ResizeMode="NoResize" Loaded="LoadingScreenWindow_Loaded" Icon="icon-modified.ico"
+        Topmost="True">
+    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="180" VerticalAlignment="Top"
+            Width="420">
+        <Grid>
+            <Grid Margin="19,14,19,120">
+                <Image HorizontalAlignment="Center" Width="80" Source="Resources/logo-mod.png"
+                       VerticalAlignment="Center" />
+            </Grid>
+            <Label x:Name="text_load" Content="LOADING CONTENT" HorizontalAlignment="Center" Margin="10,79,10,0"
+                   VerticalAlignment="Top" FontWeight="SemiBold" FontSize="15" UseLayoutRounding="True"
+                   HorizontalContentAlignment="Center" Width="398" />
+            <Line Margin="39,72,49,99" X1="400" Y1="0.5" StrokeLineJoin="Bevel" UseLayoutRounding="True"
+                  StrokeDashCap="Round" StrokeEndLineCap="Round" HorizontalAlignment="Center">
+                <Line.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF2DC861" Offset="0" />
+                        <GradientStop Color="#FF24BFA5" Offset="1" />
+                    </LinearGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line Margin="39,113,49,59" X1="400" Y1="0.5" StrokeLineJoin="Bevel" UseLayoutRounding="True"
+                  StrokeDashCap="Round" StrokeEndLineCap="Round" HorizontalAlignment="Center">
+                <Line.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF2DC861" Offset="1" />
+                        <GradientStop Color="#FF24BFA5" />
+                    </LinearGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <ProgressBar HorizontalAlignment="Left" Height="20" Margin="19,137,0,0" VerticalAlignment="Top" Width="380"
+                         UseLayoutRounding="True" IsIndeterminate="True" BorderBrush="#FF8B8B8B">
+                <ProgressBar.Foreground>
+                    <LinearGradientBrush EndPoint="1,0" SpreadMethod="Reflect">
+                        <GradientStop Color="#FF2DC861" Offset="0.8" />
+                        <GradientStop Color="#FF24BFA5" Offset="0.2" />
+                        <GradientStop Color="#FFE6E6E6" />
+                        <GradientStop Color="#FFE6E6E6" Offset="1" />
+                    </LinearGradientBrush>
+                </ProgressBar.Foreground>
+            </ProgressBar>
+        </Grid>
+    </Border>
+
+</Window>
