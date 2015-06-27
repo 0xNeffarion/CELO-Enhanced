@@ -1,4 +1,4 @@
-Current Version: 1.0.7.3 - 02/05/2015
+Current Version: 1.0.7.4 - 27/06/2015
 
 Company of ELO Enhanced (CELO) is a multi-purpose tool for the Company of Heroes franchise (CoH1 & CoH2) so that you can have more control of your game and be more organized.
 CELO has been made from scratch since the last release (beta) and is now much more improved and stable.
