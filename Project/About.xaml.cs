@@ -48,9 +48,6 @@ namespace CELO_Enhanced
         {
         }
 
-        private void txt_tester_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-        }
 
         private void aboutWindow_KeyDown(object sender, KeyEventArgs e)
         {

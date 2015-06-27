@@ -275,7 +275,9 @@ namespace CELO_Enhanced
                     byte[] z_version = {0, 0, 0, 0};
                     fs.Read(z_version, 0, 4);
                     byte[] versionMod = {0, 0, z_version[3], z_version[2]};
-                    long ver = Utilities.Convertions.HexToDec(Utilities.Convertions.ByteArrToAscii(versionMod));
+                    String vs = BitConverter.ToString(versionMod).Replace("-", "");
+                    vs = vs.Remove(0, 4);
+                    int ver = Int32.Parse(vs, NumberStyles.HexNumber);
                     var buffer = new byte[31];
                     fs.Seek(12, SeekOrigin.Begin);
                     fs.Read(buffer, 0, 31);
@@ -412,7 +414,9 @@ namespace CELO_Enhanced
                 byte[] z_version = {0, 0, 0, 0};
                 fs.Read(z_version, 0, 4);
                 byte[] versionMod = {0, 0, z_version[3], z_version[2]};
-                long ver = Utilities.Convertions.HexToDec(Utilities.Convertions.ByteArrToAscii(versionMod));
+                String vs = BitConverter.ToString(versionMod).Replace("-", "");
+                vs = vs.Remove(0, 4);
+                int ver = Int32.Parse(vs, NumberStyles.HexNumber);
                 var buffer = new byte[31];
                 fs.Seek(12, SeekOrigin.Begin);
                 fs.Read(buffer, 0, 31);

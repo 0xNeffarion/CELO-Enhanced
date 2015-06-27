@@ -13,7 +13,7 @@
                        VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
                 <Label Content="Developer: Neffware [0xNeffarion]" HorizontalAlignment="Left" Margin="10,34,0,0"
                        VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
-                <Label Content="Version: 1.0.7.3" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"
+                <Label Content="Version: 1.0.7.4 - 27/06/2015" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"
                        Height="24" Width="278" FontWeight="SemiBold" x:Name="txt_version" />
             </Grid>
         </GroupBox>

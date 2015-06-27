@@ -10,6 +10,8 @@
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/2p_cheneux.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/2p_karelia.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/4p_enhoven_country.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/8p_sittard_summer.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/8p_west_wall.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("disclaimer.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/first.txt")]

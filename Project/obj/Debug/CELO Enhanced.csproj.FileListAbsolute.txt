@@ -270,9 +270,3 @@ H:\Projects\CELO Enhanced\CELO Enhanced\obj\Debug\CELO Enhanced.csproj.GenerateR
 H:\Projects\CELO Enhanced\CELO Enhanced\obj\Debug\CELO.exe
 H:\Projects\CELO Enhanced\CELO Enhanced\obj\Debug\CELO.pdb
 H:\Projects\CELO Enhanced\CELO Enhanced\obj\Debug\CELO Enhanced.csprojResolveAssemblyReference.cache
-C:\Users\Vasco\Desktop\CELO Enhanced\project\bin\Debug\CELO.exe.config
-C:\Users\Vasco\Desktop\CELO Enhanced\project\obj\Debug\CELO.exe
-C:\Users\Vasco\Desktop\CELO Enhanced\project\obj\Debug\CELO.pdb
-C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\bin\Debug\CELO.exe.config
-C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Debug\CELO.exe
-C:\Users\Vasco\Documents\GitHub\CELO-Enhanced\Project\obj\Debug\CELO.pdb

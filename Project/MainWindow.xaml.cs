@@ -726,7 +726,7 @@ namespace CELO_Enhanced
                             if (CheckTime(Int32.Parse(str.Split(new[] { ':' })[0]),
                                 Int32.Parse(str.Split(new[] { ':' })[1])))
                             {
-                                if (log.Contains("WorldwideNotifier.cpp - GameResultNotificationMessage"))
+                                if (log.Contains("WorldwideNotifier.cpp"))
                                 {
                                     notificationStop = index;
                                     return true;
@@ -1412,11 +1412,7 @@ namespace CELO_Enhanced
 
                         _players[i].RankingAfter = "";
 
-                        if (_players[i].Ranking == "-1")
-                        {
-                            _players[i].Ranking = "Unranked";
-                        }
-                        else if (_players[i].Ranking == "0")
+                        if (_players[i].Ranking == "-1" || _players[i].Ranking == "-2" || _players[i].Ranking == "0")
                         {
                             _players[i].Ranking = "Unranked";
                         }

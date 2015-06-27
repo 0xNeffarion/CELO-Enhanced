@@ -35,20 +35,28 @@ namespace CELO_Enhanced
 
         private string GetMapName(string filename)
         {
-            String namesFile = String.Format(MainWindow._AssemblyDir + @"\data\maps\coh{0}\maps.data",
-                (_gameSelected + 1));
-            foreach (string line in File.ReadAllLines(namesFile))
+            if (filename != "")
             {
-                if (!line.Contains("#"))
+                String namesFile = String.Format(MainWindow._AssemblyDir + @"\data\maps\coh{0}\maps.data",
+                    (_gameSelected + 1));
+                foreach (string line in File.ReadAllLines(namesFile))
                 {
-                    if (line.Contains(filename))
+                    if (!line.Contains("#"))
                     {
-                        string n1 = Regex.Split(line, "==")[0];
-                        return n1;
+                        if (line.Contains(filename))
+                        {
+                            string n1 = Regex.Split(line, "==")[0];
+                            return n1;
+                        }
                     }
                 }
             }
-            return null;
+            else
+            {
+                return "Unknown";
+            }
+
+            return "";
         }
 
         private void LoadMatches()
@@ -69,7 +77,7 @@ namespace CELO_Enhanced
                     {
                         int ID = z;
                         String Replay = xnode["Replay"].InnerText;
-                        DateTime GameDate = DateTime.Parse(xnode["Date"].InnerText, CultureInfo.InvariantCulture);
+                        String GameDate = xnode["Date"].InnerText;
                         String MapFileName = mapFolder + xnode["Map"].InnerText + ".jpg";
                         String MapName = GetMapName(xnode["Map"].InnerText);
                         int Type = Convert.ToInt32(xnode["Type"].InnerText);
@@ -378,7 +386,7 @@ namespace CELO_Enhanced
         internal class Match
         {
             public int Id { get; set; }
-            public DateTime Date { get; set; }
+            public string Date { get; set; }
             public string MapFile { get; set; }
             public string MapName { get; set; }
             public string ReplayFileName { get; set; }
