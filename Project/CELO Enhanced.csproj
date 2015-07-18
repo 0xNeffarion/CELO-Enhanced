@@ -63,13 +63,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExceptionReporter.WinForms">
-      <HintPath>C:\Users\Vasco\Documents\Work\CELO Enhanced\DLLS\ExceptionReporter.WinForms.dll</HintPath>
+      <HintPath>..\External Libs\ExceptionReporter.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
-      <HintPath>C:\Users\Vasco\Documents\Work\CELO Enhanced\DLLS\Ionic.Zip.dll</HintPath>
+      <HintPath>..\External Libs\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -81,7 +81,7 @@
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="MouseKeyboardActivityMonitor">
-      <HintPath>C:\Users\Vasco\Documents\Work\CELO Enhanced\DLLS\MouseKeyboardActivityMonitor.dll</HintPath>
+      <HintPath>..\External Libs\MouseKeyboardActivityMonitor.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

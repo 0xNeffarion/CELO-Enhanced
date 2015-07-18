@@ -16,9 +16,10 @@
         <ComboBox x:Name="FilterDecision" HorizontalAlignment="Left" Margin="169,438,0,0" VerticalAlignment="Top"
                   Width="137" VerticalContentAlignment="Center" SelectedIndex="0"
                   SelectionChanged="FilterDecision_SelectionChanged">
-            <ComboBoxItem Content="Map" />
+            <ComboBoxItem Content="Match Map" />
             <ComboBoxItem Content="Player Nickname" />
             <ComboBoxItem Content="Player Steam ID" />
+            <ComboBoxItem Content="Match Date" />
         </ComboBox>
         <TextBox x:Name="tBox_FilterText" HorizontalAlignment="Left" Height="21" Margin="311,438,0,0"
                  VerticalAlignment="Top" Width="142" VerticalContentAlignment="Center"
@@ -101,7 +102,7 @@
             </ListView.View>
         </ListView>
         <Expander x:Name="expInfo" Header="Player Information" HorizontalAlignment="Left" Margin="510,268,0,0"
-                  VerticalAlignment="Top" Height="147" Width="246" IsExpanded="False" BorderBrush="#FFD5DFE5">
+                  VerticalAlignment="Top" Height="147" Width="246" IsExpanded="True" BorderBrush="#FFD5DFE5">
             <Grid>
                 <Label x:Name="lbl_Level" Content="Level:" HorizontalAlignment="Left" Margin="10,4,0,0"
                        VerticalAlignment="Top" />

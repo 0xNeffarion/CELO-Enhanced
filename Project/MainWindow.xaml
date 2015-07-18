@@ -341,7 +341,7 @@
             </Button>
         </GroupBox>
         <Expander x:Name="statusExpander" Header="Status" Margin="680,350,19,0" Grid.Row="1" VerticalAlignment="Top"
-                  Height="160" BorderBrush="{x:Null}" BorderThickness="1">
+                  Height="160" BorderBrush="{x:Null}" BorderThickness="1" IsExpanded="True">
             <Grid>
                 <Border BorderBrush="#FF8D8D8D" BorderThickness="1" HorizontalAlignment="Left" Height="32"
                         Margin="9,10,0,0" VerticalAlignment="Top" Width="148" />
@@ -361,7 +361,7 @@
 
             </Grid>
         </Expander>
-        <ProgressBar x:Name="pgBarLoading" HorizontalAlignment="Left" Height="10" Margin="10,502,0,0" Grid.Row="1" VerticalAlignment="Top" Width="656" Foreground="#FF2FAA67" IsHitTestVisible="False" IsEnabled="False" IsEnabledChanged="pgBarLoading_IsEnabledChanged"/>
+        <ProgressBar x:Name="pgBarLoading" HorizontalAlignment="Left" Height="10" Margin="10,502,0,0" Grid.Row="1" VerticalAlignment="Top" Width="656" Foreground="#FF1C951C" IsHitTestVisible="False" IsEnabled="False" />
     </Grid>
 
 </Window>

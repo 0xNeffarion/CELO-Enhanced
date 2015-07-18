@@ -40,6 +40,7 @@ namespace CELO_Enhanced
         public MainWindow()
         {
             InitializeComponent();
+            App.Current.MainWindow = this;
             cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
         }
 
@@ -118,7 +119,7 @@ namespace CELO_Enhanced
             _cpmTimer.IsEnabled = false;
             _cpmTimer.Interval = new TimeSpan(0, 1, 0);
             _cpmTimer.Tick += _cpmTimer_Tick;
-            _updTimer.Interval = new TimeSpan(0, 45, 0);
+            _updTimer.Interval = new TimeSpan(0, 10, 0);
             _updTimer.Tick += _updTimer_Tick;
             _updTimer.IsEnabled = true;
         }
@@ -379,7 +380,7 @@ namespace CELO_Enhanced
         {
             base.OnClosed(e);
 
-            Application.Current.Shutdown();
+            App.Current.Shutdown();
         }
 
         private void Load_Essential()
@@ -391,8 +392,6 @@ namespace CELO_Enhanced
                     "Error loading configuration",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
-            LoadTimers();
             switch (_gameSelected)
             {
                 case 0:
@@ -404,11 +403,33 @@ namespace CELO_Enhanced
                     status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh2_icon.png"));
                     break;
             }
+
+            if (cfg.IniReadValue("Main", "CheckForUpdates").ToLower() == "true")
+            {
+                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+                Version version = Version.Parse(fvi.FileVersion);
+                String response = Updater.CheckForUpdates(version);
+                if (response != null)
+                {
+                    if (MessageBox.Show(this,
+                            "A new CELO Enchanced version is available.\nNew Version: " + response.ToString() +
+                            "\nDo you want to update now?", "Update available", MessageBoxButton.YesNo,
+                            MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    {
+                        
+                    }
+                }
+            }
+
+            LoadTimers();
+            
             if (_cfgStartGW)
             {
                 ToggleGW();
             }
             _appLog.CreateNew();
+
+
         }
 
 
@@ -1144,7 +1165,7 @@ namespace CELO_Enhanced
                                     WriteLog(ex);
                                     rank = Convert.ToInt32(_logContent[i].Substring(96, 6).Trim());
                                 }
-                                rank = rank - 1;
+                                
                                 int altSlot = Int32.Parse(Regex.Split(_logContent[i], "slot =")[1].Substring(0, 3).Trim());
                                 _players.Insert(z, new Player()
                                 {
@@ -1959,7 +1980,7 @@ namespace CELO_Enhanced
         {
             Load_Essential();
         }
-
+    
         private void mnuPref_Click(object sender, RoutedEventArgs e)
         {
             var pref = new Preferences();
@@ -1975,25 +1996,6 @@ namespace CELO_Enhanced
                     status_gameName.Content = "Company of Heroes 2";
                     status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh2_icon.png"));
                     break;
-            }
-        }
-
-        private void pgBarLoading_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (this.IsLoaded)
-            {
-                try
-                {
-                    var rng1 = new Random();
-                    var rng2 = new Random();
-                    var rng3 = new Random();
-                    Color cl = Color.FromRgb((byte)rng1.Next(120, 220), (byte)rng2.Next(120, 240), (byte)rng3.Next(120, 220));
-                    pgBarLoading.Foreground = new SolidColorBrush(cl);
-                }
-                catch (Exception ex)
-                {
-                    WriteLog(ex);
-                }
             }
         }
 

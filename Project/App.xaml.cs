@@ -19,13 +19,7 @@ namespace CELO_Enhanced
             }
             catch{}
 
-            foreach (Process process in Process.GetProcesses())
-            {
-                if (process.ProcessName.Contains("CELO") && process.Id != Process.GetCurrentProcess().Id)
-                {
-                    Environment.Exit(0);
-                }
-            }
+            
             
         }
     }

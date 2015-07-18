@@ -282,6 +282,16 @@ namespace CELO_Enhanced
                     }
                 }
             }
+            else if (FilterDecision.SelectedIndex == 3)
+            {
+                foreach (Player pl in match.Players)
+                {
+                    if (match.Date.ToString().ToLower().Contains(tBox_FilterText.Text.ToLower()))
+                    {
+                        return true;
+                    }
+                }
+            }
             return false;
         }
 

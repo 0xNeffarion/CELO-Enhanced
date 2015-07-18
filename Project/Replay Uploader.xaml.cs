@@ -118,7 +118,7 @@ namespace CELO_Enhanced
             file.Focus();
 
             // delay the execution of SendKey to let the Choose File dialog show up
-            Task sendKeyTask = Delay(380).ContinueWith(_ =>
+            Task sendKeyTask = Delay(500).ContinueWith(_ =>
             {
                 // this gets executed when the dialog is visible
                 SendKeys.SendWait(replayPath + "{ENTER}");
@@ -129,7 +129,7 @@ namespace CELO_Enhanced
             await sendKeyTask;
 
             // delay continuation to let the Choose File dialog hide
-            await Delay(380);
+            await Delay(500);
         }
 
         private async Task Populate()
@@ -195,6 +195,7 @@ namespace CELO_Enhanced
             }
         }
 
+        private int failsafe = 0;
         private async void WbLogin_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             if (_pLoggedIn)
@@ -204,9 +205,8 @@ namespace CELO_Enhanced
                 {
                     if (autolog == 0)
                     {
-                        Utilities.showError(this, "Username or Password are incorrect");
+                        failsafe = 1;
                         pgBar.Value = 0;
-
                         _pLoggedIn = false;
                     }
                     else
@@ -216,7 +216,7 @@ namespace CELO_Enhanced
                 }
             }
 
-
+            await TaskEx.Delay(500);
             if (wbLogin.Url.ToString() == "http://www.coh2.org/")
             {
                 pgBar.Value = 35;
@@ -227,6 +227,14 @@ namespace CELO_Enhanced
                 pgBar.Value = 100;
                 wbLogin.Navigate("http://www.coh2.org/replay/upload");
                 pgBar.Value = 0;
+                failsafe = 0;
+            }
+            else
+            {
+                if (failsafe == 1)
+                {
+                    Utilities.showError(this, "Username or Password are incorrect");
+                }
             }
         }
 
@@ -288,14 +296,13 @@ namespace CELO_Enhanced
             else
             {
                 Utilities.showError(this,
-                    "There is no network in order to upload replays\nPlease connect to the Internet");
+                    "There is no network in order to upload replays!\nPlease connect to the Internet!");
             }
         }
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
-            if (
-                MessageBox.Show(this, "Are you sure you want to upload the replay file?", "Confirmation",
+            if (MessageBox.Show(this, "Are you sure you want to upload the replay file?", "Confirmation",
                     MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
                 UploadFile();
