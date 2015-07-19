@@ -34,10 +34,7 @@ namespace CELO_Enhanced
 
         private void aboutWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fvi.FileVersion;
-            txt_version.Content = "Version: " + version;
+     
         }
 
         private void imgCELO_MouseEnter(object sender, MouseEventArgs e)

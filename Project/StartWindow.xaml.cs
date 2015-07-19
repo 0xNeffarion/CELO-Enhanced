@@ -52,13 +52,7 @@ namespace CELO_Enhanced
             sp.Load();
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-
-            App.Current.Shutdown();
-        }
-
+        
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
             sp.PlaySync();

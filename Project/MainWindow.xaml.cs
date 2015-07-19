@@ -99,7 +99,6 @@ namespace CELO_Enhanced
         private DispatcherTimer _cpmTimer;
         private DispatcherTimer _pingTimer;
         private DispatcherTimer _readerTimer;
-        private DispatcherTimer _updTimer;
         private int mins;
         private int ping;
         private Thread th;
@@ -119,47 +118,6 @@ namespace CELO_Enhanced
             _cpmTimer.IsEnabled = false;
             _cpmTimer.Interval = new TimeSpan(0, 1, 0);
             _cpmTimer.Tick += _cpmTimer_Tick;
-            _updTimer.Interval = new TimeSpan(0, 10, 0);
-            _updTimer.Tick += _updTimer_Tick;
-            _updTimer.IsEnabled = true;
-        }
-
-        private void _updTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (cfg.IniReadValue("Main", "CheckForUpdates").ToLower() == "true"){
-                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-                    Version version = Version.Parse(fvi.FileVersion);
-                    String response = Updater.CheckForUpdates(version);
-                    if (response != null)
-                    {
-                        NotifyIcon nt = new NotifyIcon();
-                        nt.BalloonTipText = "New CELO update available!\nVersion: " + response;
-                        nt.BalloonTipTitle = "CELO Update";
-                        nt.ShowBalloonTip(2500);
-                        nt.Click += Nt_Click;
-                        nt.BalloonTipClicked += Nt_BalloonTipClicked;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteLog(ex);
-                _updTimer.IsEnabled = false;
-            }
-        }
-
-        private void Nt_BalloonTipClicked(object sender, EventArgs e)
-        {
-            this.Show();
-            this.Focus();
-        }
-
-        private void Nt_Click(object sender, EventArgs e)
-        {
-            this.Show();
-            this.Focus();
         }
 
         private void _cpmTimer_Tick(object sender, EventArgs e)
@@ -375,13 +333,6 @@ namespace CELO_Enhanced
         #endregion
 
         #region Load Main
-
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-
-            App.Current.Shutdown();
-        }
 
         private void Load_Essential()
         {

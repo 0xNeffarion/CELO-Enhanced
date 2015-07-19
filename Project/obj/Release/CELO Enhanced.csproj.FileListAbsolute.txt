@@ -538,42 +538,6 @@ S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Enhanced.Properties.
 S:\Projects\C#\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
 S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_enhoven_country.jpg
 S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_sittard_summer.jpg
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.App.config
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.baml
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Content.g.cs
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.cache
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.lref
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_cheneux.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_karelia.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_enhoven_country.jpg
@@ -683,6 +647,7 @@ S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\da
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_montargis region.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_route_n13.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh1\8p_steel pact.jpg
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\CELO.pdb
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\ExceptionReporter.WinForms.dll
@@ -705,8 +670,43 @@ S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\Ne
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.xml
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Runtime.xml
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.Threading.Tasks.xml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.App.config
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.baml
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\About.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\HotKeyGen.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\InputBox.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LivestreamDisplayer.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\LoadingScreen.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\MatchHistoryViewer.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Preferences.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Replay Uploader.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ReplayManager.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\ScriptCompiler.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\StartWindow.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Updater.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Content.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.cache
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.lref
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.baml
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\MainWindow.baml
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.g.resources
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Enhanced.Properties.Resources.resources
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache

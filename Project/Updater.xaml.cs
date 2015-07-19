@@ -25,10 +25,6 @@ namespace CELO_Enhanced
             webDownloader.DownloadFileCompleted += webDownloader_DownloadFileCompleted;
             webDownloader.DownloadProgressChanged += webDownloader_DownloadProgressChanged;
             var mainINI = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
-            if (mainINI.IniReadValue("Main", "CheckForUpdates").ToLower() != "true")
-            {
-                Close();
-            }
         }
 
         public static String CheckForUpdates(Version appVersion)
