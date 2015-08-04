@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using Application = System.Windows.Application;
+using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
 using Timer = System.Timers.Timer;
 using WebBrowser = System.Windows.Forms.WebBrowser;
@@ -51,6 +52,7 @@ namespace CELO_Enhanced
                 Utilities.showError(this, "This feature is only available on Company of Heroes 2.");
                 Close();
             }
+            Console.WriteLine(replayPath);
         }
 
         [DllImport("urlmon.dll")]
@@ -111,38 +113,6 @@ namespace CELO_Enhanced
             timer.AutoReset = false;
             timer.Start();
             return tcs.Task;
-        }
-
-        private async Task PopulateInputFile(HtmlElement file)
-        {
-            file.Focus();
-
-            // delay the execution of SendKey to let the Choose File dialog show up
-            Task sendKeyTask = Delay(500).ContinueWith(_ =>
-            {
-                // this gets executed when the dialog is visible
-                SendKeys.SendWait(replayPath + "{ENTER}");
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-
-            file.InvokeMember("Click"); // this shows up the dialog
-
-            await sendKeyTask;
-
-            // delay continuation to let the Choose File dialog hide
-            await Delay(500);
-        }
-
-        private async Task Populate()
-        {
-            HtmlElementCollection elements = wbLogin.Document.GetElementsByTagName("input");
-            foreach (HtmlElement file in elements)
-            {
-                if (file.Id == "ThreadReplay_replayFile")
-                {
-                    file.Focus();
-                    await PopulateInputFile(file);
-                }
-            }
         }
 
         private string ReadV(Utilities.INIFile inf, String section, String key)
@@ -228,6 +198,7 @@ namespace CELO_Enhanced
                 wbLogin.Navigate("http://www.coh2.org/replay/upload");
                 pgBar.Value = 0;
                 failsafe = 0;
+                tBox_title.Focus();
             }
             else
             {
@@ -238,7 +209,7 @@ namespace CELO_Enhanced
             }
         }
 
-        private void UploadFile()
+        private async void UploadFile()
         {
             pgBar.Value = 0;
             HtmlElementCollection elc = wbLogin.Document.GetElementsByTagName("input");
@@ -264,9 +235,23 @@ namespace CELO_Enhanced
                     pgBar.Value = 45;
                 }
             }
-            Populate().ContinueWith(_ => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            HtmlElementCollection elements2 = wbLogin.Document.GetElementsByTagName("input");
+            foreach (HtmlElement file in elements2)
+            {
+                if (file.Id == "ThreadReplay_replayFile")
+                {
+                    file.Focus();
+                    Thread ts = new Thread(PopulateFile);
+                    ts.SetApartmentState(ApartmentState.STA);
+                    ts.Start();
+                    file.InvokeMember("Click");
+                    
+                }
+            }
+            
             HtmlElementCollection elements = wbLogin.Document.GetElementsByTagName("form");
             pgBar.Value = 85;
+            await TaskEx.Delay(1000);
             foreach (HtmlElement currentElement in elements)
             {
                 if (currentElement.Id == "createReplay")
@@ -300,15 +285,23 @@ namespace CELO_Enhanced
             }
         }
 
-        private void btnUpload_Click(object sender, RoutedEventArgs e)
+        private async void btnUpload_Click(object sender, RoutedEventArgs e)
         {
+            
+            if (tBox_title.Text.Length <= 0 || tBox_comment.Text.Length <= 0)
+            {
+                Utilities.showError(this, "Title and comment is required for uploading");
+                return;
+            } 
+            
             if (MessageBox.Show(this, "Are you sure you want to upload the replay file?", "Confirmation",
                     MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
+                await TaskEx.Delay(500);
                 UploadFile();
-                var LS = new LoadingScreen(this, new List<string> {"Uploading...", "Finalizing..."}, 4300, 5000);
+                var LS = new LoadingScreen(this, new List<string> {"Uploading...", "Finalizing..."}, 5000, 7000);
                 LS.ShowDialog();
-                Thread.Sleep(300);
+                Thread.Sleep(500);
                 if (MessageBox.Show(this, "Upload complete.\nDo you want to go to the replay page?", "Upload complete",
                     MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
@@ -320,6 +313,18 @@ namespace CELO_Enhanced
                     Close();
                 }
             }
+        }
+
+        [STAThread]
+        private void PopulateFile()
+        {
+            Clipboard.Clear();
+            Clipboard.SetText(replayPath);
+            Thread.Sleep(500);
+            SendKeys.SendWait("^v");
+            Thread.Sleep(150);
+            SendKeys.SendWait("{ENTER}");
+            Clipboard.Clear();
         }
 
         private void groupBox2_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)

@@ -48,7 +48,7 @@ namespace CELO_Enhanced
 
         private void aboutWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F11)
+            /*if (e.Key == Key.F11)
             {
                 var bx = new InputBox("Debug", "Insert debug code:", "");
                 bx.ShowDialog();
@@ -57,7 +57,7 @@ namespace CELO_Enhanced
                 {
                     AllocConsole();
                 }
-            }
+            }*/
         }
     }
 }

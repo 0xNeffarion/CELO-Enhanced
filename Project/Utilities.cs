@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Data;
 using Newtonsoft.Json.Linq;
 
 namespace CELO_Enhanced
@@ -215,7 +216,7 @@ namespace CELO_Enhanced
         /// </summary>
         public class Log
         {
-            private readonly string path;
+            private string path;
 
             public Log(String LogPath)
             {
@@ -399,5 +400,7 @@ namespace CELO_Enhanced
                 return null;
             }
         }
+
+
     }
 }

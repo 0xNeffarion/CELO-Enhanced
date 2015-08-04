@@ -540,10 +540,17 @@ S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_enhoven
 S:\Projects\C#\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_sittard_summer.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_cheneux.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\2p_karelia.jpg
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_bystraya_voda.jpg
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_einhoven_country.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\4p_enhoven_country.jpg
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_pavlovs_house.jpg
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\6p_wolfs_lair.jpg
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_sittard_2.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_sittard_summer.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\maps\coh2\8p_west_wall.jpg
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\disclaimer.txt
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\gpl.txt
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\license.txt
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\first.txt
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh1\mhv.xml
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\data\history\coh2\mhv.xml
@@ -700,6 +707,7 @@ S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\Up
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\VersionChanger.g.cs
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.g.cs
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_Content.g.cs
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\GeneratedInternalTypeHelper.g.cs
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.cache
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO_MarkupCompile.lref
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\App.baml
@@ -709,4 +717,3 @@ S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CE
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
-S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache

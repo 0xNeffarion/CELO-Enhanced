@@ -45,18 +45,24 @@ namespace CELO_Enhanced
                     Close();
                 }
             }
-            OutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+            if (!String.IsNullOrEmpty(cfg2.IniReadValue("Livestream_Displayer", "OutputFolder")))
+            {
+                OutputFolder = cfg2.IniReadValue("Livestream_Displayer", "OutputFolder");
+            }
+            else
+            {
+                OutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
                            @"\CELO\Livestream Displayer";
+            }
+            Directory.CreateDirectory(OutputFolder);
+            
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\lsd.ini"))
             {
                 for (int p = 0; p < PlayersContent.Length; p++)
                 {
                     PlayersContent[p] = cfg.IniReadValue("Players", "P" + (p + 1));
                 }
-                if (!String.IsNullOrEmpty(cfg2.IniReadValue("Livestream_Displayer", "OutputFolder")))
-                {
-                    OutputFolder = cfg2.IniReadValue("Livestream_Displayer", "OutputFolder");
-                }
+                
             }
             else
             {
@@ -85,7 +91,7 @@ namespace CELO_Enhanced
             Last = PlayersContent[playerListBox.SelectedIndex];
             tBox_path.Text = OutputFolder;
             cfg2.IniWriteValue("Livestream_Displayer", "OutputFolder", tBox_path.Text);
-            Directory.CreateDirectory(OutputFolder);
+            
         }
 
         private void btnBrowse_Click(object sender, RoutedEventArgs e)

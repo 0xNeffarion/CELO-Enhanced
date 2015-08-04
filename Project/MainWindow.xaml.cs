@@ -18,6 +18,7 @@ using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml;
@@ -27,6 +28,7 @@ using MouseKeyboardActivityMonitor;
 using MouseKeyboardActivityMonitor.WinApi;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
+using Color = System.Drawing.Color;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
@@ -99,18 +101,19 @@ namespace CELO_Enhanced
         private DispatcherTimer _cpmTimer;
         private DispatcherTimer _pingTimer;
         private DispatcherTimer _readerTimer;
+        private DispatcherTimer _updTimer;
         private int mins;
         private int ping;
         private Thread th;
 
         private void LoadTimers()
         {
-            _cfgTimerInt = 1500;
-            _readerTimer = new DispatcherTimer(DispatcherPriority.Render);
+            _cfgTimerInt = 1750;
+            _readerTimer = new DispatcherTimer(DispatcherPriority.Background);
             _readerTimer.Interval = TimeSpan.FromMilliseconds(_cfgTimerInt);
             _readerTimer.IsEnabled = false;
             _readerTimer.Tick += _readerTimer_Tick;
-            _pingTimer = new DispatcherTimer(DispatcherPriority.Input);
+            _pingTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
             _pingTimer.Interval = new TimeSpan(0, 0, 10);
             _pingTimer.IsEnabled = false;
             _pingTimer.Tick += _pingTimer_Tick;
@@ -118,6 +121,29 @@ namespace CELO_Enhanced
             _cpmTimer.IsEnabled = false;
             _cpmTimer.Interval = new TimeSpan(0, 1, 0);
             _cpmTimer.Tick += _cpmTimer_Tick;
+            _updTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
+            _updTimer.IsEnabled = _cfgCheckUpdates;
+            _updTimer.Interval = new TimeSpan(0,0,5);
+            _updTimer.Tick += _updTimer_Tick;
+
+        }
+
+        private void _updTimer_Tick(object sender, EventArgs e)
+        {
+            if (_cfgCheckUpdates)
+            {
+                if (mnuNewUpdate.Visibility != Visibility.Visible)
+                {
+                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+                    Version version = Version.Parse(fvi.FileVersion);
+                    String response = Updater.CheckForUpdates(version);
+                    if (response != null)
+                    {
+                        mnuNewUpdate.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+
         }
 
         private void _cpmTimer_Tick(object sender, EventArgs e)
@@ -169,8 +195,7 @@ namespace CELO_Enhanced
                                     playerList.ItemsSource = _players;
                                     repeater = true;
                                     SetUpInfo(0, true);
-                                    setStatus("Information has been displayed");
-                                }
+                                    }
                                 if (_matchBeingPlayed && _isListWritten)
                                 {
                                     if (CheckEnd(0))
@@ -307,6 +332,7 @@ namespace CELO_Enhanced
                 _cfgDocPath = ReadV("Essencial", "CoH" + (_gameSelected + 1) + "_DocPath");
                 _cfgGamePath = ReadV("Essencial", "CoH" + (_gameSelected + 1) + "_GamePath");
                 _cfgCleanList = ReadV("Game_Watcher", "CleanPlayers").ToLower() == "true";
+                _cfgCheckUpdates = ReadV("Main", "CheckForUpdates").ToLower() == "true";
                 _cfgStartGW = ReadV("Game_Watcher", "AutoStart").ToLower() == "true";
                 Topmost = ReadV("Game_Watcher", "WindowTop").ToLower() == "true";
                 _cfgPlaySound = ReadV("Game_Watcher", "PlaySound").ToLower() == "true";
@@ -355,6 +381,11 @@ namespace CELO_Enhanced
                     break;
             }
 
+            webFlags.AllowWebBrowserDrop = false;
+            webFlags.ScrollBarsEnabled = false;
+            webFlags.WebBrowserShortcutsEnabled = false;
+            
+
             if (cfg.IniReadValue("Main", "CheckForUpdates").ToLower() == "true")
             {
                 FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
@@ -380,9 +411,20 @@ namespace CELO_Enhanced
             }
             _appLog.CreateNew();
 
+            webFlags.DocumentCompleted += webFlags_DocumentCompleted;
+            Console.WriteLine("ENTERING AGE GATE...");
+            webFlags.Navigate("http://www.companyofheroes.com/age-gate");
 
         }
 
+        private void Celo_Main_Loaded(object sender, RoutedEventArgs e)
+        {
+            Timeline.DesiredFrameRateProperty.OverrideMetadata(
+                typeof(Timeline),
+                new FrameworkPropertyMetadata { DefaultValue = 30 }
+            );
+            Load_Essential();
+        }
 
         #endregion
 
@@ -524,7 +566,7 @@ namespace CELO_Enhanced
             if (playerList.SelectedIndex != -1)
             {
                 var n = (Player) playerList.SelectedItem;
-                Process.Start("http://www.companyofheroes.com/en_us/player-stats/steam/" + n.SteamID);
+                Process.Start("http://www.companyofheroes.com/leaderboards#profile/steam/" + n.SteamID);
             }
         }
 
@@ -548,6 +590,68 @@ namespace CELO_Enhanced
             {
                 mnu_p_Copy.IsEnabled = false;
                 mnu_p_Open.IsEnabled = false;
+            }
+        }
+
+        private void mnuPref_Click(object sender, RoutedEventArgs e)
+        {
+            var pref = new Preferences();
+            pref.ShowDialog();
+            GetConfigs();
+            switch (_gameSelected)
+            {
+                case 0:
+                    status_gameName.Content = "Company of Heroes";
+                    status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh1_icon.png"));
+                    break;
+                case 1:
+                    status_gameName.Content = "Company of Heroes 2";
+                    status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh2_icon.png"));
+                    break;
+            }
+        }
+
+        private void mnuCheckUpd_Click(object sender, RoutedEventArgs e)
+        {
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            Version version = Version.Parse(fvi.FileVersion);
+            String response = Updater.CheckForUpdates(version);
+            if (response != null)
+            {
+                if (MessageBox.Show(this,
+                    "A new version is available for download (" + response + ")\nDo you wish to update CELO?",
+                    "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information) ==
+                    MessageBoxResult.Yes)
+                {
+                    var dp = new Updater();
+                    dp.ShowDialog();
+                }
+            }
+            else
+            {
+                Utilities.showMessage(this, "CELO Enhanced is up-to-date.", "Update not available");
+            }
+        }
+
+        private void mnuNewUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            Version version = Version.Parse(fvi.FileVersion);
+            String response = Updater.CheckForUpdates(version);
+            if (response != null)
+            {
+                if (MessageBox.Show(this,
+                    "A new version is available for download (" + response + ")\nDo you wish to update CELO?",
+                    "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information) ==
+                    MessageBoxResult.Yes)
+                {
+                    var dp = new Updater();
+                    dp.ShowDialog();
+                }
+            }
+            else
+            {
+                Utilities.showMessage(this, "CELO Enhanced is up-to-date.", "Update not available");
             }
         }
 
@@ -625,7 +729,7 @@ namespace CELO_Enhanced
         private readonly String _copyLogPath = AppDomain.CurrentDomain.BaseDirectory + @"\data\log.tempf";
         private readonly ObservableCollection<Player> _players = new ObservableCollection<Player>();
         private readonly MouseHookListener mhl = new MouseHookListener(new GlobalHooker());
-        private Thread InfoThread;
+        private WebBrowser webFlags = new WebBrowser();
         private List<String> _logContent = new List<String>();
         private long clicks;
         private int notificationStop = 0, notificationTooggle = 0;
@@ -649,7 +753,7 @@ namespace CELO_Enhanced
                 case 1:
                     foreach (Process process in Process.GetProcesses())
                     {
-                        if (process.ProcessName.Equals("RelicCoH2"))
+                        if (process.ProcessName.Equals("RelicCoH2")) 
                         {
                             return true;
                         }
@@ -930,10 +1034,11 @@ namespace CELO_Enhanced
                                 if (CheckTime(Int32.Parse(str.Split(new[] {':'})[0]),
                                     Int32.Parse(str.Split(new[] {':'})[1])))
                                 {
-                                    if (_logContent[i].Contains("GAME -- Human") || _logContent[i].Contains("GAME -- AI Player"))
+                                    if (_logContent[i].Contains("GAME -- Human") || _logContent[i].Contains("GAME -- AI Player") ||
+                                        _logContent[i].Contains("WorldwideAutomatchService::OnStartComplete - detected successful game start"))
                                     {
                                          await TaskEx.Delay(350);
-                                        _stopPoint = i - 135;
+                                        _stopPoint = i - 175;
                                         ProcessLog(game);
                                         break;
                                     }
@@ -948,7 +1053,7 @@ namespace CELO_Enhanced
 
                     break;
             }
-        }     
+        }
 
         private async void ProcessLog(int game)
         {
@@ -1329,6 +1434,8 @@ namespace CELO_Enhanced
                             _players[i].Ranking = _players[i].Ranking;
                         }
 
+                        _players[i].Country = SourceToImage("Resources/flags/fail.png");
+                        _players[i].CountryName = "Unnavailable";
 
                         switch (_players[i].Race)
                         {
@@ -1354,6 +1461,9 @@ namespace CELO_Enhanced
                                 break;
                         }
                     }
+                    pgBarLoading.IsEnabled = false;
+                    pgBarLoading.IsIndeterminate = false;
+                    pgBarLoading.Value = 0;
 
 
                     break;
@@ -1379,9 +1489,17 @@ namespace CELO_Enhanced
                             finally
                             {
                                 _players[i].TimePlayed = y1;
+                                _players[i].Country = SourceToImage("Resources/flags/fail.png");
+                                _players[i].CountryName = "Unnavailable";
                             }
                         }
+                        else
+                        {
+                            _players[i].Country = SourceToImage("Resources/flags/fail.png");
+                            _players[i].CountryName = "Unnavailable";
+                        }
 
+                        
                         _players[i].RankingAfter = "";
 
                         if (_players[i].Ranking == "-1" || _players[i].Ranking == "-2" || _players[i].Ranking == "0")
@@ -1414,7 +1532,7 @@ namespace CELO_Enhanced
                                 break;
                         }
                     }
-
+                    
                     await RetriveSecondaryInfo();
                     isMakingList = false;
 
@@ -1437,19 +1555,19 @@ namespace CELO_Enhanced
                     var sort = new SortDescription("Ranking", ListSortDirection.Ascending);
                     view.SortDescriptions.Add(sort);
                 }
-
-
-            playerList.Items.Refresh();
+                
+               playerList.Items.Refresh();
 
 
             if (_cfgLsdEnabled)
             {
                 RenderLSD();
             }
-
-            pgBarLoading.IsEnabled = false;
-            pgBarLoading.IsIndeterminate = false;
-            pgBarLoading.Value = 0;
+            if (game == 1)
+            {
+                RetrieveFlags();
+            }
+            
 
         }
 
@@ -1608,6 +1726,7 @@ namespace CELO_Enhanced
 
                         int zed = 0;
                         int max = _players.Count;
+
                         for(int i = 0; i < max; i++)
                         {
                             
@@ -1635,6 +1754,10 @@ namespace CELO_Enhanced
                                             string Level = Regex.Split(zArr[1], ";")[1].Substring(0, 2).Trim();
 
                                             String FinalLevel = String.Format("Prestige {0} ({1})", PrestigeNum, Level);
+                                            if (FinalLevel == "Prestige 3 (33)")
+                                            {
+                                                FinalLevel = "Prestige 3 (MAX)";
+                                            }
                                             _players[zed].Level = FinalLevel;
                                         }
                                     }
@@ -1644,6 +1767,7 @@ namespace CELO_Enhanced
                                     WriteLog(ex);
                                     
                                 }
+
                             }
                             zed++;
                         }
@@ -1653,7 +1777,7 @@ namespace CELO_Enhanced
                 }
             });
         }
-
+        
         private void RetrievePing()
         {
             if (Utilities.CheckInternet())
@@ -1693,6 +1817,85 @@ namespace CELO_Enhanced
                         (MethodInvoker) delegate { game_ping.Content = "Battle-Servers Ping: " + ping + " ms"; });
                 }
             }
+        }
+
+        private async void RetrieveFlags()
+        {
+            setStatus("Getting players countries");
+            
+            
+            for (int i = 0; i < _players.Count; i++)
+            {
+                if (_players[i].SteamID > 0 && _players[i].CountryName == "Unnavailable")
+                {
+                    
+                        webFlags.Navigate("http://www.companyofheroes.com/leaderboards#profile/steam/" +
+                                          _players[i].SteamID.ToString());
+
+                        
+                        while (webFlags.ReadyState != WebBrowserReadyState.Complete)
+                        {
+                            await TaskEx.Delay(350);
+                        }
+                        await TaskEx.Delay(3500);
+                        
+                         
+                            var doc = webFlags.Document;
+                            if (doc != null)
+                            {
+                                var elements = doc.GetElementsByTagName("span");
+                                string z = "";
+                                int k = 0;
+                                while (string.IsNullOrEmpty(z) && k < 10)
+                                {
+                                    
+                                    foreach (HtmlElement element in elements)
+                                    {
+                                        string className = element.GetAttribute("className");
+                                        if (Regex.IsMatch(className, "flag .."))
+                                        {
+                                            z = className.Split(new char[] {' '})[1];
+                                            break;
+                                        }
+
+                                    }
+
+                                    k++;
+                                }
+
+                                if (string.IsNullOrEmpty(z) || z.Length != 2 || k >= 20)
+                                {
+                                    _players[i].Country = SourceToImage("Resources/flags/fail.png");
+                                    _players[i].CountryName = "Unnavailable";
+                                }
+                                else
+                                {
+                                    _players[i].Country = SourceToImage("Resources/flags/" + z + ".png");
+                                    _players[i].CountryName = z;
+                                }
+                                webFlags.Navigate("about:blank");
+                                
+                            }
+
+                       
+                    
+                    
+                }
+            }
+
+
+            if (_players.Any(x => x.CountryName == "Unnavailable" && x.SteamID > 0))
+            {
+                RetrieveFlags();
+            }
+
+            pgBarLoading.IsEnabled = false;
+            pgBarLoading.IsIndeterminate = false;
+            pgBarLoading.Value = 0;
+            playerList.ItemsSource = null;
+            playerList.ItemsSource = _players;
+
+            setStatus("Information listed");
         }
 
         private void SetUpInfo(int game, bool setting)
@@ -1750,10 +1953,54 @@ namespace CELO_Enhanced
                 btn_GameWatcher_Click(btn_GameWatcher, null);
             }
         }
-
+        
         private void WriteLog(Exception exception)
         {
             _appLog.WriteLine(exception.ToString());
+        }
+
+        private async void webFlags_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+           if (e.Url == new Uri("http://www.companyofheroes.com/age-gate"))
+            {
+
+                Console.WriteLine("ENTERED AGE GATE");
+                await TaskEx.Delay(1000);
+                Console.WriteLine("LOADED AGE GATE");
+                HtmlElementCollection elc = webFlags.Document.GetElementsByTagName("input");
+                foreach (HtmlElement inp in elc)
+                {
+                    if (inp.Id == "edit-dob-day")
+                    {
+                        inp.SetAttribute("value", (new Random().Next(1, 10)).ToString());
+                        Console.WriteLine("Filled day");
+                        continue;
+                    }
+
+                    if (inp.Id == "edit-dob-month")
+                    {
+                        inp.SetAttribute("value", (new Random().Next(1, 11)).ToString());
+                        Console.WriteLine("Filled month");
+                        continue;
+                    }
+
+                    if (inp.Id == "edit-dob-year")
+                    {
+                        inp.SetAttribute("value", (new Random().Next(1950, 1990)).ToString());
+                        Console.WriteLine("Filled year");
+                    }
+
+                }
+                HtmlElement ele = webFlags.Document.GetElementsByTagName("input")["edit-submit"];
+                ele.InvokeMember("click");
+                Console.WriteLine("CLICKED SUBMIT");
+            }
+            else if (e.Url == new Uri("http://www.companyofheroes.com"))
+            {
+                Console.WriteLine("PASSED AGE GATE");
+            }
+            
         }
 
         #endregion
@@ -1927,64 +2174,12 @@ namespace CELO_Enhanced
 
         #endregion
 
-        private void Celo_Main_Loaded(object sender, RoutedEventArgs e)
-        {
-            Load_Essential();
-        }
-    
-        private void mnuPref_Click(object sender, RoutedEventArgs e)
-        {
-            var pref = new Preferences();
-            pref.ShowDialog();
-            GetConfigs();
-            switch (_gameSelected)
-            {
-                case 0:
-                    status_gameName.Content = "Company of Heroes";
-                    status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh1_icon.png"));
-                    break;
-                case 1:
-                    status_gameName.Content = "Company of Heroes 2";
-                    status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh2_icon.png"));
-                    break;
-            }
-        }
+       
 
-        private void mnuCheckUpd_Click(object sender, RoutedEventArgs e)
+        public ImageSource SourceToImage(string source)
         {
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-            Version version = Version.Parse(fvi.FileVersion);
-            String response = Updater.CheckForUpdates(version);
-            if (response != null)
-            {
-                if (MessageBox.Show(this,
-                    "A new version is available for download (" + response + ")\nDo you wish to update CELO?",
-                    "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information) ==
-                    MessageBoxResult.Yes)
-                {
-                    var dp = new Updater();
-                    dp.ShowDialog();
-                }
-            }
-            else
-            {
-                Utilities.showMessage(this, "CELO Enhanced is up-to-date.", "Update not available");
-            }
-        }
-
-        public class NullImageConverter : IValueConverter
-        {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                if (value == null)
-                    return DependencyProperty.UnsetValue;
-                return value;
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                throw new NotImplementedException();
-            }
+            BitmapImage bm = new BitmapImage(new Uri("pack://application:,,,/" + source,UriKind.Absolute));
+            return bm;
         }
 
         internal class Player
@@ -1992,6 +2187,8 @@ namespace CELO_Enhanced
             public long SteamID { get; set; }
             public string Ranking { get; set; }
             public string RankingAfter { get; set; }
+            public ImageSource Country { get; set; }
+            public string CountryName { get; set; }
             public int Race { get; set; }
             public int Slot { get; set; }
             public string Nickname { get; set; }
@@ -2001,6 +2198,8 @@ namespace CELO_Enhanced
             public string Level { get; set; }
             public string Icon { get; set; }
         }
+
+        
 
        
     }

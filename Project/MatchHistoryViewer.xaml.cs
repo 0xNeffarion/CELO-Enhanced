@@ -32,7 +32,6 @@ namespace CELO_Enhanced
             InitializeComponent();
         }
 
-
         private string GetMapName(string filename)
         {
             if (filename != "")
@@ -224,13 +223,24 @@ namespace CELO_Enhanced
             if (MessageBox.Show(this, "Are you sure you want to delete ALL matches?", "Delete Confirmation",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                string dbFile = MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
+                string dir = MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1);
+                string dbFile = dir + @"\mhv.xml";
                 File.WriteAllText(dbFile, @"<Matches></Matches>");
                 MatchList.ItemsSource = null;
                 playersList.ItemsSource = null;
                 lbl_Level.Content = "Level:";
                 lbl_Rank.Content = "Rank:";
                 lbl_TimePlayed.Content = "Time Played:";
+                if (Directory.Exists(dir + @"\replays"))
+                {
+                    foreach (var file in Directory.GetFiles(dir + @"\replays"))
+                    {
+                        if (File.Exists(file))
+                        {
+                            File.Delete(file);
+                        }
+                    }
+                }
                 MatchList.Items.Refresh();
             }
         }
@@ -381,7 +391,7 @@ namespace CELO_Enhanced
                     String value = inp.val.Replace(".rec", "");
                     var mc = MatchList.Items[MatchList.SelectedIndex] as Match;
                     File.Copy(
-                        MainWindow._AssemblyDir + @"\data\history\" + (_gameSelected + 1) + @"\replays\" +
+                        MainWindow._AssemblyDir + @"data\history\coh" + (_gameSelected + 1) + @"\replays\" +
                         mc.ReplayFileName, _docPath + @"\playback\" + value + ".rec", true);
                     Utilities.showMessage(this, "Replay saved.\nLocation:" + _docPath + @"\playback\" + value + ".rec",
                         "Saved");
