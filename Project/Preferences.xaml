@@ -192,8 +192,7 @@
                     <GroupBox Header="Feature" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                               Height="69" Width="479">
                         <CheckBox x:Name="LSD_checkEnableFeature" Content="Enable Livestream Displayer"
-                                  HorizontalAlignment="Left" Margin="21,15,0,0" VerticalAlignment="Top" Width="425"
-                                  IsChecked="True" />
+                                  HorizontalAlignment="Left" Margin="21,15,0,0" VerticalAlignment="Top" Width="425" />
                     </GroupBox>
 
                 </Grid>

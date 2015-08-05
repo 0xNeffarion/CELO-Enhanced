@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using Newtonsoft.Json.Linq;
@@ -216,11 +217,12 @@ namespace CELO_Enhanced
         /// </summary>
         public class Log
         {
-            private string path;
-
+            private string log_folder;
+            
             public Log(String LogPath)
             {
-                path = LogPath;
+                log_folder = LogPath;
+                
             }
 
             /// <summary>
@@ -229,21 +231,53 @@ namespace CELO_Enhanced
             /// <param name="text">text to write</param>
             public void WriteLine(String text)
             {
-                StringBuilder bd = new StringBuilder();
-                bd.Append(DateTime.Now.ToString("G"));
-                bd.Append(" - " + text);
-                bd.Append(Environment.NewLine + "" + Environment.NewLine);
-                File.AppendAllText(path, bd.ToString());
+                var dir = new DirectoryInfo(log_folder);
+                int min = 0;
+                int number = 0;
+                foreach (var file in dir.GetFiles("*.log"))
+                {
+                    number = Int32.Parse(file.Name.Replace(".log", "").Replace("CELO_LOG_", ""));
+                    if (number > min)
+                    {
+                        min = number;
+                    }
+                }
+                
+                DateTime dt = DateTime.Now;
+                String dateFormat = String.Format("{0}:{1}:{2}:{3}", dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
+                File.AppendAllText(log_folder + @"\CELO_LOG_" + min + ".log", dateFormat + " : " + text + Environment.NewLine);
             }
+
+            
 
             /// <summary>
             /// Create new log file
             /// </summary>
             public void CreateNew()
             {
-                File.Delete(path);
-                File.WriteAllText(path, "");
+                if (!Directory.Exists(log_folder))
+                {
+                    Directory.CreateDirectory(log_folder);
+                }
+
+                var dir = new DirectoryInfo(log_folder);
+                int min = 0;
+                int number = 0;
+                foreach (var file in dir.GetFiles())
+                {
+                    number = Int32.Parse(file.Name.Replace(".log", "").Replace("CELO_LOG_", ""));
+                    if (number > min)
+                    {
+                        min = number;
+                    }
+                }
+
+                string log_name = "CELO_LOG_" + ((int)(min + 1)).ToString() + ".log";
+
+                
+                File.WriteAllText(log_folder + @"\" + log_name, "NEFFWARE - CELO ENHANCED LOG FILE" + Environment.NewLine + DateTime.Now.ToString("F") + Environment.NewLine + Environment.NewLine);
             }
+
         }
 
         public class SimpleTripleDES

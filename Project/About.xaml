@@ -1,9 +1,9 @@
 ﻿<Window x:Name="aboutWindow" x:Class="CELO_Enhanced.About"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CELO - About" Height="390" Width="343" TextOptions.TextFormattingMode="Display" UseLayoutRounding="True"
+        Title="CELO - About" Height="570" Width="343" TextOptions.TextFormattingMode="Display" UseLayoutRounding="True"
         WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight" Icon="icon-modified.ico" MinWidth="344" MinHeight="600"
+        SizeToContent="WidthAndHeight" Icon="icon-modified.ico" MinWidth="344" MinHeight="555"
         Loaded="aboutWindow_Loaded" KeyDown="aboutWindow_KeyDown">
     <Grid>
         <GroupBox Header="Information" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"
@@ -13,7 +13,7 @@
                        VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
                 <Label Content="Developer: Neffware [0xNeffarion]" HorizontalAlignment="Left" Margin="10,34,0,0"
                        VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
-                <Label Content="Version: 1.0.8.0 - 04-08-2015" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"
+                <Label Content="Version: 1.0.8.3 - 04-08-2015" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"
                        Height="24" Width="278" FontWeight="SemiBold" x:Name="txt_version" />
             </Grid>
         </GroupBox>
@@ -25,7 +25,7 @@
             <Grid>
                 <Label Content="Icons: FamFamFam &amp; IconFinder.com" HorizontalAlignment="Left" Margin="10,10,0,0"
                        VerticalAlignment="Top" Width="264" FontWeight="SemiBold" />
-                <Label Content="Executables: Paping" HorizontalAlignment="Left" Margin="10,35,0,0"
+                <Label Content="Executables: Paping, AHK Compiler" HorizontalAlignment="Left" Margin="10,35,0,0"
                        VerticalAlignment="Top" Width="264" FontWeight="SemiBold" />
                 <Label
                     Content="Libraries: HtmlAgilityPack, Newtonsoft JSON,&#x0a;MouseKeyboardActivityMonitor, Ionic.Zip,&#x0a;Exception Reporter"
@@ -35,7 +35,7 @@
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="Other" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Height="197"
+        <GroupBox Header="Other" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Height="160"
                   Width="310">
             <Grid>
                 <Image x:Name="imgNeffware" HorizontalAlignment="Left" Height="48" Margin="8,10,0,0"

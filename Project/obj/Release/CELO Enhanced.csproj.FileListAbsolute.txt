@@ -663,6 +663,7 @@ S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\Io
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.dll
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.Threading.Tasks.Extensions.dll
+S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\Microsoft.VisualBasic.dll
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\MouseKeyboardActivityMonitor.dll
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\Newtonsoft.Json.dll
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\bin\Release\System.IO.dll

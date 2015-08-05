@@ -1,9 +1,9 @@
 ﻿<Window x:Name="CompMain" x:Class="CELO_Enhanced.ScriptCompiler"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CELO - Generated script" Height="441" Width="473" WindowStartupLocation="CenterScreen"
+        Title="CELO - Generated script" Height="441" Width="478" WindowStartupLocation="CenterScreen"
         UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" ResizeMode="NoResize"
-        Icon="icon-modified.ico" Loaded="CompMain_Loaded" MinHeight="444" MinWidth="473" SizeToContent="WidthAndHeight">
+        Icon="icon-modified.ico" Loaded="CompMain_Loaded" MinHeight="449" MinWidth="478" SizeToContent="WidthAndHeight">
     <Grid>
         <Button x:Name="btnDone" Content="Compile script" HorizontalAlignment="Left" Margin="268,365,0,0"
                 VerticalAlignment="Top"
