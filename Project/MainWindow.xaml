@@ -267,7 +267,8 @@
                     <GridViewColumn Width="70" Header="Country">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image HorizontalAlignment="Center" Margin="2,0,0,0" Width="16"
+                                <Image RenderOptions.BitmapScalingMode="HighQuality"
+       RenderOptions.EdgeMode="Aliased" HorizontalAlignment="Center" Margin="2,0,0,0" Width="16"
                                            Height="11" Source="{Binding Country, Converter={StaticResource ImageConv}}">
                                     <Image.ToolTip>
                                         <StackPanel>

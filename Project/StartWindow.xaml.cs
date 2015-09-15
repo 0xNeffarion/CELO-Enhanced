@@ -23,7 +23,7 @@ namespace CELO_Enhanced
         {
             logFile.WriteLine("START SCREEN - START");
             InitializeComponent();
-
+            logFile.WriteLine("START SCREEN - Loading Configs");
             cfgFile = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
 
             if (cfgFile.IniReadValue("Main", "CheckForUpdates").ToLower() == "true")
@@ -124,6 +124,8 @@ namespace CELO_Enhanced
 
         private void imgGameWatcher_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
+
             if (isFirstTime())
             {
                 MessageBox.Show(this,
@@ -134,6 +136,8 @@ namespace CELO_Enhanced
             }
             else
             {
+                
+
                 setcfg();
                 SelectedGame = cBoxGame.SelectedIndex;
                 logFile.WriteLine("START SCREEN - Loading Game Watcher");
@@ -224,6 +228,21 @@ namespace CELO_Enhanced
                     "Essencial information", MessageBoxButton.OK, MessageBoxImage.Information);
                 var pr = new Preferences(true);
                 pr.ShowDialog();
+            }
+            try
+            {
+                if (File.Exists(MainWindow._AssemblyDir + @"\data\news.txt"))
+                {
+                    if (Utilities.CheckInternet())
+                    {
+                        WhatsNew wh = new WhatsNew();
+                        wh.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logFile.WriteLine("EXCEPTION: " + ex.ToString());
             }
             try
             {

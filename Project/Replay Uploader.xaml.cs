@@ -299,9 +299,9 @@ namespace CELO_Enhanced
             {
                 await TaskEx.Delay(500);
                 UploadFile();
-                var LS = new LoadingScreen(this, new List<string> {"Uploading...", "Finalizing..."}, 5000, 7000);
+                var LS = new LoadingScreen(this, new List<string> {"Uploading...", "Finalizing..."}, 8000, 9000);
                 LS.ShowDialog();
-                Thread.Sleep(500);
+                Thread.Sleep(1500);
                 if (MessageBox.Show(this, "Upload complete.\nDo you want to go to the replay page?", "Upload complete",
                     MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {

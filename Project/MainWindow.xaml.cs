@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -40,19 +41,10 @@ namespace CELO_Enhanced
         public MainWindow()
         {
             InitializeComponent();
-            Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
             App.Current.MainWindow = this;
             cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
         }
 
-        private void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.", "ERROR",
-                MessageBoxButton.OK, MessageBoxImage.Error);
-
-            logFile.WriteLine("UNHANDLED EXCEPTION (MAIN WINDOW): " + e.Exception.ToString());
-            e.Handled = true;
-        }
 
         #region Critical Match Variables
 
@@ -271,10 +263,6 @@ namespace CELO_Enhanced
                                 if (!_matchBeingPlayed)
                                 {
                                     setStatus("Waiting for a match to start");
-                                    if (CheckNotifications()){
-                                        ExecuteNotifications();
-                                    }
-
                                     FindMatch(1);
                                 }
                                 if (_matchBeingPlayed && _isListWritten == false)
@@ -312,7 +300,7 @@ namespace CELO_Enhanced
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 
             }
@@ -428,31 +416,24 @@ namespace CELO_Enhanced
                     break;
             }
 
-            webFlags.AllowWebBrowserDrop = false;
-            webFlags.ScrollBarsEnabled = false;
-            webFlags.WebBrowserShortcutsEnabled = false;
+
 
             logFile.WriteLine("MAIN WINDOW - START Loading timers");
             LoadTimers();
             logFile.WriteLine("MAIN WINDOW - ENDED Loading timers");
-            
+
             if (_cfgStartGW)
             {
                 ToggleGW();
             }
 
-            
             cpuCounter.CategoryName = "Processor";
             cpuCounter.CounterName = "% Processor Time";
             cpuCounter.InstanceName = "_Total";
-
-            webFlags.DocumentCompleted += webFlags_DocumentCompleted;
-            logFile.WriteLine("MAIN WINDOW - COH2 AGE GATE - Starting Navigation");
-            webFlags.Navigate("http://www.companyofheroes.com/age-gate");
-
-
+            PassAgeGateCookie();
             logFile.WriteLine("MAIN WINDOW - ENDED Loading essential");
 
+            
         }
 
         private void Celo_Main_Loaded(object sender, RoutedEventArgs e)
@@ -472,6 +453,7 @@ namespace CELO_Enhanced
                 logFile.WriteLine("EXCEPTION: " + ex.ToString());
             }
             Load_Essential();
+
             
         }
 
@@ -774,11 +756,10 @@ namespace CELO_Enhanced
         }
 
         public static readonly String _AssemblyDir = AppDomain.CurrentDomain.BaseDirectory;
-        private static Utilities.Log _appLog = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\celolog.log");
         private readonly String _copyLogPath = AppDomain.CurrentDomain.BaseDirectory + @"\data\log.tempf";
         private readonly ObservableCollection<Player> _players = new ObservableCollection<Player>();
         private readonly MouseHookListener mhl = new MouseHookListener(new GlobalHooker());
-        private WebBrowser webFlags = new WebBrowser();
+        private WebBrowser webFlags;
         private Thread InfoThread;
         private List<String> _logContent = new List<String>();
         private long clicks;
@@ -1005,7 +986,7 @@ namespace CELO_Enhanced
                             if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
                             {
                                 _matchBeingPlayed = false;
-
+                                PassAgeGateCookie();
                                 _pingTimer.IsEnabled = false;
                                 mhl.Enabled = false;
                                 _cpmTimer.IsEnabled = false;
@@ -1347,6 +1328,10 @@ namespace CELO_Enhanced
                                     {
                                         g_race = 0;
                                     }
+                                    else if (rc2.Equals("british"))
+                                    {
+                                        g_race = 4;
+                                    }
 
                                     try
                                     {
@@ -1407,6 +1392,10 @@ namespace CELO_Enhanced
                                     else if (rc2.Equals("german"))
                                     {
                                         g_race = 0;
+                                    }
+                                    else if (rc2.Equals("british"))
+                                    {
+                                        g_race = 4;
                                     }
 
                                     try
@@ -1586,18 +1575,27 @@ namespace CELO_Enhanced
                             case 0:
                                 _players[i].Icon = "Resources/coh2_0.png";
                                 _players[i].RaceName = "Wehrmacht";
+                                _players[i].Team = Teams.Axis;
                                 break;
                             case 1:
                                 _players[i].Icon = "Resources/coh2_1.png";
                                 _players[i].RaceName = "Soviet Union";
+                                _players[i].Team = Teams.Allies;
                                 break;
                             case 2:
                                 _players[i].Icon = "Resources/coh2_2.png";
                                 _players[i].RaceName = "Oberkommando West";
+                                _players[i].Team = Teams.Axis;
                                 break;
                             case 3:
                                 _players[i].Icon = "Resources/coh2_3.png";
                                 _players[i].RaceName = "US Forces";
+                                _players[i].Team = Teams.Allies;
+                                break;
+                            case 4:
+                                _players[i].Icon = "Resources/coh2_4.png";
+                                _players[i].RaceName = "UK Forces";
+                                _players[i].Team = Teams.Allies;
                                 break;
                         }
                         logFile.WriteLine("MAIN WINDOW - WATCHER - SET UP PLAYERS - " +
@@ -2030,51 +2028,35 @@ namespace CELO_Enhanced
 
             logFile.WriteLine("MAIN WINDOW - Watcher - Setting up info - ENDED");
         }
-        
-        private async void webFlags_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+
+        private int maxZ = 0;
+
+        [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool InternetSetCookie(string lpszUrlName, string lpszCookieName, string lpszCookieData);
+
+        private async void PassAgeGateCookie()
         {
+            webFlags = null;
+            webFlags = new WebBrowser();
+            webFlags.AllowWebBrowserDrop = false;
+            webFlags.ScrollBarsEnabled = false;
+            webFlags.WebBrowserShortcutsEnabled = true;
+            webFlags.ScriptErrorsSuppressed = true;
+            logFile.WriteLine("MAIN WINDOW - AGE GATE START");
+            logFile.WriteLine("MAIN WINDOW - Setting Cookie [AGE GATE]");
+            Cookie temp1 = new Cookie("agegate[passed]","yes", Path.GetTempPath(), "companyofheroes.com");
+            InternetSetCookie("http://www.companyofheroes.com", null, temp1.ToString() + "; expires = Sun, 01-Jan-2020 00:00:00 GMT");
+            logFile.WriteLine("MAIN WINDOW - COOKIE SET [AGE GATE]");
+            Console.WriteLine("COOKIE: " + temp1.ToString());
+            await TaskEx.Delay(500);
+            webFlags.Navigate("http://www.companyofheroes.com/");
+            logFile.WriteLine("MAIN WINDOW - LOADING COH WEBSITE [AGE GATE]");
+            logFile.WriteLine("MAIN WINDOW - AGE GATE END");
 
-           if (e.Url == new Uri("http://www.companyofheroes.com/age-gate"))
-            {
-                logFile.WriteLine("MAIN WINDOW - ENTERED AGE GATE");
-                await TaskEx.Delay(1000);
-                logFile.WriteLine("MAIN WINDOW - LOADED AGE GATE");
-                HtmlElementCollection elc = webFlags.Document.GetElementsByTagName("input");
-                foreach (HtmlElement inp in elc)
-                {
-                    if (inp.Id == "edit-dob-day")
-                    {
-                        inp.SetAttribute("value", (new Random().Next(1, 10)).ToString());
-                        
-                        continue;
-                    }
-
-                    if (inp.Id == "edit-dob-month")
-                    {
-                        inp.SetAttribute("value", (new Random().Next(1, 11)).ToString());
-                        
-                        continue;
-                    }
-
-                    if (inp.Id == "edit-dob-year")
-                    {
-                        inp.SetAttribute("value", (new Random().Next(1950, 1990)).ToString());
-                        
-                    }
-
-                }
-                HtmlElement ele = webFlags.Document.GetElementsByTagName("input")["edit-submit"];
-                ele.InvokeMember("click");
-                logFile.WriteLine("MAIN WINDOW - SUBMITED AGE GATE");
-            }
-            else if (e.Url == new Uri("http://www.companyofheroes.com"))
-            {
-                logFile.WriteLine("MAIN WINDOW - PASSED AGE GATE");
-            }
-            
         }
+        
 
-        #endregion
+      #endregion
 
         #region CoH Functions
 

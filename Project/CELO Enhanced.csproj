@@ -61,6 +61,21 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExceptionReporter.WinForms">
       <HintPath>..\External Libs\ExceptionReporter.WinForms.dll</HintPath>
@@ -154,6 +169,9 @@
     <Compile Include="ReplayManager.xaml.cs">
       <DependentUpon>ReplayManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReplayPlayer.xaml.cs">
+      <DependentUpon>ReplayPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScriptCompiler.xaml.cs">
       <DependentUpon>ScriptCompiler.xaml</DependentUpon>
     </Compile>
@@ -166,6 +184,9 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="VersionChanger.xaml.cs">
       <DependentUpon>VersionChanger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WhatsNew.xaml.cs">
+      <DependentUpon>WhatsNew.xaml</DependentUpon>
     </Compile>
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
@@ -215,6 +236,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ReplayPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ScriptCompiler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -228,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VersionChanger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WhatsNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -246,6 +275,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\coh2_4.png" />
     <Resource Include="Resources\menu_018.png" />
     <Resource Include="Resources\flags\fail.png" />
     <Resource Include="Resources\flags\ad.png" />
@@ -495,6 +525,15 @@
     <Resource Include="Resources\flags\za.png" />
     <Resource Include="Resources\flags\zm.png" />
     <Resource Include="Resources\flags\zw.png" />
+    <Content Include="data\maps\coh1\unknown.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\2p_angoville_farms.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\2p_arnhem_checkpoint.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\maps\coh2\2p_cheneux.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -504,16 +543,37 @@
     <Content Include="data\maps\coh2\4p_bystraya_voda.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\maps\coh2\4p_dusseldorf.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\maps\coh2\4p_einhoven_country.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\4p_enhoven_country.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\maps\coh2\4p_gelsenkirchen_refinery.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\4p_heidelberg_crossings.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\6p_across_the_rhine.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\maps\coh2\6p_pavlovs_house.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\6p_wolfs_lair.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\8p_essen_steelworks.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\8p_lorch_assault.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\8p_port_of_hamburg.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\8p_sittard_2.jpg">
@@ -523,6 +583,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\8p_west_wall.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\unknown.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="disclaimer.txt">

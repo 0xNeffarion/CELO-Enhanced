@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using System.Management;
+using System.Reflection;
 using System.Windows.Input;
+using Ionic.Crc;
 
 namespace CELO_Enhanced
 {
@@ -15,6 +18,7 @@ namespace CELO_Enhanced
 
         public App()
         {
+            AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
@@ -22,22 +26,41 @@ namespace CELO_Enhanced
             logFile.CreateNew();
             
             logFile.WriteLine("CELO - STARTED");
+            logFile.WriteLine("CELO VERSION: " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            
+        }
+
+        private void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
+        {
+            if (Utilities.FastCRC32.CRC32String(e.ToString()) != 1532817726)
+            {
+              logFile.WriteLine("UNHANDLED EXCEPTION (4) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " + e.Exception.ToString());
+            }
+        }
+
+        private void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.\nError code: " + Utilities.FastCRC32.CRC32String(e.ToString()), "ERROR",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+
+            logFile.WriteLine("UNHANDLED EXCEPTION (2) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " + e.Exception.ToString());
+            e.Handled = true;
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.", "ERROR",
+            MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.\nError code: " + Utilities.FastCRC32.CRC32String(e.ToString()), "ERROR",
                 MessageBoxButton.OK, MessageBoxImage.Error);
 
-            logFile.WriteLine("UNHANDLED EXCEPTION (3): " + (e.Exception).ToString());
+            logFile.WriteLine("UNHANDLED EXCEPTION (3) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " + e.Exception.ToString());
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.", "ERROR",
+            MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.\nError code: " + Utilities.FastCRC32.CRC32String(e.ToString()), "ERROR",
                 MessageBoxButton.OK, MessageBoxImage.Error);
 
-            logFile.WriteLine("UNHANDLED EXCEPTION (1): " + (e.ExceptionObject as Exception).ToString());
+            logFile.WriteLine("UNHANDLED EXCEPTION (1) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " + e.ToString());
             
         }
 
@@ -47,18 +70,9 @@ namespace CELO_Enhanced
             
         }
 
-        private void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.", "ERROR",
-                MessageBoxButton.OK, MessageBoxImage.Error);
-
-            logFile.WriteLine("UNHANDLED EXCEPTION (2): " + e.Exception.ToString());
-            e.Handled = true;
-
-        }
-
         protected override void OnStartup(StartupEventArgs e)
         {
+            
             logFile.WriteLine("APP START - STARTED");
 
             string CPU_NAME = "";

@@ -51,7 +51,7 @@ namespace CELO_Enhanced
                 }
             }
             txt_lastVersion.Content = "Last Version: " + Environment.NewLine + verz;
-            LastV = Int32.Parse(verz.Replace("3.0.0.", ""));
+            LastV = Int32.Parse(verz.Replace("4.0.0.", ""));
         }
 
         private void rBtn_backup_Checked(object sender, RoutedEventArgs e)

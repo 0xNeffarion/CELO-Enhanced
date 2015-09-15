@@ -21,6 +21,7 @@ namespace CELO_Enhanced
     public partial class MatchHistoryViewer : Window
     {
         private readonly string _docPath;
+        private Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         private readonly int _gameSelected = 1;
         private readonly ObservableCollection<Match> _matches = new ObservableCollection<Match>();
         private long SteamID_z;
@@ -145,6 +146,13 @@ namespace CELO_Enhanced
                                     {
                                         rcName = "Panzer Elite";
                                     }
+                                    break;
+                                case 4:
+                                    if (_gameSelected == 1)
+                                    {
+                                        rcName = "UK Forces";
+                                    }
+                                    
                                     break;
                             }
                             Pls.Add(new Player
@@ -381,25 +389,36 @@ namespace CELO_Enhanced
 
         private void rpl_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            string _cfgDocPath = "";
+            Image vImg = sender as Image;
+            var mc = vImg.DataContext as Match;
+           
+            Utilities.INIFile cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini"))
+            {
+                _cfgDocPath = cfg.IniReadValue("Essencial", "CoH" + (_gameSelected + 1) + "_DocPath");
+            }
+
             if (MessageBox.Show(this, "Do you want to copy this replay to playback folder?", "Copy Replay",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                var inp = new InputBox("Write a name for the replay:", "Replay name", "");
+                var inp = new InputBox("Write a name for the replay:", "Replay name", mc.MapName + "_" + DateTime.Now.ToString("M"));
                 inp.ShowDialog();
                 try
                 {
+                    logFile.WriteLine("MATCH HISTORY VIEWER - START COPYING REPLAY");
                     String value = inp.val.Replace(".rec", "");
-                    var mc = MatchList.Items[MatchList.SelectedIndex] as Match;
-                    File.Copy(
-                        MainWindow._AssemblyDir + @"data\history\coh" + (_gameSelected + 1) + @"\replays\" +
-                        mc.ReplayFileName, _docPath + @"\playback\" + value + ".rec", true);
-                    Utilities.showMessage(this, "Replay saved.\nLocation:" + _docPath + @"\playback\" + value + ".rec",
+                    
+                    File.Copy(MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\replays\" +
+                        mc.ReplayFileName, _cfgDocPath + @"\playback\" + value + ".rec", true);
+                    Utilities.showMessage(this, "Replay saved.\nLocation:" + _cfgDocPath + @"\playback\" + value + ".rec",
                         "Saved");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Utilities.showError(this, "Error trying to save replay!");
+                    logFile.WriteLine("EXCEPTION Copying replay (MHV): " + ex.ToString());
                 }
+                logFile.WriteLine("MATCH HISTORY VIEWER - ENDED COPYING REPLAY");
             }
         }
 

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CELO - About" Height="570" Width="343" TextOptions.TextFormattingMode="Display" UseLayoutRounding="True"
         WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight" Icon="icon-modified.ico" MinWidth="344" MinHeight="555"
+        SizeToContent="WidthAndHeight" Icon="icon-modified.ico" MinWidth="344" MinHeight="559"
         Loaded="aboutWindow_Loaded" KeyDown="aboutWindow_KeyDown">
     <Grid>
         <GroupBox Header="Information" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"
@@ -13,7 +13,7 @@
                        VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
                 <Label Content="Developer: Neffware [0xNeffarion]" HorizontalAlignment="Left" Margin="10,34,0,0"
                        VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
-                <Label Content="Version: 1.0.8.3 - 04-08-2015" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"
+                <Label Content="Version: 1.0.8.8 - 04-09-2015" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"
                        Height="24" Width="278" FontWeight="SemiBold" x:Name="txt_version" />
             </Grid>
         </GroupBox>

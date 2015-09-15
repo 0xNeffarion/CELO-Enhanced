@@ -44,7 +44,7 @@
         <TextBox x:Name="tBox_version" HorizontalAlignment="Left" Height="23" Margin="138,164,0,0" TextWrapping="Wrap"
                  VerticalAlignment="Top" Width="164" TextChanged="tBox_version_TextChanged" MaxLines="1" MaxLength="5"
                  PreviewTextInput="NumberValidationTextBox" TabIndex="4" />
-        <TextBlock HorizontalAlignment="Left" Margin="24,168,0,0" TextWrapping="Wrap" Text="New version:     3.0.0."
+        <TextBlock HorizontalAlignment="Left" Margin="24,168,0,0" TextWrapping="Wrap" Text="New version:     4.0.0."
                    VerticalAlignment="Top" />
         <Button x:Name="btn_lastVersion" Content="Set last version" HorizontalAlignment="Left" Margin="24,210,0,0"
                 VerticalAlignment="Top" Width="122" Height="29" Click="btn_lastVersion_Click" TabIndex="5" />

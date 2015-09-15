@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
@@ -18,6 +19,8 @@ namespace CELO_Enhanced
 {
     public partial class ReplayManager : Window
     {
+
+        private Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         private readonly string doc_path;
         private readonly StringBuilder errorNames = new StringBuilder();
         private readonly string exe_path;
@@ -88,6 +91,46 @@ namespace CELO_Enhanced
                     DispatcherPriority.Background,
                     new Action(() => LoadList()));
             }
+        }
+
+        private long DetectNextPlayerPos(ref FileStream f, long pos)
+        {
+            FileStream fs = f;
+            fs.Position = pos;
+            int failsafe = 0;
+            while (failsafe < 450)
+            {
+                int bt = fs.ReadByte();
+                long streamPos = fs.Position;
+                if (bt == 0)
+                {
+                    int bt2 = fs.ReadByte();
+                    if (bt2 != 0 && bt2 != 1) // POSSIBLE PLAYER
+                    {
+                        int bt3 = fs.ReadByte();
+                        if (bt3 == 0)
+                        {
+                            int bt4 = fs.ReadByte();
+                            if (bt4 != 0 && bt4 != 1)
+                            {
+                                int bt5 = fs.ReadByte();
+                                if (bt5 == 0)
+                                {
+                                    int bt6 = fs.ReadByte();
+                                    if (bt6 != 0) // CERTAIN PLAYER
+                                    {
+                                        fs.Position = streamPos;
+                                        return streamPos;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                failsafe++;
+            }
+
+            return -1;
         }
 
         private void DetectReplays()
@@ -175,7 +218,7 @@ namespace CELO_Enhanced
         public static string RetrieveMap(string replay, int game)
         {
             FileStream fs = File.OpenRead(replay);
-            String returnStr = null;
+            String returnStr = "unknown";
             switch (game)
             {
                 case 0:
@@ -370,18 +413,158 @@ namespace CELO_Enhanced
                             }
                         }
                     }
+
+                    // PLAYERS
+                    long PlayersStartPos = 0;
+                    Boolean endedPlayers = false;
+                    int timesFound = 0;
+                    List<Player> replayPlayers = new List<Player>();
+                    try
+                    {                       
+                        fs.Seek(1100, SeekOrigin.Begin);                       
+                        int failsafe = 0;
+                        while (failsafe < 3000)
+                        {
+                            int bt = fs.ReadByte();
+                            if (bt == 255)
+                            {
+                                timesFound++;
+
+                            }
+
+                            if (timesFound == 4)
+                            {
+                                PlayersStartPos = fs.Position;
+                                Console.WriteLine(PlayersStartPos);
+                                break;
+                            }
+
+                            failsafe++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        logFile.WriteLine("EXCEPTION (1) AT REPLAY MANAGER : " + ex.ToString());
+                    }
+
+                    long detectPos = PlayersStartPos;
+                    while (endedPlayers != true)
+                    {
+
+                        try
+                        {
+                            long nPos = DetectNextPlayerPos(ref fs, detectPos);
+
+                            if (nPos != -1)
+                            {
+                                int failsafe3 = 0;
+                                string nicknameRep = "";
+                                int interval = 0;
+                                long stPos = 0;
+                                while (failsafe3 < 250 && interval < 3)
+                                {
+                                    int byt = fs.ReadByte();
+                                    if (byt == 0)
+                                    {
+                                        interval++;
+                                        stPos = fs.Position;
+                                    }
+                                    else
+                                    {
+                                        interval = 0;
+                                        nicknameRep += Convert.ToString(Convert.ToChar(byt));
+                                    }
+
+
+                                    failsafe3++;
+                                }
+
+                                stPos = stPos - interval;
+
+                                fs.Position = stPos + 9;
+                                string raceName = "";
+                                int byt2 = 0;
+                                do
+                                {
+                                    byt2 = fs.ReadByte();
+                                    if (byt2 != 05)
+                                    {
+                                        raceName += Convert.ToString(Convert.ToChar(byt2));
+
+                                    }
+
+                                } while (byt2 != 05);
+                                int raceNumber = 0;
+                                string racename = "Unknown Race";
+
+                                if (raceName.Equals("st_german"))
+                                {
+                                    raceNumber = 2;
+                                    racename = "OKW";
+                                }
+                                else if (raceName.Equals("rman"))
+                                {
+                                    raceNumber = 0;
+                                    racename = "Wehrmacht";
+                                }
+                                else if (raceName.Equals("british"))
+                                {
+                                    raceNumber = 4;
+                                    racename = "UK Forces";
+                                }
+                                else if (raceName.Equals("aef"))
+                                {
+                                    raceNumber = 3;
+                                    racename = "US Forces";
+                                }
+                                else if (raceName.Equals("soviet"))
+                                {
+                                    raceNumber = 1;
+                                    racename = "Soviet Union";
+                                }
+
+                                if (racename != "Unknown Race")
+                                {
+                                    replayPlayers.Add(new Player()
+                                    {
+                                        race = raceNumber,
+                                        nickname = nicknameRep,
+                                        race_name = racename,
+                                        icon = "Resources/coh2_" + raceNumber + ".png"
+                                    });
+                                }
+
+                                detectPos = nPos + 65;
+
+                            }
+                            else
+                            {
+                                endedPlayers = true;
+                                break;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logFile.WriteLine("EXCEPTION (2) AT REPLAY MANAGER : " + ex.ToString());
+                        }
+                    }
+
+
+                    // END PLAYERS
+
                     fs.Close();
-                    Console.WriteLine("Replay Details: " + MapName + " - Version: 3.0.0." + ver);
+                    Console.WriteLine("Replay Details: " + MapName + " - Version: 4.0.0." + ver);
                     try
                     {
                         replays.Add(new Replay
                         {
                             name = file.Name.Replace(".rec", ""),
-                            version = "3.0.0." + ver,
+                            version = "4.0.0." + ver,
                             map_file = MainWindow._AssemblyDir + @"data\maps\coh2\" + MapFile + ".jpg",
                             map_name = MapName,
                             game_date = date.ToString("dd-MM-yyyy ~ HH:mm"),
                             id = z,
+                            players = replayPlayers,
                             filename = file.Name
                         });
                     }
@@ -555,12 +738,51 @@ namespace CELO_Enhanced
                 if (replayList.Items.Count > 0)
                 {
                     var rep = replayList.SelectedItem as Replay;
-                    pic_map.Image = new Bitmap(rep.map_file);
+                    try
+                    {
+                        pic_map.Image = new Bitmap(rep.map_file);
+                    }
+                    catch (Exception)
+                    {
+                        pic_map.Image = new Bitmap(MainWindow._AssemblyDir + @"data\maps\unknown.png");
+                    }
                     txt_name.Content = "Name: " + rep.name.Trim();
                     txt_mapname.Content = "Map: " + rep.map_name.Trim();
                     txt_version.Content = "Version: " + rep.version.Trim();
                     txt_date.Content = "Date: " + (Regex.Split(rep.game_date, "~")[0]).Trim();
                     txt_time.Content = "Time: " + (Regex.Split(rep.game_date, "~")[1]).Trim();
+
+
+                    if (game == 1)
+                    {
+                        List<Player> axis = new List<Player>();
+                        List<Player> allies = new List<Player>();
+                        
+                        foreach (var player in rep.players)
+                        {
+                            if (player.race == 0 || player.race == 2)
+                            {
+                                axis.Add(player);
+                            }
+                            else
+                            {
+                                allies.Add(player);
+                            }
+                        }
+
+                        if (axis.Count > 4)
+                        {
+                            axis.RemoveRange(4, axis.Count - 4);
+                        }
+
+                        if (allies.Count > 4)
+                        {
+                            allies.RemoveRange(4, allies.Count - 4);
+                        }
+
+                        AxisList.ItemsSource = axis;
+                        AlliesList.ItemsSource = allies;
+                    }
                 }
             }
             else
@@ -743,10 +965,16 @@ namespace CELO_Enhanced
 
         private void repMainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            if (game == 1)
+            {
+                tabPlayers.IsEnabled = true;
+            }
+
             CleanInfo();
 
             LoadList();
             InitializeFileSystemWatcher();
+            
         }
 
         private class Replay
@@ -759,6 +987,19 @@ namespace CELO_Enhanced
             public string map_name { get; set; }
             public string game_date { get; set; }
             public string tag { get; set; }
+
+            public List<Player> players { get; set; }
+        }
+
+        public class Player
+        {
+            public string icon { get; set; }
+
+            public int race { get; set; }
+
+            public string race_name { get; set; }
+
+            public string nickname { get; set; }
         }
 
         #region Expanders
