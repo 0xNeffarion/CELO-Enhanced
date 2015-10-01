@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Media;
@@ -11,11 +12,10 @@ using System.Windows.Media.Imaging;
 
 namespace CELO_Enhanced
 {
-    
     public partial class StartWindow : Window
     {
         private readonly Utilities.INIFile cfgFile;
-        private Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
+        private readonly Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         private readonly SoundPlayer sp;
         private int SelectedGame;
 
@@ -31,9 +31,9 @@ namespace CELO_Enhanced
                 try
                 {
                     logFile.WriteLine("CHECKING FOR UPDATES - START");
-                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-                    Version version = Version.Parse(fvi.FileVersion);
-                    String response = Updater.CheckForUpdates(version);
+                    var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+                    var version = Version.Parse(fvi.FileVersion);
+                    var response = Updater.CheckForUpdates(version);
                     if (response != null)
                     {
                         if (MessageBox.Show(this,
@@ -48,7 +48,7 @@ namespace CELO_Enhanced
                 }
                 catch (Exception ex)
                 {
-                    logFile.WriteLine("EXCEPTION: " + ex.ToString());
+                    logFile.WriteLine("EXCEPTION: " + ex);
                 }
 
                 logFile.WriteLine("CHECKING FOR UPDATES - ENDED");
@@ -60,15 +60,16 @@ namespace CELO_Enhanced
                 var mn = new MainWindow();
                 mn.Show();
                 Close();
-                logFile.WriteLine("START SCREEN - ENDED");
             }
-            logFile.WriteLine("START SCREEN - Loading sounds");
-            sp = new SoundPlayer(Properties.Resources.btnStart);
-            sp.Load();
-            logFile.WriteLine("START SCREEN - Loading sounds FINISHED");
+            else
+            {
+                logFile.WriteLine("START SCREEN - Loading sounds");
+                sp = new SoundPlayer(Properties.Resources.btnStart);
+                sp.Load();
+                logFile.WriteLine("START SCREEN - Loading sounds FINISHED");
+            }
         }
 
-        
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
             sp.PlaySync();
@@ -121,11 +122,8 @@ namespace CELO_Enhanced
             imgLSD.Source = sr;
         }
 
-
         private void imgGameWatcher_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
-
             if (isFirstTime())
             {
                 MessageBox.Show(this,
@@ -136,8 +134,6 @@ namespace CELO_Enhanced
             }
             else
             {
-                
-
                 setcfg();
                 SelectedGame = cBoxGame.SelectedIndex;
                 logFile.WriteLine("START SCREEN - Loading Game Watcher");
@@ -213,9 +209,8 @@ namespace CELO_Enhanced
 
         private bool isFirstTime()
         {
-            
-            bool te = File.Exists(MainWindow._AssemblyDir + @"\data\first.txt");
-            logFile.WriteLine("START SCREEN - First Time: " + te.ToString());
+            var te = File.Exists(MainWindow._AssemblyDir + @"\data\first.txt");
+            logFile.WriteLine("START SCREEN - First Time: " + te);
             return te;
         }
 
@@ -229,21 +224,7 @@ namespace CELO_Enhanced
                 var pr = new Preferences(true);
                 pr.ShowDialog();
             }
-            try
-            {
-                if (File.Exists(MainWindow._AssemblyDir + @"\data\news.txt"))
-                {
-                    if (Utilities.CheckInternet())
-                    {
-                        WhatsNew wh = new WhatsNew();
-                        wh.ShowDialog();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logFile.WriteLine("EXCEPTION: " + ex.ToString());
-            }
+
             try
             {
                 cBoxGame.SelectedIndex = Int32.Parse(cfgFile.IniReadValue("Essencial", "Game"));
@@ -257,28 +238,34 @@ namespace CELO_Enhanced
 
         private void setcfg()
         {
-            if (cBoxDontShow.IsChecked == true)
+            if (IsLoaded)
             {
-                cfgFile.IniWriteValue("Main", "ShowStartScreen", "false");
-            }
-            else
-            {
-                cfgFile.IniWriteValue("Main", "ShowStartScreen", "true");
-            }
+                if (cBoxDontShow.IsChecked == true)
+                {
+                    cfgFile.IniWriteValue("Main", "ShowStartScreen", "true");
+                }
+                else
+                {
+                    cfgFile.IniWriteValue("Main", "ShowStartScreen", "false");
+                }
 
-            cfgFile.IniWriteValue("Essencial", "Game", cBoxGame.SelectedIndex.ToString());
-            SelectedGame = cBoxGame.SelectedIndex;
+                cfgFile.IniWriteValue("Essencial", "Game", cBoxGame.SelectedIndex.ToString());
+                SelectedGame = cBoxGame.SelectedIndex;
+            }
         }
 
         private void cBoxDontShow_Checked(object sender, RoutedEventArgs e)
         {
-            if (cBoxDontShow.IsChecked == true)
+            if (IsLoaded)
             {
-                cfgFile.IniWriteValue("Main", "ShowStartScreen", "false");
-            }
-            else
-            {
-                cfgFile.IniWriteValue("Main", "ShowStartScreen", "true");
+                if (cBoxDontShow.IsChecked == true)
+                {
+                    cfgFile.IniWriteValue("Main", "ShowStartScreen", "true");
+                }
+                else
+                {
+                    cfgFile.IniWriteValue("Main", "ShowStartScreen", "false");
+                }
             }
         }
 
@@ -319,11 +306,15 @@ namespace CELO_Enhanced
                 if (SelectedGame == 0)
                 {
                     Utilities.showWarning(this,
-                        "Hot-Key Creator was made exclusively for CoH2, it will not work as intended for CoH1.");
+                        "Hot-Key Creator was made exclusively for CoH2, it may not work as intended for CoH1.");
                 }
                 var Ht = new HotKeyGen();
                 Ht.ShowDialog();
             }
+        }
+
+        private void startWindow_Closing(object sender, CancelEventArgs e)
+        {
         }
     }
 }

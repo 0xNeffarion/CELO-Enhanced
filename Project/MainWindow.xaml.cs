@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -23,28 +24,142 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml;
 using HtmlAgilityPack;
+using Microsoft.VisualBasic.Devices;
 using MouseKeyboardActivityMonitor;
 using MouseKeyboardActivityMonitor.WinApi;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
+using Color = System.Drawing.Color;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using Point = System.Drawing.Point;
 
 namespace CELO_Enhanced
 {
     public partial class MainWindow : Window
     {
         private readonly Utilities.INIFile cfg;
-        
 
         public MainWindow()
         {
             InitializeComponent();
-            App.Current.MainWindow = this;
+            Application.Current.MainWindow = this;
             cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
         }
 
+        public ImageSource SourceToImage(string source)
+        {
+            var bm = new BitmapImage(new Uri("pack://application:,,,/" + source, UriKind.Absolute));
+            return bm;
+        }
+
+        internal class Player : INotifyPropertyChanged
+        {
+            private ImageSource country;
+            private string level;
+            private string nickname;
+            private string ranking;
+            private long steamid;
+            private long timeplayed;
+
+            public long SteamID
+            {
+                get { return steamid; }
+                set
+                {
+                    if (steamid != value)
+                    {
+                        steamid = value;
+                        NotifyPropertyChanged("SteamID");
+                    }
+                }
+            }
+
+            public string Ranking
+            {
+                get { return ranking; }
+                set
+                {
+                    if (ranking != value)
+                    {
+                        ranking = value;
+                        NotifyPropertyChanged("Ranking");
+                    }
+                }
+            }
+
+            public string RankingAfter { get; set; }
+
+            public ImageSource Country
+            {
+                get { return country; }
+                set
+                {
+                    if (country != value)
+                    {
+                        country = value;
+                        NotifyPropertyChanged("Country");
+                    }
+                }
+            }
+
+            public string CountryName { get; set; }
+            public int Race { get; set; }
+            public int Slot { get; set; }
+
+            public string Nickname
+            {
+                get { return nickname; }
+                set
+                {
+                    if (nickname != value)
+                    {
+                        nickname = value;
+                        NotifyPropertyChanged("Nickname");
+                    }
+                }
+            }
+
+            public string RaceName { get; set; }
+
+            public long TimePlayed
+            {
+                get { return timeplayed; }
+                set
+                {
+                    if (timeplayed != value)
+                    {
+                        timeplayed = value;
+                        NotifyPropertyChanged("TimePlayed");
+                    }
+                }
+            }
+
+            public Teams Team { get; set; }
+
+            public string Level
+            {
+                get { return level; }
+                set
+                {
+                    if (level != value)
+                    {
+                        level = value;
+                        NotifyPropertyChanged("Level");
+                    }
+                }
+            }
+
+            public string Icon { get; set; }
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            public void NotifyPropertyChanged(string propName)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+        }
 
         #region Critical Match Variables
 
@@ -66,7 +181,7 @@ namespace CELO_Enhanced
 
         private string GetActiveWindowTitle()
         {
-            IntPtr activeWindowId = GetForegroundWindow();
+            var activeWindowId = GetForegroundWindow();
             if (activeWindowId.Equals(0))
             {
                 return null;
@@ -77,7 +192,7 @@ namespace CELO_Enhanced
             {
                 return null;
             }
-            Process ps = Process.GetProcessById(processId);
+            var ps = Process.GetProcessById(processId);
             String title = null;
             if (!string.IsNullOrEmpty(ps.MainWindowTitle))
             {
@@ -108,13 +223,13 @@ namespace CELO_Enhanced
         private DispatcherTimer _readerTimer;
         private DispatcherTimer _logTimer;
         private DispatcherTimer _updTimer;
+        private DispatcherTimer _failsafeTimer;
         private int mins;
         private int ping;
         private Thread th;
 
         private void LoadTimers()
         {
-            
             _cfgTimerInt = 2200;
             logFile.WriteLine("MAIN WINDOW - Loading reader timer");
             _readerTimer = new DispatcherTimer(DispatcherPriority.Background);
@@ -137,42 +252,70 @@ namespace CELO_Enhanced
             logFile.WriteLine("MAIN WINDOW - Loading update timer");
             _updTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
             _updTimer.IsEnabled = _cfgCheckUpdates;
-            _updTimer.Interval = new TimeSpan(0,10,0);
+            _updTimer.Interval = new TimeSpan(0, 10, 0);
             _updTimer.Tick += _updTimer_Tick;
             logFile.WriteLine("MAIN WINDOW - Loaded update timer");
             logFile.WriteLine("MAIN WINDOW - Loading log timer");
             _logTimer = new DispatcherTimer(DispatcherPriority.ApplicationIdle);
             _logTimer.IsEnabled = true;
-            _logTimer.Interval = new TimeSpan(0,0,0,30);
+            _logTimer.Interval = new TimeSpan(0, 0, 0, 30);
             _logTimer.Tick += _logTimer_Tick;
             logFile.WriteLine("MAIN WINDOW - Loaded log timer");
-
+            logFile.WriteLine("MAIN WINDOW - Loading failsafe timer");
+            _failsafeTimer = new DispatcherTimer(DispatcherPriority.ApplicationIdle);
+            _failsafeTimer.IsEnabled = false;
+            _failsafeTimer.Interval = new TimeSpan(0, 0, 0, 25);
+            _failsafeTimer.Tick += _failsafeTimer_Tick;
+            logFile.WriteLine("MAIN WINDOW - Loaded failsafe timer");
         }
-        
+
+        private void _failsafeTimer_Tick(object sender, EventArgs e)
+        {
+            if (_matchBeingPlayed && _isListWritten)
+            {
+                if (_players.Count <= 0 || playerList.Items.Count <= 0)
+                {
+                    logFile.WriteLine("FAILSAFE TRIGGERED");
+                    _players.Clear();
+                    _matchBeingPlayed = false;
+                    _isListWritten = false;
+                    _readerTimer.IsEnabled = false;
+                    _readerTimer = null;
+
+                    _readerTimer = new DispatcherTimer(DispatcherPriority.Background);
+                    _readerTimer.Interval = TimeSpan.FromMilliseconds(_cfgTimerInt);
+                    _readerTimer.IsEnabled = false;
+                    _readerTimer.Tick += _readerTimer_Tick;
+
+                    _readerTimer.IsEnabled = true;
+                }
+            }
+
+            _failsafeTimer.Stop();
+        }
+
         private async void _logTimer_Tick(object sender, EventArgs e)
         {
             logFile.WriteLine("===== LOG TIMER START =====");
             var temp = cpuCounter.NextValue();
             await TaskEx.Delay(1000);
-            logFile.WriteLine("Total Memory: " + (((new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory)/1024)/1024) + " MBytes");
-            logFile.WriteLine("Used Memory: " + ((Process.GetCurrentProcess().WorkingSet64 / 1024)/1024) + " MBytes");
+            logFile.WriteLine("Total Memory: " + (((new ComputerInfo().TotalPhysicalMemory)/1024)/1024) + " MBytes");
+            logFile.WriteLine("Used Memory: " + ((Process.GetCurrentProcess().WorkingSet64/1024)/1024) + " MBytes");
             logFile.WriteLine("Free Memory: " + ramCounter.NextValue() + " MBytes");
             logFile.WriteLine("CPU Usage: " + Math.Round(cpuCounter.NextValue()) + "% ");
             logFile.WriteLine("===== LOG TIMER ENDED =====");
-
         }
 
         private void _updTimer_Tick(object sender, EventArgs e)
         {
             if (_cfgCheckUpdates)
             {
-                
                 if (mnuNewUpdate.Visibility != Visibility.Visible)
                 {
                     logFile.WriteLine("MAIN WINDOW - UPDATE TIMER - Checking for updates");
-                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-                    Version version = Version.Parse(fvi.FileVersion);
-                    String response = Updater.CheckForUpdates(version);
+                    var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+                    var version = Version.Parse(fvi.FileVersion);
+                    var response = Updater.CheckForUpdates(version);
                     if (response != null)
                     {
                         logFile.WriteLine("MAIN WINDOW - UPDATE TIMER - Update found!");
@@ -182,7 +325,6 @@ namespace CELO_Enhanced
                     }
                 }
             }
-
         }
 
         private void _cpmTimer_Tick(object sender, EventArgs e)
@@ -234,7 +376,7 @@ namespace CELO_Enhanced
                                     playerList.ItemsSource = _players;
                                     repeater = true;
                                     SetUpInfo(0, true);
-                                    }
+                                }
                                 if (_matchBeingPlayed && _isListWritten)
                                 {
                                     if (CheckEnd(0))
@@ -257,7 +399,6 @@ namespace CELO_Enhanced
                     case 1:
                         if (IsGameRunning(1))
                         {
-                            
                             if (await CopyLog())
                             {
                                 if (!_matchBeingPlayed)
@@ -284,8 +425,11 @@ namespace CELO_Enhanced
                                         notificationTooggle = 0;
                                         repeater = true;
                                     }
-                                    
-
+                                    if (CheckLoaded())
+                                    {
+                                        _osdList.All(x => x.Hide());
+                                        _osdList.Clear();
+                                    }
                                 }
                             }
                         }
@@ -302,7 +446,6 @@ namespace CELO_Enhanced
             }
             catch (Exception)
             {
-                
             }
         }
 
@@ -320,7 +463,13 @@ namespace CELO_Enhanced
         private bool _cfgPlaySound;
         private bool _cfgShowCPM = true;
         private bool _cfgShowPing = true;
-        private bool _cfgShowTime = true;
+        private bool _cfgOSDEnabled;
+        private bool _cfgOSDShowRank = true;
+        private bool _cfgOSDForce;
+        private bool _cfgOSDShowLevel = true;
+        private bool _cfgOSDShowHours = true;
+        private bool _cfgOSDUseAnimation = true;
+        private Color _cfgOSDColor = Color.LimeGreen;
         private bool _cfgStartGW;
         private int _cfgTimerInt = 1500;
         private bool _cfgWindowTop;
@@ -334,7 +483,7 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                logFile.WriteLine("EXCEPTION Reading Config: " + ex.ToString());
+                logFile.WriteLine("EXCEPTION Reading Config: " + ex);
             }
             return null;
         }
@@ -347,7 +496,7 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                logFile.WriteLine("EXCEPTION Writing Config: " + ex.ToString());
+                logFile.WriteLine("EXCEPTION Writing Config: " + ex);
             }
         }
 
@@ -365,7 +514,21 @@ namespace CELO_Enhanced
                 _cfgPlaySound = ReadV("Game_Watcher", "PlaySound").ToLower() == "true";
                 _cfgShowCPM = ReadV("Game_Watcher", "Show_CPM").ToLower() == "true";
                 _cfgShowPing = ReadV("Game_Watcher", "Show_Ping").ToLower() == "true";
-                _cfgShowTime = ReadV("Game_Watcher", "Show_Time").ToLower() == "true";
+                _cfgOSDEnabled = ReadV("OSD", "Enabled").ToLower() == "true";
+                _cfgOSDShowRank = ReadV("OSD", "ShowRank").ToLower() == "true";
+                _cfgOSDShowLevel = ReadV("OSD", "ShowLevel").ToLower() == "true";
+                _cfgOSDShowHours = ReadV("OSD", "ShowHours").ToLower() == "true";
+                _cfgOSDForce = ReadV("OSD", "Force").ToLower() == "true";
+                _cfgOSDUseAnimation = ReadV("OSD", "UseAnimation").ToLower() == "true";
+                try
+                {
+                    _cfgOSDColor = Color.FromArgb(255, Byte.Parse(ReadV("OSD", "TextColorR")),
+                        Byte.Parse(ReadV("OSD", "TextColorG")), Byte.Parse(ReadV("OSD", "TextColorB")));
+                }
+                catch (Exception)
+                {
+                    _cfgOSDColor = Color.LimeGreen;
+                }
                 _cfgHistoryEnabled = ReadV("Match_History_Viewer", "Enabled").ToLower() == "true";
                 _cfgLsdEnabled = ReadV("Livestream_Displayer", "Enabled").ToLower() == "true";
                 _cfgLsdOutput = ReadV("Livestream_Displayer", "OutputFolder");
@@ -383,13 +546,45 @@ namespace CELO_Enhanced
             return false;
         }
 
+        private int GetCOH2Height()
+        {
+            if (_gameSelected == 1)
+            {
+                var FullText = File.ReadAllLines(_cfgDocPath + @"\configuration_system.lua");
+                for (var i = 0; i < FullText.Length; i++)
+                {
+                    if (FullText[i].Contains("height"))
+                    {
+                        return Int32.Parse(Regex.Split(FullText[i + 1], " = ")[1].Replace(",", "").Trim());
+                    }
+                }
+            }
+            return -1;
+        }
+
+        private int GetCOH2Width()
+        {
+            if (_gameSelected == 1)
+            {
+                var FullText = File.ReadAllLines(_cfgDocPath + @"\configuration_system.lua");
+                for (var i = 0; i < FullText.Length; i++)
+                {
+                    if (FullText[i].Contains("width"))
+                    {
+                        return Int32.Parse(Regex.Split(FullText[i + 1], " = ")[1].Replace(",", "").Trim());
+                    }
+                }
+            }
+            return -1;
+        }
+
         #endregion
 
         #region Load Main
 
-        private Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
-        PerformanceCounter cpuCounter = new PerformanceCounter();
-        PerformanceCounter ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+        private readonly Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
+        private readonly PerformanceCounter cpuCounter = new PerformanceCounter();
+        private readonly PerformanceCounter ramCounter = new PerformanceCounter("Memory", "Available MBytes");
 
         private void Load_Essential()
         {
@@ -417,7 +612,6 @@ namespace CELO_Enhanced
             }
 
 
-
             logFile.WriteLine("MAIN WINDOW - START Loading timers");
             LoadTimers();
             logFile.WriteLine("MAIN WINDOW - ENDED Loading timers");
@@ -432,8 +626,6 @@ namespace CELO_Enhanced
             cpuCounter.InstanceName = "_Total";
             PassAgeGateCookie();
             logFile.WriteLine("MAIN WINDOW - ENDED Loading essential");
-
-            
         }
 
         private void Celo_Main_Loaded(object sender, RoutedEventArgs e)
@@ -443,18 +635,32 @@ namespace CELO_Enhanced
             {
                 logFile.WriteLine("MAIN WINDOW - Interface FPS => 60");
                 Timeline.DesiredFrameRateProperty.OverrideMetadata(
-                        typeof(Timeline),
-                        new FrameworkPropertyMetadata { DefaultValue = 30 }
+                    typeof (Timeline),
+                    new FrameworkPropertyMetadata {DefaultValue = 30}
                     );
                 logFile.WriteLine("MAIN WINDOW - Interface FPS => 30");
             }
             catch (Exception ex)
             {
-                logFile.WriteLine("EXCEPTION: " + ex.ToString());
+                logFile.WriteLine("EXCEPTION: " + ex);
             }
             Load_Essential();
 
-            
+            try
+            {
+                if (File.Exists(_AssemblyDir + @"\data\news.txt"))
+                {
+                    if (Utilities.CheckInternet())
+                    {
+                        var wh = new WhatsNew();
+                        wh.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logFile.WriteLine("EXCEPTION: " + ex);
+            }
         }
 
         #endregion
@@ -644,9 +850,9 @@ namespace CELO_Enhanced
 
         private void mnuCheckUpd_Click(object sender, RoutedEventArgs e)
         {
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-            Version version = Version.Parse(fvi.FileVersion);
-            String response = Updater.CheckForUpdates(version);
+            var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            var version = Version.Parse(fvi.FileVersion);
+            var response = Updater.CheckForUpdates(version);
             if (response != null)
             {
                 if (MessageBox.Show(this,
@@ -666,9 +872,9 @@ namespace CELO_Enhanced
 
         private void mnuNewUpdate_Click(object sender, RoutedEventArgs e)
         {
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-            Version version = Version.Parse(fvi.FileVersion);
-            String response = Updater.CheckForUpdates(version);
+            var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            var version = Version.Parse(fvi.FileVersion);
+            var response = Updater.CheckForUpdates(version);
             if (response != null)
             {
                 if (MessageBox.Show(this,
@@ -684,6 +890,11 @@ namespace CELO_Enhanced
             {
                 Utilities.showMessage(this, "CELO Enhanced is up-to-date.", "Update not available");
             }
+        }
+
+        private void mnuLogs_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         }
 
         #endregion
@@ -709,8 +920,8 @@ namespace CELO_Enhanced
                 {
                     if (_cfgPlaySound)
                     {
-                        int NewVolume = (1100);
-                        uint NewVolumeAllChannels = (((uint) NewVolume & 0x0000ffff) | ((uint) NewVolume << 16));
+                        var NewVolume = (1100);
+                        var NewVolumeAllChannels = (((uint) NewVolume & 0x0000ffff) | ((uint) NewVolume << 16));
                         waveOutSetVolume(IntPtr.Zero, NewVolumeAllChannels);
                         var uri = new Uri(@"pack://application:,,,/Resources/beep_01.wav");
                         var player = new SoundPlayer(Application.GetResourceStream(uri).Stream);
@@ -724,7 +935,21 @@ namespace CELO_Enhanced
                 }
                 else
                 {
+                    _matchBeingPlayed = false;
+                    _isListWritten = false;
+                    isMakingList = false;
                     _readerTimer.IsEnabled = false;
+                    _readerTimer.Tick -= _readerTimer_Tick;
+                    _readerTimer = null;
+
+                    _readerTimer = new DispatcherTimer(DispatcherPriority.Background);
+                    _readerTimer.Interval = TimeSpan.FromMilliseconds(_cfgTimerInt);
+                    _readerTimer.IsEnabled = false;
+                    _readerTimer.Tick += _readerTimer_Tick;
+
+                    _readerTimer.IsEnabled = true;
+
+
                     btn_GameWatcher.Tag = "en";
                     LoadFormHost.Visibility = Visibility.Hidden;
                     txt_GameWatcher.Text = "Start Game Watcher";
@@ -758,22 +983,24 @@ namespace CELO_Enhanced
         public static readonly String _AssemblyDir = AppDomain.CurrentDomain.BaseDirectory;
         private readonly String _copyLogPath = AppDomain.CurrentDomain.BaseDirectory + @"\data\log.tempf";
         private readonly ObservableCollection<Player> _players = new ObservableCollection<Player>();
+        private readonly List<FloatingOSDWindow> _osdList = new List<FloatingOSDWindow>();
         private readonly MouseHookListener mhl = new MouseHookListener(new GlobalHooker());
         private WebBrowser webFlags;
         private Thread InfoThread;
         private List<String> _logContent = new List<String>();
         private long clicks;
-        private int notificationStop = 0, notificationTooggle = 0;
+        private int notificationStop, notificationTooggle;
         private Boolean isMakingList;
         private Boolean repeater = true;
-        private int curFlag = 0;
+        private int curFlag;
+
         private Boolean IsGameRunning(int game)
         {
             switch (game)
             {
                 case 0:
 
-                    foreach (Process process in Process.GetProcesses())
+                    foreach (var process in Process.GetProcesses())
                     {
                         if (process.ProcessName.Equals("RelicCOH"))
                         {
@@ -782,7 +1009,7 @@ namespace CELO_Enhanced
                     }
                     break;
                 case 1:
-                    foreach (Process process in Process.GetProcesses())
+                    foreach (var process in Process.GetProcesses())
                     {
                         if (process.ProcessName.Equals("RelicCoH2"))
                         {
@@ -791,7 +1018,7 @@ namespace CELO_Enhanced
                     }
                     break;
                 default:
-                    foreach (Process process in Process.GetProcesses())
+                    foreach (var process in Process.GetProcesses())
                     {
                         if (process.ProcessName.Equals("RelicCoH2"))
                         {
@@ -805,7 +1032,7 @@ namespace CELO_Enhanced
 
         private async Task<Boolean> CopyLog()
         {
-            Boolean res = await TaskEx.Run(() => CopyLogTask());
+            var res = await TaskEx.Run(() => CopyLogTask());
             return res;
         }
 
@@ -819,26 +1046,25 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                logFile.WriteLine("EXCEPTION Copying log: " + ex.ToString());
+                logFile.WriteLine("EXCEPTION Copying log: " + ex);
                 return false;
             }
-            
         }
 
         private Boolean CheckNotifications()
         {
             if (notificationTooggle == 0)
             {
-                for (int index = 0; index < _logContent.Count; index++)
+                for (var index = 0; index < _logContent.Count; index++)
                 {
                     var log = _logContent[index];
-                    String str = log.Split(new[] { '.' })[0];
+                    var str = log.Split('.')[0];
                     try
                     {
-                        if (Regex.IsMatch(str.Split(new[] { ':' })[0], @"^\d+$"))
+                        if (Regex.IsMatch(str.Split(':')[0], @"^\d+$"))
                         {
-                            if (CheckTime(Int32.Parse(str.Split(new[] { ':' })[0]),
-                                Int32.Parse(str.Split(new[] { ':' })[1])))
+                            if (CheckTime(Int32.Parse(str.Split(':')[0]),
+                                Int32.Parse(str.Split(':')[1])))
                             {
                                 if (log.Contains("WorldwideNotifier.cpp"))
                                 {
@@ -858,16 +1084,16 @@ namespace CELO_Enhanced
 
         private void ExecuteNotifications()
         {
-            for (int i = notificationStop - 10; i < _logContent.Count; i++)
+            for (var i = notificationStop - 10; i < _logContent.Count; i++)
             {
                 if (_logContent[i].Contains("RNT_StatsUpdate:"))
                 {
                     long steamIDNotification = 0;
-                    string[] strArr1 = Regex.Split(_logContent[i], "],");
-                    string sID = strArr1[0].Split(new char[] { '/' })[2];
+                    var strArr1 = Regex.Split(_logContent[i], "],");
+                    var sID = strArr1[0].Split('/')[2];
                     steamIDNotification = Int64.Parse(sID);
-                    string RankAfter = (Regex.Split(_logContent[i], "ranking=")[1]).Trim();
-                    int z = 0;
+                    var RankAfter = (Regex.Split(_logContent[i], "ranking=")[1]).Trim();
+                    var z = 0;
                     foreach (var player in _players)
                     {
                         if (player.SteamID == steamIDNotification)
@@ -880,14 +1106,29 @@ namespace CELO_Enhanced
                             {
                                 _players[z].RankingAfter = " ↦ " + "Unranked";
                             }
-
                         }
                         z++;
                     }
                 }
             }
             notificationTooggle = 1;
+        }
 
+        private Boolean CheckLoaded()
+        {
+            for (var i = _lastLine; i < _logContent.Count; i++)
+            {
+                if (_logContent[i].Contains("GAME -- Recording game"))
+                {
+                    var str = _logContent[i].Split('.')[0];
+                    var str2 = str.Split(':');
+                    if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void ClearList()
@@ -897,7 +1138,7 @@ namespace CELO_Enhanced
                 try
                 {
                     _players.Clear();
-                    var view = (CollectionView)CollectionViewSource.GetDefaultView(playerList.ItemsSource);
+                    var view = (CollectionView) CollectionViewSource.GetDefaultView(playerList.ItemsSource);
                     if (view.GroupDescriptions != null)
                         view.GroupDescriptions.Clear();
                     if (view.SortDescriptions != null)
@@ -905,18 +1146,17 @@ namespace CELO_Enhanced
                 }
                 catch (Exception ex)
                 {
-                    logFile.WriteLine("EXCEPTION Clearing list: " + ex.ToString());
-
+                    logFile.WriteLine("EXCEPTION Clearing list: " + ex);
                 }
             }
         }
 
         private Boolean CheckTime(int hour, int minute)
         {
-            TimeSpan currentTime = DateTime.Now.TimeOfDay;
+            var currentTime = DateTime.Now.TimeOfDay;
             var gameTime = new TimeSpan(hour, minute, 00);
-            TimeSpan gameTimeLess = gameTime.Subtract(new TimeSpan(0, 2, 0));
-            TimeSpan gameTimeMore = gameTime.Add(new TimeSpan(0, 2, 0));
+            var gameTimeLess = gameTime.Subtract(new TimeSpan(0, 2, 0));
+            var gameTimeMore = gameTime.Add(new TimeSpan(0, 2, 0));
             if (gameTimeLess <= currentTime && gameTimeMore >= currentTime)
             {
                 return true;
@@ -934,9 +1174,9 @@ namespace CELO_Enhanced
                     {
                         Directory.CreateDirectory(_cfgLsdOutput);
                     }
-                    for (int i = 0; i < 8; i++)
+                    for (var i = 0; i < 8; i++)
                     {
-                        String path = _cfgLsdOutput + @"\player_" + (i + 1) + ".txt";
+                        var path = _cfgLsdOutput + @"\player_" + (i + 1) + ".txt";
                         if (File.Exists(path))
                         {
                             try
@@ -945,7 +1185,7 @@ namespace CELO_Enhanced
                             }
                             catch (Exception ex)
                             {
-                                logFile.WriteLine("EXCEPTION Cleaning LSD: " + ex.ToString());
+                                logFile.WriteLine("EXCEPTION Cleaning LSD: " + ex);
                             }
                         }
                     }
@@ -958,12 +1198,12 @@ namespace CELO_Enhanced
             switch (game)
             {
                 case 0:
-                    for (int i = _lastLine; i < _logContent.Count; i++)
+                    for (var i = _lastLine; i < _logContent.Count; i++)
                     {
                         if (_logContent[i].Contains("APP -- Game Stop"))
                         {
-                            String str = _logContent[i].Split(new[] { '.' })[0];
-                            String[] str2 = str.Split(new[] { ':' });
+                            var str = _logContent[i].Split('.')[0];
+                            var str2 = str.Split(':');
                             if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
                             {
                                 _matchBeingPlayed = false;
@@ -977,12 +1217,12 @@ namespace CELO_Enhanced
                     }
                     break;
                 case 1:
-                    for (int i = _lastLine; i < _logContent.Count; i++)
+                    for (var i = _lastLine; i < _logContent.Count; i++)
                     {
                         if (_logContent[i].Contains("MOD -- Game Over at"))
                         {
-                            String str = _logContent[i].Split(new[] { '.' })[0];
-                            String[] str2 = str.Split(new[] { ':' });
+                            var str = _logContent[i].Split('.')[0];
+                            var str2 = str.Split(':');
                             if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
                             {
                                 _matchBeingPlayed = false;
@@ -1003,7 +1243,7 @@ namespace CELO_Enhanced
 
         private void setStatus(string text)
         {
-            status_cont_text.Text = text;
+            Dispatcher.Invoke(new Action(() => status_cont_text.Text = text));
         }
 
         private void setLogContents(int game)
@@ -1032,15 +1272,15 @@ namespace CELO_Enhanced
             switch (game)
             {
                 case 0:
-                    for (int i = 10; i < _logContent.Count; i++)
+                    for (var i = 10; i < _logContent.Count; i++)
                     {
-                        String str = _logContent[i].Split(new[] { '.' })[0];
+                        var str = _logContent[i].Split('.')[0];
                         try
                         {
-                            if (Regex.IsMatch(str.Split(new[] { ':' })[0], @"^\d+$"))
+                            if (Regex.IsMatch(str.Split(':')[0], @"^\d+$"))
                             {
-                                if (CheckTime(Int32.Parse(str.Split(new[] { ':' })[0]),
-                                    Int32.Parse(str.Split(new[] { ':' })[1])))
+                                if (CheckTime(Int32.Parse(str.Split(':')[0]),
+                                    Int32.Parse(str.Split(':')[1])))
                                 {
                                     if (
                                         _logContent[i].Contains(
@@ -1063,21 +1303,21 @@ namespace CELO_Enhanced
                     break;
                 case 1:
 
-                    for (int i = 10; i < _logContent.Count; i++)
+                    for (var i = 10; i < _logContent.Count; i++)
                     {
-                        String str = _logContent[i].Split(new[] { '.' })[0];
+                        var str = _logContent[i].Split('.')[0];
                         try
                         {
-                            if (Regex.IsMatch(str.Split(new[] { ':' })[0], @"^\d+$"))
+                            if (Regex.IsMatch(str.Split(':')[0], @"^\d+$"))
                             {
-
-                                if (CheckTime(Int32.Parse(str.Split(new[] { ':' })[0]),
-                                    Int32.Parse(str.Split(new[] { ':' })[1])))
+                                if (CheckTime(Int32.Parse(str.Split(':')[0]),
+                                    Int32.Parse(str.Split(':')[1])))
                                 {
-                                    if (_logContent[i].Contains("GAME -- Human") || _logContent[i].Contains("GAME -- AI Player"))
+                                    if (_logContent[i].Contains("GAME -- Human") ||
+                                        _logContent[i].Contains("GAME -- AI Player"))
                                     {
                                         logFile.WriteLine("MAIN WINDOW - READER - Found a game match");
-                                        await TaskEx.Delay(350);
+                                        await TaskEx.Delay(250);
                                         _stopPoint = i - 135;
                                         ProcessLog(game);
                                         break;
@@ -1097,6 +1337,7 @@ namespace CELO_Enhanced
 
         private async void ProcessLog(int game)
         {
+            _failsafeTimer.Start();
             logFile.WriteLine("MAIN WINDOW - Watcher - Processing Log data - START");
             ClearList();
             pgBarLoading.IsEnabled = true;
@@ -1109,9 +1350,9 @@ namespace CELO_Enhanced
                     if (!_matchBeingPlayed)
                     {
                         int matches = 0, mods = 0, order = 0, z = 0;
-                        Boolean isModFirst = false;
+                        var isModFirst = false;
                         _lastLine = 0;
-                        for (int i = _stopPoint; i < _logContent.Count; i++)
+                        for (var i = _stopPoint; i < _logContent.Count; i++)
                         {
                             if (_logContent[i].Contains("RLINK -- Match Started"))
                             {
@@ -1129,7 +1370,7 @@ namespace CELO_Enhanced
                         if (isModFirst)
                         {
                             logFile.WriteLine("MAIN WINDOW - Watcher - Finding players info");
-                            for (int i = _stopPoint; i < _logContent.Count; i++)
+                            for (var i = _stopPoint; i < _logContent.Count; i++)
                             {
                                 if (_logContent[i].Contains("MOD - Setting player") &&
                                     Regex.IsMatch(_logContent[i], @"\d+(\.\d+)?$"))
@@ -1137,7 +1378,7 @@ namespace CELO_Enhanced
                                     _matchBeingPlayed = true;
                                     _isListWritten = false;
 
-                                    string str1 = _logContent[i].Substring(48, 1).Trim();
+                                    var str1 = _logContent[i].Substring(48, 1).Trim();
                                     _players.Insert(z, new Player
                                     {
                                         Race = Int32.Parse(str1),
@@ -1150,21 +1391,21 @@ namespace CELO_Enhanced
                                 }
                             }
                             z = 0;
-                            for (int i = _stopPoint; i < _logContent.Count; i++)
+                            for (var i = _stopPoint; i < _logContent.Count; i++)
                             {
                                 if (_logContent[i].Contains("RLINK -- Match Started")) // Setting race
                                 {
                                     _matchBeingPlayed = true;
                                     _isListWritten = false;
-                                    long sID = Convert.ToInt64(_logContent[i].Substring(65, 17)); // Gets Steam ID
-                                    int rank = 0;
+                                    var sID = Convert.ToInt64(_logContent[i].Substring(65, 17)); // Gets Steam ID
+                                    var rank = 0;
                                     try
                                     {
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 6).Trim());
                                     }
                                     catch (Exception ex)
                                     {
-                                        logFile.WriteLine("EXCEPTION Processing log: " + ex.ToString());
+                                        logFile.WriteLine("EXCEPTION Processing log: " + ex);
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 5).Trim());
                                     }
                                     // Gets Player Rank
@@ -1182,24 +1423,24 @@ namespace CELO_Enhanced
                         else
                         {
                             z = 0;
-                            for (int i = _stopPoint; i < _logContent.Count; i++)
+                            for (var i = _stopPoint; i < _logContent.Count; i++)
                             {
                                 if (_logContent[i].Contains("RLINK -- Match Started")) // Setting race
                                 {
-                                    long sID = Convert.ToInt64(_logContent[i].Substring(65, 17)); // Gets Steam ID
-                                    int rank = 0;
+                                    var sID = Convert.ToInt64(_logContent[i].Substring(65, 17)); // Gets Steam ID
+                                    var rank = 0;
                                     try
                                     {
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 6).Trim());
                                     }
                                     catch (Exception ex)
                                     {
-                                        logFile.WriteLine("EXCEPTION Processing log: " + ex.ToString());
+                                        logFile.WriteLine("EXCEPTION Processing log: " + ex);
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 5).Trim());
                                     }
                                     // Gets Player Rank
                                     _players.Insert(z,
-                                        new Player { Race = -1000, Ranking = rank.ToString(), SteamID = sID });
+                                        new Player {Race = -1000, Ranking = rank.ToString(), SteamID = sID});
                                     matches++;
                                     order++;
                                     z++;
@@ -1207,7 +1448,7 @@ namespace CELO_Enhanced
                                 }
                             }
                             z = 0;
-                            for (int i = _stopPoint; i < _logContent.Count; i++)
+                            for (var i = _stopPoint; i < _logContent.Count; i++)
                             {
                                 if (_logContent[i].Contains("MOD - Setting player") &&
                                     Regex.IsMatch(_logContent[i], @"\d+(\.\d+)?$")) // Setting race
@@ -1215,7 +1456,7 @@ namespace CELO_Enhanced
                                     _matchBeingPlayed = true;
                                     _isListWritten = false;
 
-                                    int race = Int32.Parse(_logContent[i].Substring(48, 1).Trim());
+                                    var race = Int32.Parse(_logContent[i].Substring(48, 1).Trim());
                                     _players[z].Race = race;
                                     mods++;
                                     z++;
@@ -1227,7 +1468,7 @@ namespace CELO_Enhanced
                         {
                             if (isModFirst)
                             {
-                                for (int i = matches; i < mods; i++)
+                                for (var i = matches; i < mods; i++)
                                 {
                                     _players[order].Ranking = "0";
                                     _players[order].SteamID = 0;
@@ -1237,17 +1478,17 @@ namespace CELO_Enhanced
                         }
                     }
 
-                    
+
                     break;
                 case 1:
 
                     if (!_matchBeingPlayed)
                     {
                         _lastLine = 0;
-                        int z = 0;
-                        int slot = 0;
+                        var z = 0;
+                        var slot = 0;
                         logFile.WriteLine("MAIN WINDOW - Watcher - First Step - START");
-                        for (int i = _stopPoint; i < _logContent.Count; i++)
+                        for (var i = _stopPoint; i < _logContent.Count; i++)
                         {
                             #region FirstStep
 
@@ -1255,22 +1496,23 @@ namespace CELO_Enhanced
                             {
                                 _matchBeingPlayed = true;
                                 _isListWritten = false;
-                                long sID = Convert.ToInt64(_logContent[i].Substring(56, 17)); // Gets Steam ID
-                                int rank = 0;
+                                var sID = Convert.ToInt64(_logContent[i].Substring(56, 17)); // Gets Steam ID
+                                var rank = 0;
                                 try
                                 {
-                                    string[] strArr =
+                                    var strArr =
                                         Regex.Split(_logContent[i].Substring(87, _logContent[i].Length - 87), "=");
                                     rank = Convert.ToInt32(strArr[1].Trim());
                                 }
                                 catch (Exception ex)
                                 {
-                                    logFile.WriteLine("EXCEPTION Processing log: " + ex.ToString());
+                                    logFile.WriteLine("EXCEPTION Processing log: " + ex);
                                     rank = Convert.ToInt32(_logContent[i].Substring(96, 6).Trim());
                                 }
-                                rank = rank - 1;
-                                int altSlot = Int32.Parse(Regex.Split(_logContent[i], "slot =")[1].Substring(0, 3).Trim());
-                                _players.Insert(z, new Player()
+
+                                var altSlot =
+                                    Int32.Parse(Regex.Split(_logContent[i], "slot =")[1].Substring(0, 3).Trim());
+                                _players.Insert(z, new Player
                                 {
                                     Slot = altSlot,
                                     Ranking = rank.ToString(),
@@ -1288,7 +1530,7 @@ namespace CELO_Enhanced
                         z = 0;
                         await TaskEx.Delay(150);
                         logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - START");
-                        for (int i = _stopPoint; i < _logContent.Count; i++)
+                        for (var i = _stopPoint; i < _logContent.Count; i++)
                         {
                             #region SecondStep
 
@@ -1296,21 +1538,22 @@ namespace CELO_Enhanced
                             {
                                 _matchBeingPlayed = true;
                                 _isListWritten = false;
-                                string g_nick = "";
-                                int g_race = 0;
-                                int g_team = 0;
+                                var g_nick = "";
+                                var g_race = 0;
+                                var g_team = 0;
 
-                                string sl = Regex.Split(_logContent[i], "Player:")[1].Substring(0, 2).Trim();
+                                var sl = Regex.Split(_logContent[i], "Player:")[1].Substring(0, 2).Trim();
                                 slot = Convert.ToInt32(sl);
 
                                 if (_logContent[i].Contains("GAME -- Human"))
                                 {
                                     logFile.WriteLine("MAIN WINDOW - Watcher - Found Human");
+
                                     #region Human
 
-                                    string str = _logContent[i].Substring(38, _logContent[i].Length - 38);
-                                    string[] rc = Regex.Split(str, " ");
-                                    string rc2 = rc[rc.Length - 1];
+                                    var str = _logContent[i].Substring(38, _logContent[i].Length - 38);
+                                    var rc = Regex.Split(str, " ");
+                                    var rc2 = rc[rc.Length - 1];
 
                                     if (rc2.Equals("aef"))
                                     {
@@ -1341,8 +1584,8 @@ namespace CELO_Enhanced
                                     {
                                         g_team = 0;
                                     }
-                                    string unknown = rc[rc.Length - 3];
-                                    string[] nickArr = Regex.Split(str, unknown);
+                                    var unknown = rc[rc.Length - 3];
+                                    var nickArr = Regex.Split(str, unknown);
                                     g_nick = nickArr[0].Trim();
                                     Teams team;
                                     if (g_race == 0 || g_race == 2)
@@ -1354,7 +1597,7 @@ namespace CELO_Enhanced
                                         team = Teams.Allies;
                                     }
 
-                                    for (int index = 0; index < _players.Count; index++)
+                                    for (var index = 0; index < _players.Count; index++)
                                     {
                                         var player = _players[index];
                                         if (player.Slot == slot)
@@ -1362,7 +1605,6 @@ namespace CELO_Enhanced
                                             _players[index].Race = g_race;
                                             _players[index].Nickname = g_nick;
                                             _players[index].Team = team;
-
                                         }
                                     }
 
@@ -1371,11 +1613,12 @@ namespace CELO_Enhanced
                                 else if (_logContent[i].Contains("GAME -- AI Player"))
                                 {
                                     logFile.WriteLine("MAIN WINDOW - Watcher - Found A.I.");
+
                                     #region Bots
 
-                                    string str = _logContent[i].Substring(35, _logContent[i].Length - 35);
-                                    string[] rc = Regex.Split(str, " ");
-                                    string rc2 = rc[rc.Length - 1];
+                                    var str = _logContent[i].Substring(35, _logContent[i].Length - 35);
+                                    var rc = Regex.Split(str, " ");
+                                    var rc2 = rc[rc.Length - 1];
 
                                     if (rc2.Equals("aef"))
                                     {
@@ -1407,9 +1650,9 @@ namespace CELO_Enhanced
                                         g_team = 0;
                                     }
 
-                                    string unknown = rc[rc.Length - 3];
+                                    var unknown = rc[rc.Length - 3];
 
-                                    string[] nickArr = Regex.Split(str, unknown);
+                                    var nickArr = Regex.Split(str, unknown);
                                     g_nick = "AI Player - " + (nickArr[0].Trim());
                                     Teams team;
                                     if (g_race == 0 || g_race == 2)
@@ -1430,7 +1673,6 @@ namespace CELO_Enhanced
                                         Level = "N/A"
                                     });
 
-
                                     #endregion
                                 }
 
@@ -1442,8 +1684,6 @@ namespace CELO_Enhanced
                             #endregion
                         }
                         logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - ENDED");
-
-
                     }
 
 
@@ -1453,23 +1693,22 @@ namespace CELO_Enhanced
             _matchBeingPlayed = true;
         }
 
-        private async void SetUpList(int game)
+        private void SetUpList(int game)
         {
             isMakingList = true;
-            
+            _isListWritten = true;
             currPlayer = 0;
             playerList.ItemsSource = null;
 
             switch (game)
             {
                 case 0:
-                    for (int i = 0; i < _players.Count; i++)
+                    for (var i = 0; i < _players.Count; i++)
                     {
                         string final = null;
                         currPlayer = i;
 
 
-                        
                         while (String.IsNullOrEmpty(final))
                         {
                             if (_players[i].SteamID != 0)
@@ -1483,7 +1722,7 @@ namespace CELO_Enhanced
                         }
                         _players[i].Nickname = final;
 
-                        
+
                         if (_players[i].Ranking == "-1")
                         {
                             _players[i].Ranking = "Unranked (Placements)";
@@ -1497,7 +1736,7 @@ namespace CELO_Enhanced
                             _players[i].Ranking = _players[i].Ranking;
                         }
 
-                        
+
                         switch (_players[i].Race)
                         {
                             case 0:
@@ -1523,8 +1762,10 @@ namespace CELO_Enhanced
                         }
 
                         logFile.WriteLine("MAIN WINDOW - WATCHER - SET UP PLAYERS - " +
-                            String.Format("Player {0}; Nickname: {1}; Race: {2}; Rank: {3}; SteamID: {4}", i, _players[i].Nickname, _players[i].RaceName, _players[i].Ranking, _players[i].SteamID));
-
+                                          String.Format(
+                                              "Player {0}; Nickname: {1}; Race: {2}; Rank: {3}; SteamID: {4}", i,
+                                              _players[i].Nickname, _players[i].RaceName, _players[i].Ranking,
+                                              _players[i].SteamID));
                     }
 
 
@@ -1532,32 +1773,13 @@ namespace CELO_Enhanced
                 case 1:
 
 
-                    for (int i = 0; i < _players.Count; i++)
+                    for (var i = 0; i < _players.Count; i++)
                     {
                         currPlayer = i;
 
                         _players[i].Country = SourceToImage("Resources/flags/fail.png");
-                        _players[i].CountryName = "Unnavailable";
-
-                        
-                        long y1 = -1;
-                        if (_players[i].SteamID > 1)
-                        {
-                            try
-                            {
-                                y1 = (Utilities.Steam.getTimePlayed(_players[i].SteamID, 231430)) / 60;
-                            }
-                            catch (Exception ex)
-                            {
-                                y1 = 0;
-                                logFile.WriteLine("EXCEPTION Setting up list: " + ex.ToString());
-                            }
-                            finally
-                            {
-                                _players[i].TimePlayed = y1;
-                            }
-                        }
-
+                        _players[i].CountryName = "Unavailable";
+                        _players[i].Level = "Parsing...";
                         _players[i].RankingAfter = "";
 
                         if (_players[i].Ranking == "-1" || _players[i].Ranking == "-2" || _players[i].Ranking == "0")
@@ -1599,21 +1821,21 @@ namespace CELO_Enhanced
                                 break;
                         }
                         logFile.WriteLine("MAIN WINDOW - WATCHER - SET UP PLAYERS - " +
-                            String.Format("Player {0}; Nickname: {1}; Race: {2}; Rank: {3}; SteamID: {4}", i, _players[i].Nickname, _players[i].RaceName, _players[i].Ranking, _players[i].SteamID));
-
+                                          String.Format(
+                                              "Player {0}; Nickname: {1}; Race: {2}; Rank: {3}; SteamID: {4}", i,
+                                              _players[i].Nickname, _players[i].RaceName, _players[i].Ranking,
+                                              _players[i].SteamID));
                     }
+                    RetrieveSteamID(231430);
 
-                    await RetriveSecondaryInfo();
                     isMakingList = false;
 
                     break;
             }
 
-            _isListWritten = true;
-
 
             playerList.ItemsSource = _players;
-            var view = (CollectionView)CollectionViewSource.GetDefaultView(playerList.ItemsSource);
+            var view = (CollectionView) CollectionViewSource.GetDefaultView(playerList.ItemsSource);
             if (view != null)
             {
                 view.GroupDescriptions.Clear();
@@ -1629,17 +1851,13 @@ namespace CELO_Enhanced
 
             playerList.Items.Refresh();
 
+            var t1 = Task.Factory.StartNew(RetriveSecondaryInfo)
+                .ContinueWith(prevTask => RetrieveFlags(), TaskScheduler.FromCurrentSynchronizationContext());
 
             if (_cfgLsdEnabled)
             {
                 RenderLSD();
             }
-
-            if (game == 1)
-            {
-                RetrieveFlags();
-            }
-
         }
 
         private void SetUpMatchInfo(int game)
@@ -1648,7 +1866,7 @@ namespace CELO_Enhanced
             {
                 case 0:
 
-                    Boolean ps = false;
+                    var ps = false;
 
                     match_type.Content = String.Format("Type: {0}vs{0}", (playerList.Items.Count/2));
                     logFile.WriteLine("MAIN WINDOW - Watcher - Match type: " + match_type.Content);
@@ -1657,21 +1875,21 @@ namespace CELO_Enhanced
                 case 1:
                     if (IsLoaded)
                     {
-                        for (int i = 0; i < _logContent.Count; i++)
+                        for (var i = 0; i < _logContent.Count; i++)
                         {
                             if (_logContent[i].Contains("GAME -- Scenario:"))
                             {
-                                String scenarioName = (Regex.Split(_logContent[i], "scenarios")[1]);
-                                String[] MapData = File.ReadAllLines(_AssemblyDir + @"\data\maps\coh2\maps.data");
-                                foreach (string line in MapData)
+                                var scenarioName = (Regex.Split(_logContent[i], "scenarios")[1]);
+                                var MapData = File.ReadAllLines(_AssemblyDir + @"\data\maps\coh2\maps.data");
+                                foreach (var line in MapData)
                                 {
                                     if (!line.StartsWith("#") || !line.Contains("#"))
                                     {
-                                        string mapf = (Regex.Split(line, "==")[1]);
+                                        var mapf = (Regex.Split(line, "==")[1]);
                                         if (mapf.Equals(scenarioName))
                                         {
                                             match_mapName.Text = Regex.Split(line, "==")[0];
-                                            string mapFilename = mapf.Split(new[] {'\\'})[3];
+                                            var mapFilename = mapf.Split('\\')[3];
                                             var bp =
                                                 new BitmapImage(
                                                     new Uri(_AssemblyDir + @"\data\maps\coh2\" + mapFilename + ".jpg"));
@@ -1683,7 +1901,7 @@ namespace CELO_Enhanced
                                 }
                             }
                         }
-                        Boolean ps2 = false;
+                        var ps2 = false;
                         match_type.Content = String.Format("Type: {0}vs{0}", (_players.Count/2));
                         logFile.WriteLine("MAIN WINDOW - Watcher - Match type: " + match_type.Content);
                     }
@@ -1716,11 +1934,12 @@ namespace CELO_Enhanced
                 logFile.WriteLine("MAIN WINDOW - Watcher - CPM Timer is enabled");
                 _cpmTimer.IsEnabled = true;
                 game_cpm.Content = "CPM: 0";
+                game_cpmTotal.Content = "Clicks: 0";
 
                 switch (game)
                 {
                     case 0:
-                        
+
                         var file1 = new FileInfo(_cfgGamePath + @"\RelicCoH.exe");
                         if (file1.Exists)
                         {
@@ -1739,7 +1958,7 @@ namespace CELO_Enhanced
                         var file2 = new FileInfo(_cfgGamePath + @"\RelicCoH2.exe");
                         if (file2.Exists)
                         {
-                            FileVersionInfo version = FileVersionInfo.GetVersionInfo(_cfgGamePath + @"\RelicCoH2.exe");
+                            var version = FileVersionInfo.GetVersionInfo(_cfgGamePath + @"\RelicCoH2.exe");
                             game_build.Content = "Game Build: " + version.FileVersion;
                         }
                         logFile.WriteLine("MAIN WINDOW - Watcher - Game Build: " + game_build.Content);
@@ -1756,108 +1975,245 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                logFile.WriteLine("EXCEPTION Setting up game info: " + ex.ToString());
+                logFile.WriteLine("EXCEPTION Setting up game info: " + ex);
             }
         }
 
-        private Task RetriveSecondaryInfo()
+        private void RetrieveSteamID(int game)
         {
-            return Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(() =>
             {
-                bool x1 = false;
-                long y1 = -1;
-                switch (_gameSelected)
+                for (var i = 0; i < _players.Count - 1; i++)
                 {
-                    case 0:
+                    long y1 = -1;
+                    try
+                    {
+                        y1 = (Utilities.Steam.getTimePlayed(_players[i].SteamID, game))/60;
+                    }
+                    catch (Exception ex)
+                    {
+                        y1 = -1;
+                        logFile.WriteLine("EXCEPTION Setting up list: " + ex);
+                    }
+                    finally
+                    {
+                        _players[i].TimePlayed = y1;
+                    }
+                }
 
-                        if (_players[currPlayer].SteamID > 1)
+                if (_players.Any(x => x.TimePlayed == 0))
+                {
+                    for (var i = 0; i < _players.Count - 1; i++)
+                    {
+                        long y1 = -1;
+                        try
                         {
-                            while (!x1)
-                            {
-                                try
-                                {
-                                    y1 = (Utilities.Steam.getTimePlayed(_players[currPlayer].SteamID, 231430))/60;
-                                    x1 = true;
-                                }
-                                catch (Exception ex)
-                                {
-                                    logFile.WriteLine("EXCEPTION Getting time played (coh1) " + ex.ToString());
-                                    x1 = false;
-                                }
-                            }
-                            _players[currPlayer].TimePlayed = y1;
-                            _players[currPlayer].Level = "Unnavailable";
+                            y1 = (Utilities.Steam.getTimePlayed(_players[i].SteamID, game))/60;
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            _players[currPlayer].TimePlayed = 0;
-                            _players[currPlayer].Level = "Unnavailable";
+                            y1 = -1;
+                            logFile.WriteLine("EXCEPTION Setting up list: " + ex);
                         }
-
-                        break;
-                    case 1:
-
-                        int zed = 0;
-                        int max = _players.Count;
-
-                        for(int i = 0; i < max; i++)
+                        finally
                         {
-                            
-                            if (_players[i].SteamID > 1)
-                            {
-                                try
-                                {
-                                    var web = new HtmlWeb();
-                                    
-                                    var htmlDoc = new HtmlDocument();
-                                    htmlDoc = web.Load("http://www.coh2.org/ladders/playercard/steamid/" +
-                                                       _players[i].SteamID);
-                                    htmlDoc.OptionFixNestedTags = true;
-
-                                    if (htmlDoc.DocumentNode != null)
-                                    {
-                                        HtmlNode bodyNode =
-                                            htmlDoc.DocumentNode.SelectSingleNode("//div[@class='playerxp']");
-
-                                        if (bodyNode != null)
-                                        {
-                                            string z = bodyNode.InnerText;
-                                            string[] zArr = Regex.Split(z, "Prestige:");
-                                            string PrestigeNum = zArr[1].Substring(0, 3).Trim();
-                                            string Level = Regex.Split(zArr[1], ";")[1].Substring(0, 2).Trim();
-                                            Level = Level.Replace("&", "");
-                                            String FinalLevel = String.Format("Prestige {0} ({1})", PrestigeNum, Level);
-                                            if (FinalLevel == "Prestige 3 (33)")
-                                            {
-                                                FinalLevel = "Prestige 3 (MAX)";
-                                            }
-                                            _players[zed].Level = FinalLevel;
-                                        }
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    logFile.WriteLine("EXCEPTION Getting player level: " + ex.ToString());
-                                    
-                                }
-
-                            }
-                            zed++;
+                            _players[i].TimePlayed = y1;
                         }
-
-
-                        break;
+                    }
                 }
             });
         }
-        
+
+        private void RetriveSecondaryInfo()
+        {
+            var x1 = false;
+            long y1 = -1;
+            switch (_gameSelected)
+            {
+                case 0:
+
+                    if (_players[currPlayer].SteamID > 1)
+                    {
+                        while (!x1)
+                        {
+                            try
+                            {
+                                y1 = (Utilities.Steam.getTimePlayed(_players[currPlayer].SteamID, 231430))/60;
+                                x1 = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                logFile.WriteLine("EXCEPTION Getting time played (coh1) " + ex);
+                                x1 = false;
+                            }
+                        }
+                        _players[currPlayer].TimePlayed = y1;
+                        _players[currPlayer].Level = "Unavailable";
+                    }
+                    else
+                    {
+                        _players[currPlayer].TimePlayed = 0;
+                        _players[currPlayer].Level = "Unavailable";
+                    }
+
+                    break;
+                case 1:
+
+
+                    if (!Utilities.CheckWebSiteLoad("http://www.coh2.org", 3000))
+                    {
+                        logFile.WriteLine("ERROR: No response from coh2.org");
+                        return;
+                    }
+                    var zed = 0;
+                    var max = _players.Count;
+                    for (var i = 0; i < max; i++)
+                    {
+                        if (_players[i].SteamID > 1)
+                        {
+                            try
+                            {
+                                var web = new HtmlWeb();
+
+                                var htmlDoc = new HtmlDocument();
+                                htmlDoc.OptionFixNestedTags = true;
+                                htmlDoc.OptionCheckSyntax = false;
+                                htmlDoc = web.Load("http://www.coh2.org/ladders/playercard/steamid/" +
+                                                   _players[i].SteamID);
+
+                                _players[zed].Level = "Unavailable";
+                                if (htmlDoc.DocumentNode != null)
+                                {
+                                    var bodyNode =
+                                        htmlDoc.DocumentNode.SelectSingleNode("//div[@class='playerxp']");
+
+                                    if (bodyNode != null)
+                                    {
+                                        var z = bodyNode.InnerText;
+                                        var zArr = Regex.Split(z, "Prestige:");
+                                        var PrestigeNum = zArr[1].Substring(0, 3).Trim();
+                                        var Level = Regex.Split(zArr[1], ";")[1].Substring(0, 2).Trim();
+                                        Level = Level.Replace("&", "");
+                                        var FinalLevel = String.Format("Prestige {0} ({1})", PrestigeNum,
+                                            Level);
+                                        if (FinalLevel == "Prestige 3 (33)")
+                                        {
+                                            FinalLevel = "Prestige 3 (MAX)";
+                                        }
+                                        _players[zed].Level = FinalLevel;
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                logFile.WriteLine("EXCEPTION Getting player level: " + ex);
+                                _players[zed].Level = "Unavailable";
+                            }
+                        }
+                        zed++;
+                    }
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new Action(CreateOSD));
+
+                    break;
+            }
+        }
+
+        private async void CreateOSD()
+        {
+            if (_gameSelected == 1)
+            {
+                if (_cfgOSDEnabled)
+                {
+                    var app = GetActiveWindowTitle();
+                    if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
+                    {
+                        // 1080p ONLY
+                        if ((GetCOH2Width() == 1920 && GetCOH2Height() == 1080) || _cfgOSDForce == true)
+                        {
+                            _osdList.Clear();
+                            var StopMS = 27000;
+                            uint animeMs = 2000;
+                            var pl_Allies = _players.Where(x => x.Team == Teams.Allies).ToList();
+                            var pl_Axis = _players.Where(x => x.Team == Teams.Axis).ToList();
+
+                            var ft = new Font(System.Drawing.FontFamily.GenericSansSerif, 13,
+                                System.Drawing.FontStyle.Bold);
+
+                            for (var i = 0; i < pl_Allies.Count; i++)
+                            {
+                                var slot = i;
+                                var height = 108 + (165*slot) + (25*slot);
+                                var nOsd = new FloatingOSDWindow();
+
+                                var pointPos = new Point(210, height);
+                                var bd = new StringBuilder();
+                                if (_cfgOSDShowRank)
+                                {
+                                    bd.Append(" • Rank: " + pl_Allies[i].Ranking);
+                                }
+                                if (_cfgOSDShowLevel)
+                                {
+                                    bd.Append(" • Level: " + pl_Allies[i].Level);
+                                }
+                                if (_cfgOSDShowHours)
+                                {
+                                    bd.Append(" • Hours: " + pl_Allies[i].Ranking);
+                                }
+                                var text = bd.ToString();
+                                if (_cfgOSDUseAnimation == false)
+                                {
+                                    animeMs = 0;
+                                }
+                                nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
+                                    animeMs, text);
+
+                                _osdList.Add(nOsd);
+                                await TaskEx.Delay(300);
+                            }
+
+                            for (var i = 0; i < pl_Axis.Count; i++)
+                            {
+                                var slot = i;
+                                var height = 108 + (165*slot) + (25*slot);
+                                var nOsd = new FloatingOSDWindow();
+                                var bd = new StringBuilder();
+                                if (_cfgOSDShowRank)
+                                {
+                                    bd.Append(" • Rank: " + pl_Axis[i].Ranking);
+                                }
+                                if (_cfgOSDShowLevel)
+                                {
+                                    bd.Append(" • Level: " + pl_Axis[i].Level);
+                                }
+                                if (_cfgOSDShowHours)
+                                {
+                                    bd.Append(" • Hours: " + pl_Axis[i].Ranking);
+                                }
+                                var text = bd.ToString();
+                                if (_cfgOSDUseAnimation == false)
+                                {
+                                    animeMs = 0;
+                                }
+                                var pointPos = new Point(1355, height);
+                                nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
+                                    animeMs, text);
+
+                                _osdList.Add(nOsd);
+                                await TaskEx.Delay(300);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void RetrievePing()
         {
             if (Utilities.CheckInternet())
             {
                 var info = new ProcessStartInfo(_AssemblyDir + @"\data\assemblies\paping.exe");
-                String RelicServerIp = "54.209.64.161"; // RELIC Battle Server IP
-                info.Arguments = "--nocolor -c 3 -p 27020 " + RelicServerIp; 
+                var RelicServerIp = "54.209.64.161"; // RELIC Battle Server IP
+                info.Arguments = "--nocolor -c 3 -p 27020 " + RelicServerIp;
 
                 info.CreateNoWindow = true;
                 info.UseShellExecute = false;
@@ -1869,18 +2225,18 @@ namespace CELO_Enhanced
                 var outputList = new List<String>();
                 if (pr.Start())
                 {
-                    int sum = 0;
+                    var sum = 0;
                     while (!pr.StandardOutput.EndOfStream)
                     {
                         outputList.Add(pr.StandardOutput.ReadLine());
                     }
-                    foreach (string line in outputList)
+                    foreach (var line in outputList)
                     {
                         if (line.StartsWith("Connected to"))
                         {
-                            string[] t1 = Regex.Split(line, "=");
-                            string[] t2 = Regex.Split(t1[1], "ms");
-                            int millis = Int32.Parse(t2[0].Split(new[] {'.'})[0]);
+                            var t1 = Regex.Split(line, "=");
+                            var t2 = Regex.Split(t1[1], "ms");
+                            var millis = Int32.Parse(t2[0].Split('.')[0]);
                             sum += millis;
                         }
                     }
@@ -1894,68 +2250,73 @@ namespace CELO_Enhanced
 
         private async void RetrieveFlags()
         {
-            setStatus("Getting players countries");
-            for (int i = 0; i < _players.Count; i++)
+            if (_gameSelected != 1)
             {
-                if (_players[i].SteamID > 0 && _players[i].CountryName == "Unnavailable")
+                return;
+            }
+
+            setStatus("Getting players countries");
+
+            if (!Utilities.CheckWebSiteLoad("http://www.companyofheroes.com", 4000))
+            {
+                logFile.WriteLine("ERROR: No response from companyofheroes.com");
+                return;
+            }
+
+
+            for (var i = 0; i < _players.Count; i++)
+            {
+                if (_players[i].SteamID > 0 && _players[i].CountryName == "Unavailable")
                 {
-                    
-                        webFlags.Navigate("http://www.companyofheroes.com/leaderboards#profile/steam/" +
-                                          _players[i].SteamID.ToString());
+                    webFlags.Navigate("http://www.companyofheroes.com/leaderboards#profile/steam/" +
+                                      _players[i].SteamID);
 
-                        
-                        while (webFlags.ReadyState != WebBrowserReadyState.Complete)
+
+                    while (webFlags.ReadyState != WebBrowserReadyState.Complete)
+                    {
+                        await TaskEx.Delay(350);
+                    }
+                    await TaskEx.Delay(3500);
+
+
+                    var doc = webFlags.Document;
+                    if (doc != null)
+                    {
+                        var elements = doc.GetElementsByTagName("span");
+                        var z = "";
+                        var k = 0;
+                        while (string.IsNullOrEmpty(z) && k < 10)
                         {
-                            await TaskEx.Delay(350);
-                        }
-                        await TaskEx.Delay(3500);
-                        
-                         
-                            var doc = webFlags.Document;
-                            if (doc != null)
+                            foreach (HtmlElement element in elements)
                             {
-                                var elements = doc.GetElementsByTagName("span");
-                                string z = "";
-                                int k = 0;
-                                while (string.IsNullOrEmpty(z) && k < 10)
+                                var className = element.GetAttribute("className");
+                                if (Regex.IsMatch(className, "flag .."))
                                 {
-                                    
-                                    foreach (HtmlElement element in elements)
-                                    {
-                                        string className = element.GetAttribute("className");
-                                        if (Regex.IsMatch(className, "flag .."))
-                                        {
-                                            z = className.Split(new char[] {' '})[1];
-                                            break;
-                                        }
-
-                                    }
-
-                                    k++;
+                                    z = className.Split(' ')[1];
+                                    break;
                                 }
-
-                                if (string.IsNullOrEmpty(z) || z.Length != 2 || k >= 20)
-                                {
-                                    _players[i].Country = SourceToImage("Resources/flags/fail.png");
-                                    _players[i].CountryName = "Unnavailable";
-                                }
-                                else
-                                {
-                                    _players[i].Country = SourceToImage("Resources/flags/" + z + ".png");
-                                    _players[i].CountryName = z;
-                                }
-                                webFlags.Navigate("about:blank");
-                                
                             }
 
-                       
-                    
-                    
+                            k++;
+                        }
+
+                        if (string.IsNullOrEmpty(z) || z.Length != 2 || k >= 20)
+                        {
+                            _players[i].Country = SourceToImage("Resources/flags/fail.png");
+                            _players[i].CountryName = "Unavailable";
+                        }
+                        else
+                        {
+                            _players[i].Country = SourceToImage("Resources/flags/" + z + ".png");
+                            _players[i].CountryName = z;
+                        }
+                        webFlags.Navigate("about:blank");
+                    }
                 }
             }
 
             curFlag++;
-            if (_players.Any(x => x.CountryName == "Unnavailable" && x.SteamID > 0))
+            if (_players.Any(x => x.CountryName == "Unavailable" && x.SteamID > 0))
             {
                 if (curFlag > 3)
                 {
@@ -1983,7 +2344,6 @@ namespace CELO_Enhanced
             await TaskEx.Delay(1000);
 
             setStatus("Information listed");
-            
         }
 
         private void SetUpInfo(int game, bool setting)
@@ -1999,7 +2359,7 @@ namespace CELO_Enhanced
                 }
                 catch (Exception ex)
                 {
-                    logFile.WriteLine("EXCEPTION Setting up list: " + ex.ToString());
+                    logFile.WriteLine("EXCEPTION Setting up list: " + ex);
                 }
                 setStatus("Parsing information");
                 LoadFormHost.Visibility = Visibility.Visible;
@@ -2012,7 +2372,7 @@ namespace CELO_Enhanced
                 }
                 catch (Exception ex)
                 {
-                    logFile.WriteLine("EXCEPTION Setting up Match info: " + ex.ToString());
+                    logFile.WriteLine("EXCEPTION Setting up Match info: " + ex);
                 }
             }
             else
@@ -2032,7 +2392,7 @@ namespace CELO_Enhanced
         private int maxZ = 0;
 
         [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool InternetSetCookie(string lpszUrlName, string lpszCookieName, string lpszCookieData);
+        private static extern bool InternetSetCookie(string lpszUrlName, string lpszCookieName, string lpszCookieData);
 
         private async void PassAgeGateCookie()
         {
@@ -2044,19 +2404,18 @@ namespace CELO_Enhanced
             webFlags.ScriptErrorsSuppressed = true;
             logFile.WriteLine("MAIN WINDOW - AGE GATE START");
             logFile.WriteLine("MAIN WINDOW - Setting Cookie [AGE GATE]");
-            Cookie temp1 = new Cookie("agegate[passed]","yes", Path.GetTempPath(), "companyofheroes.com");
-            InternetSetCookie("http://www.companyofheroes.com", null, temp1.ToString() + "; expires = Sun, 01-Jan-2020 00:00:00 GMT");
+            var temp1 = new Cookie("agegate[passed]", "yes", Path.GetTempPath(), "companyofheroes.com");
+            InternetSetCookie("http://www.companyofheroes.com", null,
+                temp1 + "; expires = Sun, 01-Jan-2020 00:00:00 GMT");
             logFile.WriteLine("MAIN WINDOW - COOKIE SET [AGE GATE]");
-            Console.WriteLine("COOKIE: " + temp1.ToString());
+            Console.WriteLine("COOKIE: " + temp1);
             await TaskEx.Delay(500);
             webFlags.Navigate("http://www.companyofheroes.com/");
             logFile.WriteLine("MAIN WINDOW - LOADING COH WEBSITE [AGE GATE]");
             logFile.WriteLine("MAIN WINDOW - AGE GATE END");
-
         }
-        
 
-      #endregion
+        #endregion
 
         #region CoH Functions
 
@@ -2064,10 +2423,11 @@ namespace CELO_Enhanced
         {
             try
             {
-                String app = GetActiveWindowTitle();
+                var app = GetActiveWindowTitle();
                 if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
                 {
                     clicks++;
+                    game_cpmTotal.Content = "Clicks: " + clicks;
                 }
             }
             catch
@@ -2089,19 +2449,19 @@ namespace CELO_Enhanced
                     if (File.Exists(_AssemblyDir + @"\lsd.ini") && new FileInfo(_AssemblyDir + @"\lsd.ini").Length > 5)
                     {
                         var lsdcfg = new Utilities.INIFile(_AssemblyDir + @"\lsd.ini");
-                        String outputFolder = _cfgLsdOutput;
-                        for (int i = 0; i < _players.Count; i++)
+                        var outputFolder = _cfgLsdOutput;
+                        for (var i = 0; i < _players.Count; i++)
                         {
-                            String pCont = lsdcfg.IniReadValue("Players", "P" + (i + 1));
+                            var pCont = lsdcfg.IniReadValue("Players", "P" + (i + 1));
                             if (!String.IsNullOrEmpty(pCont))
                             {
-                                String Pass1 = pCont.Replace("%NICK%", _players[i].Nickname)
+                                var Pass1 = pCont.Replace("%NICK%", _players[i].Nickname)
                                     .Replace("%RANK%", _players[i].Ranking);
-                                String Pass2 =
+                                var Pass2 =
                                     Pass1.Replace("%LEVEL%", _players[i].Level)
                                         .Replace("%STEAMID%", _players[i].SteamID.ToString())
                                         .Replace("%HOURS%", _players[i].TimePlayed.ToString());
-                                String output = Pass2;
+                                var output = Pass2;
                                 try
                                 {
                                     File.WriteAllText(outputFolder + @"\player_" + (i + 1) + ".txt", output,
@@ -2109,7 +2469,7 @@ namespace CELO_Enhanced
                                 }
                                 catch (Exception ex)
                                 {
-                                    logFile.WriteLine("EXCEPTION Rendering LSD: " + ex.ToString());
+                                    logFile.WriteLine("EXCEPTION Rendering LSD: " + ex);
                                 }
                             }
                         }
@@ -2137,7 +2497,7 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                logFile.WriteLine("EXCEPTION Creating factors: " + ex.ToString());
+                logFile.WriteLine("EXCEPTION Creating factors: " + ex);
             }
         }
 
@@ -2149,19 +2509,19 @@ namespace CELO_Enhanced
                 {
                     Thread.Sleep(5000);
 
-                    string dbFile = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
-                    string repFolder = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\replays";
+                    var dbFile = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
+                    var repFolder = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\replays";
                     if (!File.Exists(dbFile) || File.ReadAllText(dbFile) == "")
                     {
                         XmlWriter xWriter = new XmlTextWriter(new StreamWriter(dbFile));
                         xWriter.WriteStartElement("Matches");
                     }
                     Directory.CreateDirectory(repFolder);
-                    String ReplayFile = _cfgDocPath + @"\playback\temp.rec";
-                    String ReplayCopy = Guid.NewGuid() + ".rec";
+                    var ReplayFile = _cfgDocPath + @"\playback\temp.rec";
+                    var ReplayCopy = Guid.NewGuid() + ".rec";
                     File.Copy(ReplayFile, repFolder + @"\" + ReplayCopy, true);
-                    String gameDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
-                    String MapFileName = ReplayManager.RetrieveMap(repFolder + @"\" + ReplayCopy, _gameSelected);
+                    var gameDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
+                    var MapFileName = ReplayManager.RetrieveMap(repFolder + @"\" + ReplayCopy, _gameSelected);
 
                     var document = new XmlDocument();
                     document.Load(dbFile);
@@ -2181,7 +2541,7 @@ namespace CELO_Enhanced
                     MatchNode.AppendChild(TypeNode);
                     MatchNode.AppendChild(PlayersNode);
 
-                    for (int i = 0; i < _players.Count; i++)
+                    for (var i = 0; i < _players.Count; i++)
                     {
                         XmlNode PLNode = document.CreateElement("Player");
 
@@ -2210,45 +2570,11 @@ namespace CELO_Enhanced
                 }
                 catch (Exception ex)
                 {
-                    logFile.WriteLine("EXCEPTION writing to XML (MHV): " + ex.ToString());
+                    logFile.WriteLine("EXCEPTION writing to XML (MHV): " + ex);
                 }
             });
         }
 
         #endregion
-
-        public ImageSource SourceToImage(string source)
-        {
-            BitmapImage bm = new BitmapImage(new Uri("pack://application:,,,/" + source,UriKind.Absolute));
-            return bm;
-        }
-
-        internal class Player
-        {
-            public long SteamID { get; set; }
-            public string Ranking { get; set; }
-            public string RankingAfter { get; set; }
-            public ImageSource Country { get; set; }
-            public string CountryName { get; set; }
-            public int Race { get; set; }
-            public int Slot { get; set; }
-            public string Nickname { get; set; }
-            public string RaceName { get; set; }
-            public long TimePlayed { get; set; }
-            public Teams Team { get; set; }
-            public string Level { get; set; }
-            public string Icon { get; set; }
-        }
-
-        private void mnuLogs_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
-        }
-
-        
-
-        
-
-       
     }
 }

@@ -4,16 +4,16 @@
         Title="CELO - Updater" Height="100" Width="449" WindowStyle="None" WindowStartupLocation="CenterScreen"
         TextOptions.TextFormattingMode="Display" ResizeMode="NoResize" UseLayoutRounding="True"
         Icon="icon-modified.ico" Loaded="updaterWindow_Loaded">
-    <Grid>
-        <ProgressBar x:Name="progressBarUpdate" HorizontalAlignment="Left" Height="25" Margin="20,40,0,0"
-                     VerticalAlignment="Top" Width="410" UseLayoutRounding="True" Foreground="#FF1BB877"
-                     IsIndeterminate="True" />
-        <TextBlock x:Name="txt_status" HorizontalAlignment="Left" Margin="20,13,0,0" TextWrapping="Wrap"
-                   Text="Downloading new update. Please be patient..." VerticalAlignment="Top" />
-        <TextBox x:Name="txtProgress" HorizontalAlignment="Left" Height="25" Margin="20,67,0,0" TextWrapping="Wrap"
-                 Text="0%" VerticalAlignment="Top" Width="410" VerticalContentAlignment="Center"
-                 HorizontalContentAlignment="Center" FontWeight="SemiBold" IsEnabled="False" IsReadOnly="True"
-                 IsUndoEnabled="False" BorderBrush="{x:Null}" Visibility="Hidden" />
+	<Grid>
+		<ProgressBar x:Name="progressBarUpdate" HorizontalAlignment="Left" Height="25" Margin="20,40,0,0"
+		             VerticalAlignment="Top" Width="410" UseLayoutRounding="True" Foreground="#FF1BB877"
+		             IsIndeterminate="True" />
+		<TextBlock x:Name="txt_status" HorizontalAlignment="Left" Margin="20,13,0,0" TextWrapping="Wrap"
+		           Text="Downloading new update. Please be patient..." VerticalAlignment="Top" />
+		<TextBox x:Name="txtProgress" HorizontalAlignment="Left" Height="25" Margin="20,67,0,0" TextWrapping="Wrap"
+		         Text="0%" VerticalAlignment="Top" Width="410" VerticalContentAlignment="Center"
+		         HorizontalContentAlignment="Center" FontWeight="SemiBold" IsEnabled="False" IsReadOnly="True"
+		         IsUndoEnabled="False" BorderBrush="{x:Null}" Visibility="Hidden" />
 
-    </Grid>
+	</Grid>
 </Window>

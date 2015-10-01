@@ -5,60 +5,60 @@
         ResizeMode="NoResize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="icon-modified.ico"
         Loaded="UploadWindow_Loaded" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner" MinWidth="588"
         MinHeight="471" IsManipulationEnabled="True" UseLayoutRounding="True">
-    <Grid>
-        <GroupBox x:Name="groupBox1" Header="COH2.ORG Login credentials:" HorizontalAlignment="Left" Margin="15,10,0,0"
-                  VerticalAlignment="Top" Height="111" Width="549">
-            <Grid>
-                <TextBox x:Name="tBox_username" HorizontalAlignment="Left" Height="19" Margin="75,16,0,0"
-                         TextWrapping="Wrap" VerticalAlignment="Top" Width="452" MaxLength="50"
-                         TextChanged="tBox_username_TextChanged" />
-                <TextBlock HorizontalAlignment="Left" Margin="11,17,0,0" TextWrapping="Wrap" Text="Username:"
-                           VerticalAlignment="Top" />
-                <TextBlock HorizontalAlignment="Left" Margin="13,57,0,0" TextWrapping="Wrap" Text="Password:"
-                           VerticalAlignment="Top" />
-                <PasswordBox x:Name="tBox_password" HorizontalAlignment="Left" Height="19" Margin="75,53,0,17"
-                             Width="318" MaxLength="50" PasswordChanged="tBox_password_PasswordChanged" />
-                <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="407,46,0,0"
-                        VerticalAlignment="Top" Width="120" Height="33" IsDefault="True" Click="btnLogin_Click"
-                        IsEnabled="False" />
-            </Grid>
-        </GroupBox>
-        <ProgressBar x:Name="pgBar" HorizontalAlignment="Left" Height="20" Margin="75,131,0,0" VerticalAlignment="Top"
-                     Width="485" UseLayoutRounding="True" BorderBrush="#FFA0A0A0"
-                     Background="#FFDDE6E2">
-            <ProgressBar.Foreground>
-                <LinearGradientBrush EndPoint="1,0" SpreadMethod="Reflect">
-                    <GradientStop Color="#FF2DC861" Offset="0.8" />
-                    <GradientStop Color="#FF24BFA5" Offset="0.2" />
-                </LinearGradientBrush>
-            </ProgressBar.Foreground>
-        </ProgressBar>
-        <GroupBox x:Name="groupBox2" Header="Replay Title" HorizontalAlignment="Left" Margin="15,164,0,0"
-                  VerticalAlignment="Top" Height="72" Width="549" IsEnabled="False"
-                  IsEnabledChanged="groupBox2_IsEnabledChanged">
-            <Grid>
-                <TextBox x:Name="tBox_title" HorizontalAlignment="Left" Height="23" Margin="10,13,0,0"
-                         TextWrapping="Wrap" VerticalAlignment="Top" Width="517" MaxLength="200" />
-            </Grid>
-        </GroupBox>
-        <GroupBox x:Name="groupBox3" Header="Comment" HorizontalAlignment="Left" Margin="15,241,0,0"
-                  VerticalAlignment="Top" Height="137" Width="549" IsEnabled="False">
-            <Grid>
-                <TextBox x:Name="tBox_comment" HorizontalAlignment="Left" Height="95" Margin="10,10,0,0"
-                         TextWrapping="Wrap" VerticalAlignment="Top" Width="517" AcceptsReturn="True" MaxLines="15"
-                         MaxLength="8000" />
-            </Grid>
-        </GroupBox>
-        <Button x:Name="btnUpload" Content="Upload" HorizontalAlignment="Left" Margin="320,385,0,0"
-                VerticalAlignment="Top" Width="240" Height="32" Click="btnUpload_Click" />
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="15,385,0,0"
-                VerticalAlignment="Top" Width="114" Height="32" Click="btnClose_Click" />
-        <TextBlock HorizontalAlignment="Left" Margin="15,132,0,0" TextWrapping="Wrap" Text="Progress:"
-                   VerticalAlignment="Top" />
+	<Grid>
+		<GroupBox x:Name="groupBox1" Header="COH2.ORG Login credentials:" HorizontalAlignment="Left" Margin="15,10,0,0"
+		          VerticalAlignment="Top" Height="111" Width="549">
+			<Grid>
+				<TextBox x:Name="tBox_username" HorizontalAlignment="Left" Height="19" Margin="75,16,0,0"
+				         TextWrapping="Wrap" VerticalAlignment="Top" Width="452" MaxLength="50"
+				         TextChanged="tBox_username_TextChanged" />
+				<TextBlock HorizontalAlignment="Left" Margin="11,17,0,0" TextWrapping="Wrap" Text="Username:"
+				           VerticalAlignment="Top" />
+				<TextBlock HorizontalAlignment="Left" Margin="13,57,0,0" TextWrapping="Wrap" Text="Password:"
+				           VerticalAlignment="Top" />
+				<PasswordBox x:Name="tBox_password" HorizontalAlignment="Left" Height="19" Margin="75,53,0,17"
+				             Width="318" MaxLength="50" PasswordChanged="tBox_password_PasswordChanged" />
+				<Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="407,46,0,0"
+				        VerticalAlignment="Top" Width="120" Height="33" IsDefault="True" Click="btnLogin_Click"
+				        IsEnabled="False" />
+			</Grid>
+		</GroupBox>
+		<ProgressBar x:Name="pgBar" HorizontalAlignment="Left" Height="20" Margin="75,131,0,0" VerticalAlignment="Top"
+		             Width="485" UseLayoutRounding="True" BorderBrush="#FFA0A0A0"
+		             Background="#FFDDE6E2">
+			<ProgressBar.Foreground>
+				<LinearGradientBrush EndPoint="1,0" SpreadMethod="Reflect">
+					<GradientStop Color="#FF2DC861" Offset="0.8" />
+					<GradientStop Color="#FF24BFA5" Offset="0.2" />
+				</LinearGradientBrush>
+			</ProgressBar.Foreground>
+		</ProgressBar>
+		<GroupBox x:Name="groupBox2" Header="Replay Title" HorizontalAlignment="Left" Margin="15,164,0,0"
+		          VerticalAlignment="Top" Height="72" Width="549" IsEnabled="False"
+		          IsEnabledChanged="groupBox2_IsEnabledChanged">
+			<Grid>
+				<TextBox x:Name="tBox_title" HorizontalAlignment="Left" Height="23" Margin="10,13,0,0"
+				         TextWrapping="Wrap" VerticalAlignment="Top" Width="517" MaxLength="200" />
+			</Grid>
+		</GroupBox>
+		<GroupBox x:Name="groupBox3" Header="Comment" HorizontalAlignment="Left" Margin="15,241,0,0"
+		          VerticalAlignment="Top" Height="137" Width="549" IsEnabled="False">
+			<Grid>
+				<TextBox x:Name="tBox_comment" HorizontalAlignment="Left" Height="95" Margin="10,10,0,0"
+				         TextWrapping="Wrap" VerticalAlignment="Top" Width="517" AcceptsReturn="True" MaxLines="15"
+				         MaxLength="8000" />
+			</Grid>
+		</GroupBox>
+		<Button x:Name="btnUpload" Content="Upload" HorizontalAlignment="Left" Margin="320,385,0,0"
+		        VerticalAlignment="Top" Width="240" Height="32" Click="btnUpload_Click" />
+		<Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="15,385,0,0"
+		        VerticalAlignment="Top" Width="114" Height="32" Click="btnClose_Click" />
+		<TextBlock HorizontalAlignment="Left" Margin="15,132,0,0" TextWrapping="Wrap" Text="Progress:"
+		           VerticalAlignment="Top" />
 
-        <WindowsFormsHost x:Name="winHost" HorizontalAlignment="Left" Height="17" Margin="159,400,0,0"
-                          VerticalAlignment="Top" Width="21" Visibility="Hidden" />
+		<WindowsFormsHost x:Name="winHost" HorizontalAlignment="Left" Height="17" Margin="159,400,0,0"
+		                  VerticalAlignment="Top" Width="21" Visibility="Hidden" />
 
 
-    </Grid>
+	</Grid>
 </Window>

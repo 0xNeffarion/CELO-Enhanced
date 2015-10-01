@@ -5,35 +5,34 @@
         ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterOwner"
         UseLayoutRounding="True" ResizeMode="NoResize" SizeToContent="WidthAndHeight" MinWidth="511" MinHeight="170"
         Icon="icon-modified.ico">
-    <Grid>
-        <Label x:Name="lbl_Caption" Content="%CAPTION%" HorizontalAlignment="Left" Margin="10,10,0,0"
-               VerticalAlignment="Top" Height="54" Width="473" TextOptions.TextFormattingMode="Display"
-               UseLayoutRounding="False" TabIndex="0" />
-        <TextBox x:Name="tBox_Text" HorizontalAlignment="Left" Height="23" Margin="10,69,0,0" Text="%TEXT%"
-                 VerticalAlignment="Top" Width="473" TextOptions.TextFormattingMode="Display" TabIndex="1"
-                  />
-        <Button x:Name="btn_OK" Margin="279,100,0,10" HorizontalAlignment="Left" Width="113" IsDefault="True"
-                TabIndex="2" Click="btn_OK_Click">
+	<Grid>
+		<Label x:Name="lbl_Caption" Content="%CAPTION%" HorizontalAlignment="Left" Margin="10,10,0,0"
+		       VerticalAlignment="Top" Height="54" Width="473" TextOptions.TextFormattingMode="Display"
+		       UseLayoutRounding="False" TabIndex="0" />
+		<TextBox x:Name="tBox_Text" HorizontalAlignment="Left" Height="23" Margin="10,69,0,0" Text="%TEXT%"
+		         VerticalAlignment="Top" Width="473" TextOptions.TextFormattingMode="Display" TabIndex="1" />
+		<Button x:Name="btn_OK" Margin="279,100,0,10" HorizontalAlignment="Left" Width="113" IsDefault="True"
+		        TabIndex="2" Click="btn_OK_Click">
 
-            <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Image Source="Resources/accept.png" Stretch="None" Width="16"
-                       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                       UseLayoutRounding="True" />
-                <TextBlock Text=" OK" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
-            </DockPanel>
+			<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+				<Image Source="Resources/accept.png" Stretch="None" Width="16"
+				       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+				       UseLayoutRounding="True" />
+				<TextBlock Text=" OK" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
+			</DockPanel>
 
-        </Button>
-        <Button x:Name="btn_Cancel" Margin="406,100,0,10" HorizontalAlignment="Left" Width="79" IsCancel="True"
-                TabIndex="3">
+		</Button>
+		<Button x:Name="btn_Cancel" Margin="406,100,0,10" HorizontalAlignment="Left" Width="79" IsCancel="True"
+		        TabIndex="3">
 
-            <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Image Source="Resources/cancel.png" Stretch="None" Width="16"
-                       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                       UseLayoutRounding="True" />
-                <TextBlock Text=" Cancel" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
-            </DockPanel>
+			<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+				<Image Source="Resources/cancel.png" Stretch="None" Width="16"
+				       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+				       UseLayoutRounding="True" />
+				<TextBlock Text=" Cancel" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
+			</DockPanel>
 
-        </Button>
+		</Button>
 
-    </Grid>
+	</Grid>
 </Window>

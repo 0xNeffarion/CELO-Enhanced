@@ -11,10 +11,10 @@ namespace CELO_Enhanced
     /// </summary>
     public partial class ScriptCompiler : Window
     {
+        private readonly StringBuilder content;
         private readonly String ScripComp;
         private readonly String ScriptOut;
         private readonly String TempF;
-        private readonly StringBuilder content;
 
         public ScriptCompiler(String outputFile, String ScriptCompilerFile, String TempFile, StringBuilder ScriptContent)
         {
@@ -48,7 +48,7 @@ namespace CELO_Enhanced
                 proc.StartInfo = st;
                 proc.Start();
                 proc.WaitForExit(4000);
-                int ex = proc.ExitCode;
+                var ex = proc.ExitCode;
                 if (ex == 0)
                 {
                     Utilities.showMessage(this, "Script Compiled!\nLocation: " + ScriptOut, "Script");
@@ -62,7 +62,6 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                
             }
         }
     }

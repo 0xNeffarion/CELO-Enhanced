@@ -4,47 +4,53 @@
         WindowStartupLocation="CenterScreen" UseLayoutRounding="True"
         ScrollViewer.VerticalScrollBarVisibility="Disabled" TextOptions.TextFormattingMode="Display"
         ResizeMode="NoResize" SizeToContent="WidthAndHeight" Loaded="startWindow_Loaded" MinWidth="653" MinHeight="365"
-        Title="Company of ELO Enhanced - Start">
-    <Grid>
-        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="145" VerticalAlignment="Top" Width="503"
-               Source="Resources/StartWindow Logo.png" Margin="72,5,0,0" />
-        <Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True" x:Name="imgGameWatcher"
-               HorizontalAlignment="Left" Height="100" Margin="25,155,0,0" VerticalAlignment="Top" Width="115"
-               Source="Resources/GameWatcher_0.png" MouseEnter="Image_MouseEnter"
-               MouseLeave="imgGameWatcher_MouseLeave" Cursor="Hand" ToolTip="Launch Game Watcher"
-               PreviewMouseLeftButtonDown="imgGameWatcher_PreviewMouseLeftButtonDown" />
-        <Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True" x:Name="imgRepManager"
-               HorizontalAlignment="Left" Height="100" Margin="145,155,0,0" VerticalAlignment="Top" Width="115"
-               Source="Resources/ReplayManager_0.png" Cursor="Hand" MouseEnter="imgRepManager_MouseEnter"
-               MouseLeave="imgRepManager_MouseLeave" ToolTip="Launch Replay Manager"
-               PreviewMouseLeftButtonDown="imgRepManager_PreviewMouseLeftButtonDown" />
-        <Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True" x:Name="imgMHV" HorizontalAlignment="Left"
-               Height="100" Margin="265,155,0,0" VerticalAlignment="Top" Width="115"
-               Source="Resources/MatchHistoryViewer_0.png" Cursor="Hand" MouseEnter="imgMHV_MouseEnter"
-               MouseLeave="imgMHV_MouseLeave" ToolTip="Launch Match History Viewer"
-               PreviewMouseLeftButtonDown="imgMHV_PreviewMouseLeftButtonDown" />
-        <Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True" x:Name="imgLSD" HorizontalAlignment="Left"
-               Height="100" Margin="383,155,0,0" VerticalAlignment="Top" Width="115" Source="Resources/LSD_0.png"
-               Cursor="Hand" MouseEnter="imgLSD_MouseEnter" MouseLeave="imgLSD_MouseLeave"
-               ToolTip="Launch Livestream Displayer" PreviewMouseLeftButtonDown="imgLSD_PreviewMouseLeftButtonDown" />
-        <GroupBox Header="Start-up Options" HorizontalAlignment="Left" Margin="11,260,0,0" VerticalAlignment="Top"
-                  Height="60" Width="619">
-            <Grid>
-                <CheckBox x:Name="cBoxDontShow" Content="Do not show this window next time." HorizontalAlignment="Left"
-                          Margin="19,10,0,0" VerticalAlignment="Top" Height="19" Width="224"
-                          VerticalContentAlignment="Center" Checked="cBoxDontShow_Checked" />
-                <Label Content="Game:" HorizontalAlignment="Left" Margin="373,3,0,0" VerticalAlignment="Top"
-                       Height="30" VerticalContentAlignment="Center" />
-                <ComboBox x:Name="cBoxGame" HorizontalAlignment="Left" Margin="421,8,0,0" VerticalAlignment="Top"
-                          Width="167" SelectedIndex="1" SelectionChanged="cBoxGame_SelectionChanged">
-                    <ComboBoxItem Content="Company of Heroes 1" />
-                    <ComboBoxItem Content="Company of Heroes 2" />
-                </ComboBox>
-            </Grid>
-        </GroupBox>
-        <Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True" x:Name="imgHotKey" HorizontalAlignment="Left"
-               Height="100" Margin="503,155,0,0" VerticalAlignment="Top" Width="115" Source="Resources/HotKey_0.png"
-               Cursor="Hand" ToolTip="Launch HotKey Creator" MouseEnter="imgHotKey_MouseEnter"
-               MouseLeave="imgHotKey_MouseLeave" PreviewMouseLeftButtonDown="imgHotKey_PreviewMouseLeftButtonDown" />
-    </Grid>
+        Title="Company of ELO Enhanced - Start" Closing="startWindow_Closing">
+	<Grid>
+		<Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="145" VerticalAlignment="Top"
+		       Width="503"
+		       Source="Resources/StartWindow Logo.png" Margin="72,5,0,0" />
+		<Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True"
+		       x:Name="imgGameWatcher"
+		       HorizontalAlignment="Left" Height="100" Margin="25,155,0,0" VerticalAlignment="Top" Width="115"
+		       Source="Resources/GameWatcher_0.png" MouseEnter="Image_MouseEnter"
+		       MouseLeave="imgGameWatcher_MouseLeave" Cursor="Hand" ToolTip="Launch Game Watcher"
+		       PreviewMouseLeftButtonDown="imgGameWatcher_PreviewMouseLeftButtonDown" />
+		<Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True"
+		       x:Name="imgRepManager"
+		       HorizontalAlignment="Left" Height="100" Margin="145,155,0,0" VerticalAlignment="Top" Width="115"
+		       Source="Resources/ReplayManager_0.png" Cursor="Hand" MouseEnter="imgRepManager_MouseEnter"
+		       MouseLeave="imgRepManager_MouseLeave" ToolTip="Launch Replay Manager"
+		       PreviewMouseLeftButtonDown="imgRepManager_PreviewMouseLeftButtonDown" />
+		<Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True"
+		       x:Name="imgMHV" HorizontalAlignment="Left"
+		       Height="100" Margin="265,155,0,0" VerticalAlignment="Top" Width="115"
+		       Source="Resources/MatchHistoryViewer_0.png" Cursor="Hand" MouseEnter="imgMHV_MouseEnter"
+		       MouseLeave="imgMHV_MouseLeave" ToolTip="Launch Match History Viewer"
+		       PreviewMouseLeftButtonDown="imgMHV_PreviewMouseLeftButtonDown" />
+		<Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True"
+		       x:Name="imgLSD" HorizontalAlignment="Left"
+		       Height="100" Margin="383,155,0,0" VerticalAlignment="Top" Width="115" Source="Resources/LSD_0.png"
+		       Cursor="Hand" MouseEnter="imgLSD_MouseEnter" MouseLeave="imgLSD_MouseLeave"
+		       ToolTip="Launch Livestream Displayer" PreviewMouseLeftButtonDown="imgLSD_PreviewMouseLeftButtonDown" />
+		<GroupBox Header="Start-up Options" HorizontalAlignment="Left" Margin="11,260,0,0" VerticalAlignment="Top"
+		          Height="60" Width="619">
+			<Grid>
+				<CheckBox x:Name="cBoxDontShow" Content="Show this window next start up" HorizontalAlignment="Left"
+				          Margin="19,13,0,0" VerticalAlignment="Top" Height="19" Width="224" Checked="cBoxDontShow_Checked"
+				          IsChecked="True" />
+				<Label Content="Game:" HorizontalAlignment="Left" Margin="373,3,0,0" VerticalAlignment="Top"
+				       Height="30" VerticalContentAlignment="Center" />
+				<ComboBox x:Name="cBoxGame" HorizontalAlignment="Left" Margin="421,8,0,0" VerticalAlignment="Top"
+				          Width="167" SelectedIndex="1" SelectionChanged="cBoxGame_SelectionChanged">
+					<ComboBoxItem Content="Company of Heroes 1" />
+					<ComboBoxItem Content="Company of Heroes 2" />
+				</ComboBox>
+			</Grid>
+		</GroupBox>
+		<Image RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True"
+		       x:Name="imgHotKey" HorizontalAlignment="Left"
+		       Height="100" Margin="503,155,0,0" VerticalAlignment="Top" Width="115" Source="Resources/HotKey_0.png"
+		       Cursor="Hand" ToolTip="Launch HotKey Creator" MouseEnter="imgHotKey_MouseEnter"
+		       MouseLeave="imgHotKey_MouseLeave" PreviewMouseLeftButtonDown="imgHotKey_PreviewMouseLeftButtonDown" />
+	</Grid>
 </Window>

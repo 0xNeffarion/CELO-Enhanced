@@ -29,6 +29,231 @@ namespace CELO_Enhanced
         private readonly Dictionary<string, string> helpKeys = new Dictionary<string, string>();
         private readonly Dictionary<string, string> possKeys = new Dictionary<string, string>();
 
+        public HotKeyGen()
+        {
+            InitializeComponent();
+        }
+
+        public Boolean CheckAutoHotKey()
+        {
+            if (Directory.Exists(MainWindow._AssemblyDir + @"\data\assemblies\ahk"))
+            {
+                if (Directory.GetFiles(MainWindow._AssemblyDir + @"\data\assemblies\ahk").Length > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void HotKey_Generator_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!CheckAutoHotKey())
+            {
+                if (MessageBox.Show(this,
+                    "CELO will now download AutoHotkey Script compiler. Do you want to continue?",
+                    "AutoHotkey Script Compiler", MessageBoxButton.YesNo, MessageBoxImage.Warning) ==
+                    MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        var wb = new WebClient();
+                        wb.DownloadFileCompleted += wb_DownloadFileCompleted;
+                        using (wb)
+                        {
+                            wb.DownloadFileAsync(
+                                new Uri("http://www.neffware.com/downloads/celo/data/AHK_Compiler.zip"), filename);
+                        }
+                        var ls = new LoadingScreen(this, "Downloading & Installing AutoHotkey Script Compiler...",
+                            CheckAutoHotKey);
+                        ls.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        Utilities.showError(this,
+                            "Could not download or install script compiler. Please try again later");
+                    }
+                }
+                else
+                {
+                    Close();
+                }
+            }
+            FillKeys();
+            FillHelpers();
+            FillComboBoxes_1();
+            FillComboBoxes_2();
+            FillDefaults();
+            ApplyDefaults();
+            FillConnections();
+
+            var inif = new Utilities.INIFile(MainWindow._AssemblyDir + @"\config.ini");
+            tBoxOutput.Text = inif.IniReadValue("HotKey", "Output");
+        }
+
+        private void wb_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+                var zipFile = new ZipFile(filename);
+
+                Directory.CreateDirectory(MainWindow._AssemblyDir + @"\data\assemblies\ahk");
+
+                zipFile.ExtractAll(MainWindow._AssemblyDir + @"\data\assemblies\ahk");
+                MessageBox.Show("Installation Complete!");
+            }
+            catch (Exception exception)
+            {
+                Utilities.showError(this,
+                    "Error occured while installing AutoHotKey Script Compiler\n" + exception.StackTrace);
+            }
+            finally
+            {
+            }
+        }
+
+        private void btnDefault_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show(this, "Are you sure you want to reset all keys?", "Reset", MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
+            {
+                ApplyDefaults();
+                foreach (var box in cb3)
+                {
+                    box.Value.SelectedIndex = 0;
+                }
+                Utilities.showMessage(this, "Reset complete!", "Reset");
+            }
+        }
+
+        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            if (tBoxOutput.Text == "")
+            {
+                Utilities.showMessage(this,
+                    "You have not provided an output for the compiled script!\nPlease select a folder now or go to options later.",
+                    "Output folder");
+                btnBrowseOutput_Click(btnBrowseOutput, null);
+            }
+            try
+            {
+                var TempFileName = Path.GetTempPath() + Guid.NewGuid() + ".ahk";
+                var ScriptCompilerPath = MainWindow._AssemblyDir + @"\data\assemblies\ahk\Ahk2Exe.exe";
+                var OutputPath = tBoxOutput.Text;
+
+                if (!Directory.Exists(OutputPath))
+                {
+                    Directory.CreateDirectory(OutputPath);
+                }
+                var builder = new StringBuilder();
+                if (File.Exists(ScriptCompilerPath) && Directory.Exists(OutputPath))
+                {
+                    builder.AppendLine("#IfWinActive, Company Of Heroes");
+                    foreach (var duo in connectionBox)
+                    {
+                        var key = "";
+                        var content = "";
+                        if (GetCBoxValue(duo.Value.MainBox) != duo.Value.DefaultKey)
+                        {
+                            foreach (var possKey in possKeys)
+                            {
+                                if (GetCBoxValue(duo.Value.MainBox) == possKey.Key)
+                                {
+                                    key = possKey.Value;
+                                    break;
+                                }
+                            }
+
+                            if (GetCBoxValue(duo.Value.HelperBox) != "None")
+                            {
+                                switch (GetCBoxValue(duo.Value.HelperBox))
+                                {
+                                    case @"+ Control":
+                                        key = "^" + key;
+                                        break;
+                                    case @"+ Shift":
+                                        key = "+" + key;
+                                        break;
+                                    case @"+ Alt":
+                                        key = "!" + key;
+                                        break;
+                                }
+                            }
+                            if (!String.IsNullOrEmpty(key))
+                            {
+                                content = key + "::" + duo.Value.Key;
+                                builder.AppendLine(content);
+                            }
+                        }
+                        else
+                        {
+                            if (GetCBoxValue(duo.Value.HelperBox) != "None")
+                            {
+                                key = duo.Value.Key;
+
+                                switch (GetCBoxValue(duo.Value.HelperBox))
+                                {
+                                    case @"+ Control":
+                                        key = "^" + key;
+                                        break;
+                                    case @"+ Shift":
+                                        key = "+" + key;
+                                        break;
+                                    case @"+ Alt":
+                                        key = "!" + key;
+                                        break;
+                                }
+                            }
+                            if (!String.IsNullOrEmpty(key))
+                            {
+                                content = key + "::" + duo.Value.Key;
+                                builder.AppendLine(content);
+                            }
+                        }
+                    }
+                    var sc = new ScriptCompiler(OutputPath + @"\CoH_Keys.exe", ScriptCompilerPath, TempFileName, builder);
+                    sc.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+        }
+
+        private string GetCBoxValue(ComboBox cb)
+        {
+            return cb.SelectionBoxItem.ToString();
+        }
+
+        private void btnBrowseOutput_Click(object sender, RoutedEventArgs e)
+        {
+            var fd = new FolderBrowserDialog();
+            using (fd)
+            {
+                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    tBoxOutput.Text = fd.SelectedPath;
+                    var inif = new Utilities.INIFile(MainWindow._AssemblyDir + @"\config.ini");
+                    inif.IniWriteValue("HotKey", "Output", tBoxOutput.Text);
+                }
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private class DuoCombos
+        {
+            public ComboBox MainBox { get; set; }
+            public ComboBox HelperBox { get; set; }
+            public string DefaultKey { get; set; }
+            public string Key { get; set; }
+        }
+
         #region Keys
 
         private void FillComboBoxes_1()
@@ -275,231 +500,5 @@ namespace CELO_Enhanced
         }
 
         #endregion
-
-        public HotKeyGen()
-        {
-            InitializeComponent();
-        }
-
-        public Boolean CheckAutoHotKey()
-        {
-            if (Directory.Exists(MainWindow._AssemblyDir + @"\data\assemblies\ahk"))
-            {
-                if (Directory.GetFiles(MainWindow._AssemblyDir + @"\data\assemblies\ahk").Length > 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void HotKey_Generator_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!CheckAutoHotKey())
-            {
-                if (MessageBox.Show(this,
-                    "CELO will now download AutoHotkey Script compiler. Do you want to continue?",
-                    "AutoHotkey Script Compiler", MessageBoxButton.YesNo, MessageBoxImage.Warning) ==
-                    MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        var wb = new WebClient();
-                        wb.DownloadFileCompleted += wb_DownloadFileCompleted;
-                        using (wb)
-                        {
-                            wb.DownloadFileAsync(
-                                new Uri("http://www.neffware.com/downloads/celo/data/AHK_Compiler.zip"), filename);
-                        }
-                        var ls = new LoadingScreen(this, "Downloading & Installing AutoHotkey Script Compiler...",
-                            CheckAutoHotKey);
-                        ls.ShowDialog();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        Utilities.showError(this,
-                            "Could not download or install script compiler. Please try again later");
-                    }
-                }
-                else
-                {
-                    Close();
-                }
-            }
-            FillKeys();
-            FillHelpers();
-            FillComboBoxes_1();
-            FillComboBoxes_2();
-            FillDefaults();
-            ApplyDefaults();
-            FillConnections();
-
-            var inif = new Utilities.INIFile(MainWindow._AssemblyDir + @"\config.ini");
-            tBoxOutput.Text = inif.IniReadValue("HotKey", "Output");
-        }
-
-        private void wb_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            try
-            {
-                var zipFile = new ZipFile(filename);
-
-                Directory.CreateDirectory(MainWindow._AssemblyDir + @"\data\assemblies\ahk");
-
-                zipFile.ExtractAll(MainWindow._AssemblyDir + @"\data\assemblies\ahk");
-                MessageBox.Show("Installation Complete!");
-            }
-            catch (Exception exception)
-            {
-                Utilities.showError(this,
-                    "Error occured while installing AutoHotKey Script Compiler\n" + exception.StackTrace);
-            }
-            finally
-            {
-            }
-        }
-
-        private void btnDefault_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show(this, "Are you sure you want to reset all keys?", "Reset", MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
-            {
-                ApplyDefaults();
-                foreach (var box in cb3)
-                {
-                    box.Value.SelectedIndex = 0;
-                }
-                Utilities.showMessage(this, "Reset complete!", "Reset");
-            }
-        }
-
-        private void btnGenerate_Click(object sender, RoutedEventArgs e)
-        {
-            if (tBoxOutput.Text == "")
-            {
-                Utilities.showMessage(this,
-                    "You have not provided an output for the compiled script!\nPlease select a folder now or go to options later.",
-                    "Output folder");
-                btnBrowseOutput_Click(btnBrowseOutput, null);
-            }
-            try
-            {
-                string TempFileName = Path.GetTempPath() + Guid.NewGuid() + ".ahk";
-                string ScriptCompilerPath = MainWindow._AssemblyDir + @"\data\assemblies\ahk\Ahk2Exe.exe";
-                string OutputPath = tBoxOutput.Text;
-
-                if (!Directory.Exists(OutputPath))
-                {
-                    Directory.CreateDirectory(OutputPath);
-                }
-                var builder = new StringBuilder();
-                if (File.Exists(ScriptCompilerPath) && Directory.Exists(OutputPath))
-                {
-                    builder.AppendLine("#IfWinActive, Company Of Heroes");
-                    foreach (var duo in connectionBox)
-                    {
-                        string key = "";
-                        string content = "";
-                        if (GetCBoxValue(duo.Value.MainBox) != duo.Value.DefaultKey)
-                        {
-                            foreach (var possKey in possKeys)
-                            {
-                                if (GetCBoxValue(duo.Value.MainBox) == possKey.Key)
-                                {
-                                    key = possKey.Value;
-                                    break;
-                                }
-                            }
-
-                            if (GetCBoxValue(duo.Value.HelperBox) != "None")
-                            {
-                                switch (GetCBoxValue(duo.Value.HelperBox))
-                                {
-                                    case @"+ Control":
-                                        key = "^" + key;
-                                        break;
-                                    case @"+ Shift":
-                                        key = "+" + key;
-                                        break;
-                                    case @"+ Alt":
-                                        key = "!" + key;
-                                        break;
-                                }
-                            }
-                            if (!String.IsNullOrEmpty(key))
-                            {
-                                content = key + "::" + duo.Value.Key;
-                                builder.AppendLine(content);
-                            }
-                        }
-                        else
-                        {
-                            if (GetCBoxValue(duo.Value.HelperBox) != "None")
-                            {
-                                key = duo.Value.Key;
-
-                                switch (GetCBoxValue(duo.Value.HelperBox))
-                                {
-                                    case @"+ Control":
-                                        key = "^" + key;
-                                        break;
-                                    case @"+ Shift":
-                                        key = "+" + key;
-                                        break;
-                                    case @"+ Alt":
-                                        key = "!" + key;
-                                        break;
-                                }
-                            }
-                            if (!String.IsNullOrEmpty(key))
-                            {
-                                content = key + "::" + duo.Value.Key;
-                                builder.AppendLine(content);
-                            }
-                        }
-                    }
-                    var sc = new ScriptCompiler(OutputPath + @"\CoH_Keys.exe", ScriptCompilerPath, TempFileName, builder);
-                    sc.ShowDialog();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
-            }
-        }
-
-        private string GetCBoxValue(ComboBox cb)
-        {
-            return cb.SelectionBoxItem.ToString();
-        }
-
-
-        private void btnBrowseOutput_Click(object sender, RoutedEventArgs e)
-        {
-            var fd = new FolderBrowserDialog();
-            using (fd)
-            {
-                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    tBoxOutput.Text = fd.SelectedPath;
-                    var inif = new Utilities.INIFile(MainWindow._AssemblyDir + @"\config.ini");
-                    inif.IniWriteValue("HotKey", "Output", tBoxOutput.Text);
-                }
-            }
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private class DuoCombos
-        {
-            public ComboBox MainBox { get; set; }
-            public ComboBox HelperBox { get; set; }
-            public string DefaultKey { get; set; }
-            public string Key { get; set; }
-        }
     }
 }

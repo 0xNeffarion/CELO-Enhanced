@@ -10,12 +10,12 @@ namespace CELO_Enhanced
     /// </summary>
     public partial class LoadingScreen : Window
     {
-        private readonly Func<Boolean> CheckEnd;
         private readonly DispatcherTimer _chek = new DispatcherTimer(DispatcherPriority.Background);
         private readonly List<String> _cnt = new List<string>();
         private readonly DispatcherTimer _end = new DispatcherTimer(DispatcherPriority.Background);
         private readonly DispatcherTimer _med = new DispatcherTimer(DispatcherPriority.Background);
         private readonly DispatcherTimer _tim = new DispatcherTimer(DispatcherPriority.Background);
+        private readonly Func<Boolean> CheckEnd;
         private readonly Boolean valToCheck;
         private int _current;
 
@@ -24,8 +24,8 @@ namespace CELO_Enhanced
             InitializeComponent();
             _cnt = LoadList;
             var rng = new Random();
-            int val = rng.Next(min, max + 1);
-            int eachVal = val/LoadList.Count;
+            var val = rng.Next(min, max + 1);
+            var eachVal = val/LoadList.Count;
             _tim.Interval = TimeSpan.FromMilliseconds(val);
             _tim.IsEnabled = false;
 
@@ -33,6 +33,14 @@ namespace CELO_Enhanced
             _med.Interval = TimeSpan.FromMilliseconds(eachVal);
             _med.Tick += _med_Tick;
             _tim.Tick += _tim_Tick;
+        }
+
+        public LoadingScreen(Window win, string message)
+        {
+            InitializeComponent();
+            _cnt.Add(message);
+            _current = 0;
+            Owner = win;
         }
 
         public LoadingScreen(double x, double y, List<String> LoadList, int min, int max)
@@ -43,8 +51,8 @@ namespace CELO_Enhanced
             _cnt = LoadList;
 
             var rng = new Random();
-            int val = rng.Next(min, max + 1);
-            int eachVal = val/LoadList.Count;
+            var val = rng.Next(min, max + 1);
+            var eachVal = val/LoadList.Count;
             _tim.Interval = TimeSpan.FromMilliseconds(val);
             _tim.IsEnabled = false;
 
@@ -85,7 +93,6 @@ namespace CELO_Enhanced
                 Close();
             }
         }
-
 
         private void _end_Tick(object sender, EventArgs e)
         {

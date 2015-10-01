@@ -1,33 +1,38 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace CELO_Enhanced
 {
     public partial class ReplayManager : Window
     {
-
-        private Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         private readonly string doc_path;
         private readonly StringBuilder errorNames = new StringBuilder();
         private readonly string exe_path;
         private readonly int game;
+        private readonly Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         private readonly ObservableCollection<Replay> replays = new ObservableCollection<Replay>();
         private FileSystemWatcher fsw;
+        private bool isChatEnabled = true;
+        private Utilities.INIFile mainINI;
         private Boolean pauseWatch;
+        private LoadingScreen sc;
         private int searchMethod;
 
         public ReplayManager(string doc, string exe, int game)
@@ -93,34 +98,42 @@ namespace CELO_Enhanced
             }
         }
 
-        private long DetectNextPlayerPos(ref FileStream f, long pos)
+        private long DetectNextPlayerPos(ref FileStream f, long pos, int failsafeNum = 450)
         {
-            FileStream fs = f;
+            var fs = f;
             fs.Position = pos;
-            int failsafe = 0;
-            while (failsafe < 450)
+            var failsafe = 0;
+            while (failsafe < failsafeNum)
             {
-                int bt = fs.ReadByte();
-                long streamPos = fs.Position;
+                var bt = fs.ReadByte();
+                var streamPos = fs.Position;
                 if (bt == 0)
                 {
-                    int bt2 = fs.ReadByte();
-                    if (bt2 != 0 && bt2 != 1) // POSSIBLE PLAYER
+                    var bt2 = fs.ReadByte();
+                    if (bt2 != 0 && bt2 > 31 && bt2 < 225) // POSSIBLE PLAYER
                     {
-                        int bt3 = fs.ReadByte();
+                        var bt3 = fs.ReadByte();
                         if (bt3 == 0)
                         {
-                            int bt4 = fs.ReadByte();
-                            if (bt4 != 0 && bt4 != 1)
+                            var bt4 = fs.ReadByte();
+                            if (bt4 != 0 && bt4 > 31 && bt4 < 225)
                             {
-                                int bt5 = fs.ReadByte();
+                                var bt5 = fs.ReadByte();
                                 if (bt5 == 0)
                                 {
-                                    int bt6 = fs.ReadByte();
-                                    if (bt6 != 0) // CERTAIN PLAYER
+                                    var bt6 = fs.ReadByte();
+                                    if (bt6 != 0 && bt6 > 31 && bt6 < 225)
                                     {
-                                        fs.Position = streamPos;
-                                        return streamPos;
+                                        var bt7 = fs.ReadByte();
+                                        if (bt7 == 0)
+                                        {
+                                            var bt8 = fs.ReadByte();
+                                            if (bt8 != 0 && bt8 > 31 && bt8 < 225) // CERTAIN PLAYER
+                                            {
+                                                fs.Position = streamPos;
+                                                return streamPos;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -152,28 +165,29 @@ namespace CELO_Enhanced
             {
                 pic_error.Visibility = Visibility.Visible;
             }
+            Dispatcher.Invoke(new Action(sc.Close));
+            Dispatcher.Invoke(new Action(SetUpTag));
         }
 
         private void SetUpTag()
         {
             try
             {
-                DateTime today = DateTime.Today;
-                DateTime yesterday = DateTime.Today.AddDays(-1);
+                var today = DateTime.Today;
+                var yesterday = DateTime.Today.AddDays(-1);
 
-                int index = 0;
-                foreach (Replay replay in replays)
+                var index = 0;
+                foreach (var replay in replays)
                 {
                     var file = new FileInfo(doc_path + @"\playback\" + replay.name + ".rec");
-                    DateTime matchDay;
-                    String daz = replay.game_date.Replace("~ ", "");
+                    var matchDay = new DateTime();
+                    var daz = replay.game_date;
                     try
                     {
-                        matchDay = DateTime.Parse(daz);
+                        matchDay = DateTime.ParseExact(daz, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
                     }
                     catch (FormatException)
                     {
-                        matchDay = file.LastWriteTime;
                     }
                     replays[index].tag = "Other days";
                     if (matchDay.Day == today.Day && matchDay.Day > yesterday.Day) // replay made today
@@ -191,7 +205,7 @@ namespace CELO_Enhanced
                     index++;
                 }
                 replayList.ItemsSource = replays;
-                ICollectionView view = CollectionViewSource.GetDefaultView(replayList.ItemsSource);
+                var view = CollectionViewSource.GetDefaultView(replayList.ItemsSource);
                 PropertyGroupDescription groupDescription = groupDescription = new PropertyGroupDescription("tag");
                 view.GroupDescriptions.Clear();
                 view.GroupDescriptions.Add(groupDescription);
@@ -205,26 +219,29 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
             }
         }
 
         private void LoadList()
         {
-            DetectReplays();
-            SetUpTag();
+            replays.Clear();
+            errorNames.Clear();
+            sc = new LoadingScreen(this, "Parsing Replays Information");
+            var thread = new Thread(DetectReplays);
+            thread.Start();
+            sc.ShowDialog();
         }
 
         public static string RetrieveMap(string replay, int game)
         {
-            FileStream fs = File.OpenRead(replay);
-            String returnStr = "unknown";
+            var fs = File.OpenRead(replay);
+            var returnStr = "unknown";
             switch (game)
             {
                 case 0:
                     fs.Seek(325, SeekOrigin.Begin);
                     var z_map = new byte[200];
-                    int fl = 0;
+                    var fl = 0;
                     long pos = 0;
                     while (fl != 2)
                     {
@@ -242,13 +259,13 @@ namespace CELO_Enhanced
                     catch (Exception)
                     {
                     }
-                    string MF = ((Utilities.Convertions.ByteArrToAscii(z_map).Split(new[] {'\\'}))[3]);
-                    String[] MapData = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh1\maps.data");
-                    foreach (string line in MapData)
+                    var MF = ((Utilities.Convertions.ByteArrToAscii(z_map).Split('\\'))[3]);
+                    var MapData = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh1\maps.data");
+                    foreach (var line in MapData)
                     {
                         if (!line.StartsWith("#") || !line.Contains("#"))
                         {
-                            string mapf = (Regex.Split(line, "==")[1].Split(new[] {'\\'}))[3];
+                            var mapf = (Regex.Split(line, "==")[1].Split('\\'))[3];
                             if (mapf.Equals(MF))
                             {
                                 returnStr = mapf;
@@ -260,7 +277,7 @@ namespace CELO_Enhanced
                 case 1:
                     fs.Seek(282, SeekOrigin.Begin);
                     var z_map2 = new byte[200];
-                    int fl2 = 0;
+                    var fl2 = 0;
                     long pos2 = 0;
                     while (fl2 != 2)
                     {
@@ -279,13 +296,13 @@ namespace CELO_Enhanced
                     {
                         break;
                     }
-                    string MF2 = ((Utilities.Convertions.ByteArrToAscii(z_map2).Split(new[] {'\\'}))[3]);
-                    String[] MapData2 = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh2\maps.data");
-                    foreach (string line in MapData2)
+                    var MF2 = ((Utilities.Convertions.ByteArrToAscii(z_map2).Split('\\'))[3]);
+                    var MapData2 = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh2\maps.data");
+                    foreach (var line in MapData2)
                     {
                         if (!line.Contains("#"))
                         {
-                            string mapf = (Regex.Split(line, "==")[1].Split(new[] {'\\'}))[3];
+                            var mapf = (Regex.Split(line, "==")[1].Split('\\'))[3];
                             if (mapf.Equals(MF2.Remove(MF2.Length - 1, 1)))
                             {
                                 returnStr = mapf;
@@ -302,73 +319,98 @@ namespace CELO_Enhanced
 
         private void ParseCOH2_Replays()
         {
-            replays.Clear();
-            errorNames.Clear();
-            int z = 0;
+            var z = 0;
             var di = new DirectoryInfo(doc_path + @"\playback");
-
-            foreach (FileInfo file in di.GetFiles("*.rec"))
+            Byte[] btNeedle = {68, 65, 84, 65, 80, 76, 65, 83};
+            var watch = new Stopwatch();
+            watch.Start();
+            foreach (var file in di.GetFiles("*.rec"))
             {
+                var bytArray = File.ReadAllBytes(file.FullName);
                 try
                 {
-                    Console.WriteLine("Found replay: " + file.Name);
-
-                    FileStream fs = File.OpenRead(file.FullName);
+                    var fs = File.OpenRead(file.FullName);
 
                     byte[] z_version = {0, 0, 0, 0};
                     fs.Read(z_version, 0, 4);
                     byte[] versionMod = {0, 0, z_version[3], z_version[2]};
-                    String vs = BitConverter.ToString(versionMod).Replace("-", "");
+                    var vs = BitConverter.ToString(versionMod).Replace("-", "");
                     vs = vs.Remove(0, 4);
-                    int ver = Int32.Parse(vs, NumberStyles.HexNumber);
+                    var ver = Int32.Parse(vs, NumberStyles.HexNumber);
                     var buffer = new byte[31];
                     fs.Seek(12, SeekOrigin.Begin);
                     fs.Read(buffer, 0, 31);
-                    DateTime date = DateTime.Now;
+                    var dateStr = Utilities.Convertions.ByteArrToAscii(buffer).Trim().Replace("¼", "P");
+                    var lastT = new DateTime();
+                    var tmp2 = Regex.Split(dateStr, " ");
+                    var tmp_time = tmp2[1];
+                    var tmp_day = tmp2[0];
+                    var time = "";
+                    var date = "";
+                    var isUS = false;
                     try
                     {
-                        date = DateTime.Parse(Utilities.Convertions.ByteArrToAscii(buffer), CultureInfo.InvariantCulture);
-                    }
-                    catch (Exception ex)
-                    {
-                        try
+                        if (tmp2.Length == 3) // AM PM
                         {
-                            var buffer2 = new byte[18];
-                            fs.Seek(12, SeekOrigin.Begin);
-                            fs.Read(buffer2, 0, 17);
-                            string[] s =
-                                (Utilities.Convertions.ByteArrToAscii(buffer2).Replace("/", "-")).Split(new[] {'-'});
-                            string finalString = "";
-                            if (s[0].Trim().Length != 2)
+                            isUS = true;
+                            if (tmp2[2].Contains("P"))
                             {
-                                finalString = "0" + s[0] + "-";
+                                var h = Int32.Parse(Regex.Split(tmp_time, ":")[0]) + 12;
+                                time = h + ":" + Regex.Split(tmp_time, ":")[1];
                             }
                             else
                             {
-                                finalString = s[0] + "-";
+                                time = tmp_time;
                             }
-                            if (s[1].Trim().Length != 2)
-                            {
-                                finalString = finalString + "0" + s[1] + "-";
-                            }
-                            else
-                            {
-                                finalString = finalString + s[1] + "-";
-                            }
-                            finalString = finalString + s[2] + " 16:00";
-                            date = DateTime.Parse(finalString, CultureInfo.InvariantCulture);
+                        }
+                        else
+                        {
+                            time = tmp_time;
+                        }
 
-                            Console.WriteLine();
-                            Console.WriteLine(ex.ToString());
-                        }
-                        catch (Exception)
-                        {
-                            date = DateTime.Now;
-                        }
+                        tmp_day = tmp_day.Replace(".", "/").Replace("-", "/");
                     }
+                    catch (FormatException)
+                    {
+                    }
+                    try
+                    {
+                        var dt = Regex.Split(tmp_day, "/");
+                        if (dt[0].Length > 2)
+                        {
+                            var t = dt[0];
+                            dt[0] = dt[2];
+                            dt[2] = t;
+                        }
+
+                        if (dt[0].Length != 2)
+                        {
+                            dt[0] = "0" + dt[0];
+                        }
+
+                        if (dt[1].Length != 2)
+                        {
+                            dt[1] = "0" + dt[1];
+                        }
+
+                        if (isUS && Int32.Parse(dt[0]) <= 12)
+                        {
+                            var t = dt[0];
+                            dt[0] = dt[1];
+                            dt[1] = t;
+                        }
+
+                        date = String.Format("{0}/{1}/{2} {3}", dt[0], dt[1], dt[2], time);
+                        lastT = DateTime.ParseExact(date, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                    }
+                    catch (FormatException)
+                    {
+                    }
+
+
                     fs.Seek(282, SeekOrigin.Begin);
                     var z_map = new byte[200];
-                    int fl = 0;
+                    var fl = 0;
                     long pos = 0;
                     while (fl != 2)
                     {
@@ -393,18 +435,17 @@ namespace CELO_Enhanced
                     catch (Exception ex)
                     {
                         errorNames.AppendLine("• " + file.Name);
-                        Console.WriteLine();
-                        Console.WriteLine(ex.ToString());
+
                         break;
                     }
-                    string MF = ((Utilities.Convertions.ByteArrToAscii(z_map).Split(new[] {'\\'}))[3]);
-                    String[] MapData = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh2\maps.data");
+                    var MF = ((Utilities.Convertions.ByteArrToAscii(z_map).Split('\\'))[3]);
+                    var MapData = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh2\maps.data");
                     String MapFile = "", MapName = "";
-                    foreach (string line in MapData)
+                    foreach (var line in MapData)
                     {
                         if (!line.StartsWith("#") || !line.Contains("#"))
                         {
-                            string mapf = (Regex.Split(line, "==")[1].Split(new[] {'\\'}))[3];
+                            var mapf = (Regex.Split(line, "==")[1].Split('\\'))[3];
                             if (mapf.Equals(MF.Remove(MF.Length - 1, 1)))
                             {
                                 MapName = Regex.Split(line, "==")[0];
@@ -416,26 +457,25 @@ namespace CELO_Enhanced
 
                     // PLAYERS
                     long PlayersStartPos = 0;
-                    Boolean endedPlayers = false;
-                    int timesFound = 0;
-                    List<Player> replayPlayers = new List<Player>();
+                    var endedPlayers = false;
+                    var timesFound = 0;
+                    var replayPlayers = new List<Player>();
                     try
-                    {                       
-                        fs.Seek(1100, SeekOrigin.Begin);                       
-                        int failsafe = 0;
+                    {
+                        fs.Seek(1100, SeekOrigin.Begin);
+                        var failsafe = 0;
                         while (failsafe < 3000)
                         {
-                            int bt = fs.ReadByte();
+                            var bt = fs.ReadByte();
                             if (bt == 255)
                             {
                                 timesFound++;
-
                             }
 
                             if (timesFound == 4)
                             {
                                 PlayersStartPos = fs.Position;
-                                Console.WriteLine(PlayersStartPos);
+
                                 break;
                             }
 
@@ -444,26 +484,25 @@ namespace CELO_Enhanced
                     }
                     catch (Exception ex)
                     {
-                        logFile.WriteLine("EXCEPTION (1) AT REPLAY MANAGER : " + ex.ToString());
+                        logFile.WriteLine("EXCEPTION (1) AT REPLAY MANAGER : " + ex);
                     }
 
-                    long detectPos = PlayersStartPos;
+                    var detectPos = PlayersStartPos;
                     while (endedPlayers != true)
                     {
-
                         try
                         {
-                            long nPos = DetectNextPlayerPos(ref fs, detectPos);
+                            var nPos = DetectNextPlayerPos(ref fs, detectPos);
 
                             if (nPos != -1)
                             {
-                                int failsafe3 = 0;
-                                string nicknameRep = "";
-                                int interval = 0;
+                                var failsafe3 = 0;
+                                var nicknameRep = "";
+                                var interval = 0;
                                 long stPos = 0;
                                 while (failsafe3 < 250 && interval < 3)
                                 {
-                                    int byt = fs.ReadByte();
+                                    var byt = fs.ReadByte();
                                     if (byt == 0)
                                     {
                                         interval++;
@@ -482,20 +521,18 @@ namespace CELO_Enhanced
                                 stPos = stPos - interval;
 
                                 fs.Position = stPos + 9;
-                                string raceName = "";
-                                int byt2 = 0;
+                                var raceName = "";
+                                var byt2 = 0;
                                 do
                                 {
                                     byt2 = fs.ReadByte();
                                     if (byt2 != 05)
                                     {
                                         raceName += Convert.ToString(Convert.ToChar(byt2));
-
                                     }
-
                                 } while (byt2 != 05);
-                                int raceNumber = 0;
-                                string racename = "Unknown Race";
+                                var raceNumber = 0;
+                                var racename = "Unknown Race";
 
                                 if (raceName.Equals("st_german"))
                                 {
@@ -525,7 +562,7 @@ namespace CELO_Enhanced
 
                                 if (racename != "Unknown Race")
                                 {
-                                    replayPlayers.Add(new Player()
+                                    replayPlayers.Add(new Player
                                     {
                                         race = raceNumber,
                                         nickname = nicknameRep,
@@ -535,7 +572,6 @@ namespace CELO_Enhanced
                                 }
 
                                 detectPos = nPos + 65;
-
                             }
                             else
                             {
@@ -545,15 +581,86 @@ namespace CELO_Enhanced
                         }
                         catch (Exception ex)
                         {
-                            logFile.WriteLine("EXCEPTION (2) AT REPLAY MANAGER : " + ex.ToString());
+                            logFile.WriteLine("EXCEPTION (2) AT REPLAY MANAGER : " + ex);
                         }
                     }
 
 
                     // END PLAYERS
 
+                    // START CHAT
+                    var ChatEntries = new List<ChatEntry>();
+
+                    if (isChatEnabled)
+                    {
+                        try
+                        {
+                            var startPos = Utilities.SearchBytes(bytArray, btNeedle) + 50;
+                            var curPos = startPos;
+                            long PlayerPos = 0;
+                            long fs1 = 0;
+
+                            for (;;)
+                            {
+                                PlayerPos = DetectNextPlayerPos(ref fs, curPos, bytArray.Length);
+                                if (PlayerPos != -1 && fs1 != PlayerPos)
+                                {
+                                    fs.Position = PlayerPos - 16;
+                                    fs1 = PlayerPos;
+
+                                    if (fs.ReadByte() == 1)
+                                    {
+                                        fs.Position = PlayerPos;
+                                        var tmp = 0;
+                                        var newPos = PlayerPos - 8;
+                                        fs.Position = newPos;
+                                        tmp = fs.ReadByte();
+                                        if (tmp == 2 || tmp == 4 || tmp == 6)
+                                        {
+                                            fs.Position = PlayerPos - 4;
+                                            var size = (fs.ReadByte())*2;
+                                            fs.Position = PlayerPos;
+                                            var vBytes = new byte[size];
+                                            fs.Read(vBytes, 0, size);
+                                            var bt = vBytes.Where(x => x != 0).ToArray();
+                                            var nick = Utilities.Convertions.ByteToASCII(bt);
+                                            size = (fs.ReadByte())*2;
+                                            var vBytes2 = new byte[size];
+                                            fs.Position += 3;
+                                            fs.Read(vBytes2, 0, size);
+                                            var bt2 = vBytes2.Where(x => x != 0).ToArray();
+                                            var textChat = Utilities.Convertions.ByteToASCII(bt2);
+
+                                            ChatEntries.Add(new ChatEntry
+                                            {
+                                                nickname = nick,
+                                                text = textChat
+                                            });
+
+                                            curPos = fs.Position + 50;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        curPos += 75;
+                                    }
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logFile.WriteLine("EXCEPTION (3) AT REPLAY MANAGER : " + ex);
+                        }
+                    }
+                    // END CHAT
+
+
                     fs.Close();
-                    Console.WriteLine("Replay Details: " + MapName + " - Version: 4.0.0." + ver);
+
                     try
                     {
                         replays.Add(new Replay
@@ -562,44 +669,41 @@ namespace CELO_Enhanced
                             version = "4.0.0." + ver,
                             map_file = MainWindow._AssemblyDir + @"data\maps\coh2\" + MapFile + ".jpg",
                             map_name = MapName,
-                            game_date = date.ToString("dd-MM-yyyy ~ HH:mm"),
+                            game_date = lastT.ToString("dd/MM/yyyy HH:mm"),
                             id = z,
                             players = replayPlayers,
+                            chat = ChatEntries,
                             filename = file.Name
                         });
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine(ex.ToString());
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine(ex.ToString());
                 }
+                z++;
             }
-            z++;
         }
 
         private void ParseCOH_Replays()
         {
             replays.Clear();
             errorNames.Clear();
-            int z = 0;
+            var z = 0;
             var di = new DirectoryInfo(doc_path + @"\playback");
 
-            foreach (FileInfo file in di.GetFiles("*.rec"))
+            foreach (var file in di.GetFiles("*.rec"))
             {
-                FileStream fs = File.OpenRead(file.FullName);
+                var fs = File.OpenRead(file.FullName);
 
                 byte[] z_version = {0, 0, 0, 0};
                 fs.Read(z_version, 0, 4);
                 byte[] versionMod = {0, 0, z_version[3], z_version[2]};
-                String vs = BitConverter.ToString(versionMod).Replace("-", "");
+                var vs = BitConverter.ToString(versionMod).Replace("-", "");
                 vs = vs.Remove(0, 4);
-                int ver = Int32.Parse(vs, NumberStyles.HexNumber);
+                var ver = Int32.Parse(vs, NumberStyles.HexNumber);
                 var buffer = new byte[31];
                 fs.Seek(12, SeekOrigin.Begin);
                 fs.Read(buffer, 0, 31);
@@ -613,9 +717,9 @@ namespace CELO_Enhanced
                     var buffer2 = new byte[18];
                     fs.Seek(12, SeekOrigin.Begin);
                     fs.Read(buffer2, 0, 17);
-                    string[] s =
-                        (Utilities.Convertions.ByteArrToAscii(buffer2).Replace("/", "-")).Split(new[] {'-'});
-                    string finalString = "";
+                    var s =
+                        (Utilities.Convertions.ByteArrToAscii(buffer2).Replace("/", "-")).Split('-');
+                    var finalString = "";
                     if (s[0].Trim().Length != 2)
                     {
                         finalString = "0" + s[0] + "-";
@@ -633,13 +737,12 @@ namespace CELO_Enhanced
                         finalString = finalString + s[1] + "-";
                     }
                     finalString = finalString + s[2] + " 16:00";
-                    Console.WriteLine();
-                    Console.WriteLine(ex.ToString());
+
                     date = DateTime.Now;
                 }
                 fs.Seek(325, SeekOrigin.Begin);
                 var z_map = new byte[200];
-                int fl = 0;
+                var fl = 0;
                 long pos = 0;
                 while (fl != 2)
                 {
@@ -664,18 +767,17 @@ namespace CELO_Enhanced
                 catch (Exception ex)
                 {
                     errorNames.AppendLine("• " + file.Name);
-                    Console.WriteLine();
-                    Console.WriteLine(ex.ToString());
+
                     break;
                 }
-                string MF = ((Utilities.Convertions.ByteArrToAscii(z_map).Split(new[] {'\\'}))[3]);
-                String[] MapData = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh1\maps.data");
+                var MF = ((Utilities.Convertions.ByteArrToAscii(z_map).Split('\\'))[3]);
+                var MapData = File.ReadAllLines(MainWindow._AssemblyDir + @"\data\maps\coh1\maps.data");
                 String MapFile = "", MapName = "";
-                foreach (string line in MapData)
+                foreach (var line in MapData)
                 {
                     if (!line.StartsWith("#") || !line.Contains("#"))
                     {
-                        string mapf = (Regex.Split(line, "==")[1].Split(new[] {'\\'}))[3];
+                        var mapf = (Regex.Split(line, "==")[1].Split('\\'))[3];
                         if (mapf.Equals(MF))
                         {
                             MapName = Regex.Split(line, "==")[0];
@@ -700,8 +802,6 @@ namespace CELO_Enhanced
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine(ex.ToString());
                 }
             }
             z++;
@@ -749,15 +849,15 @@ namespace CELO_Enhanced
                     txt_name.Content = "Name: " + rep.name.Trim();
                     txt_mapname.Content = "Map: " + rep.map_name.Trim();
                     txt_version.Content = "Version: " + rep.version.Trim();
-                    txt_date.Content = "Date: " + (Regex.Split(rep.game_date, "~")[0]).Trim();
-                    txt_time.Content = "Time: " + (Regex.Split(rep.game_date, "~")[1]).Trim();
+                    txt_date.Content = "Date: " + (Regex.Split(rep.game_date, " ")[0]).Trim() + " (dd/mm/yyyy)";
+                    txt_time.Content = "Time: " + (Regex.Split(rep.game_date, " ")[1]).Trim();
 
 
                     if (game == 1)
                     {
-                        List<Player> axis = new List<Player>();
-                        List<Player> allies = new List<Player>();
-                        
+                        var axis = new List<Player>();
+                        var allies = new List<Player>();
+
                         foreach (var player in rep.players)
                         {
                             if (player.race == 0 || player.race == 2)
@@ -782,6 +882,36 @@ namespace CELO_Enhanced
 
                         AxisList.ItemsSource = axis;
                         AlliesList.ItemsSource = allies;
+                        var para = new Paragraph();
+                        txtReplayChat.Document = new FlowDocument(para);
+
+                        for (var i = 0; i < rep.chat.Count; i++)
+                        {
+                            var name = rep.chat[i].nickname.Trim();
+                            var rn = new Run();
+                            rn.Text = name;
+                            rn.Foreground = Brushes.Black;
+                            foreach (var player in rep.players)
+                            {
+                                if (player.nickname.Contains(name))
+                                {
+                                    if (player.race == 0 || player.race == 2)
+                                    {
+                                        rn.Foreground = Brushes.Red;
+                                    }
+                                    else
+                                    {
+                                        rn.Foreground = Brushes.DodgerBlue;
+                                    }
+                                }
+                            }
+
+
+                            var message = rep.chat[i].text.Trim();
+                            para.Inlines.Add(new Bold(rn));
+                            para.Inlines.Add(" : " + message);
+                            para.Inlines.Add(new LineBreak());
+                        }
                     }
                 }
             }
@@ -796,7 +926,7 @@ namespace CELO_Enhanced
             if (replayList.SelectedIndex != -1)
             {
                 var StrBuild = new StringBuilder();
-                for (int i = 0; i < replayList.SelectedItems.Count; i++)
+                for (var i = 0; i < replayList.SelectedItems.Count; i++)
                 {
                     var rp = replayList.SelectedItems[i] as Replay;
                     StrBuild.AppendLine("• " + rp.name);
@@ -806,12 +936,14 @@ namespace CELO_Enhanced
                                           + StrBuild + "\nAre you sure you want to continue?", "Confirmation",
                     MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
+                    pauseWatch = true;
                     while (replayList.SelectedIndex != -1)
                     {
                         var rp = replayList.Items[replayList.SelectedIndex] as Replay;
                         replays.Remove(rp);
                         File.Delete(doc_path + @"\playback\" + rp.filename);
                     }
+                    pauseWatch = false;
                     if (replayList.Items.Count != 0)
                     {
                         replayList.SelectedIndex = 0;
@@ -838,8 +970,8 @@ namespace CELO_Enhanced
                 try
                 {
                     pauseWatch = true;
-                    IList z = replayList.SelectedItems;
-                    foreach (object rep in z)
+                    var z = replayList.SelectedItems;
+                    foreach (var rep in z)
                     {
                         var rp = rep as Replay;
                         var input = new InputBox("Replay: " + rp.name, "Enter new name for " + rp.name + ": ",
@@ -874,7 +1006,7 @@ namespace CELO_Enhanced
                 if (replayList.SelectedIndex != -1)
                 {
                     var StrBuild = new StringBuilder();
-                    for (int i = 0; i < replayList.SelectedItems.Count; i++)
+                    for (var i = 0; i < replayList.SelectedItems.Count; i++)
                     {
                         var rp = replayList.SelectedItems[i] as Replay;
                         StrBuild.AppendLine("• " + rp.name);
@@ -887,8 +1019,8 @@ namespace CELO_Enhanced
                         try
                         {
                             pauseWatch = true;
-                            IList z = replayList.SelectedItems;
-                            foreach (object rep in z)
+                            var z = replayList.SelectedItems;
+                            foreach (var rep in z)
                             {
                                 var rp = rep as Replay;
                                 var vs = new VersionChanger(rp.filename, rp.name, rp.version, exe_path, doc_path, game);
@@ -928,9 +1060,9 @@ namespace CELO_Enhanced
             if (item == null) return false;
             if (searchMethod == 0)
             {
-                DateTime GameDate = DateTime.Parse((Regex.Split(item.game_date, "~")[0]).Trim());
-                DateTime StartDate = date_start.SelectedDate.Value;
-                DateTime EndDate = date_end.SelectedDate.Value;
+                var GameDate = DateTime.Parse((Regex.Split(item.game_date, "~")[0]).Trim());
+                var StartDate = date_start.SelectedDate.Value;
+                var EndDate = date_end.SelectedDate.Value;
                 // apply the filter  
                 if (GameDate <= EndDate && GameDate >= StartDate)
                 {
@@ -939,8 +1071,8 @@ namespace CELO_Enhanced
             }
             else
             {
-                string te = tBox_search.Text.ToLower().Trim();
-                string itemn = item.name.ToLower().Trim();
+                var te = tBox_search.Text.ToLower().Trim();
+                var itemn = item.name.ToLower().Trim();
                 if (itemn.Contains(te))
                 {
                     return true;
@@ -952,14 +1084,14 @@ namespace CELO_Enhanced
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(replayList.ItemsSource);
+            var view = CollectionViewSource.GetDefaultView(replayList.ItemsSource);
             view.Filter = null;
             view.Filter = FilterReplays;
         }
 
         private void btnCancelFilter_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(replayList.ItemsSource);
+            var view = CollectionViewSource.GetDefaultView(replayList.ItemsSource);
             view.Filter = null;
         }
 
@@ -967,14 +1099,31 @@ namespace CELO_Enhanced
         {
             if (game == 1)
             {
+                mainINI = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
                 tabPlayers.IsEnabled = true;
+                if (mainINI.IniReadValue("ReplayManager", "ShowChat").ToLower() == "true")
+                {
+                    isChatEnabled = true;
+                    tabChat.IsEnabled = true;
+                }
+                else
+                {
+                    isChatEnabled = false;
+                    tabChat.IsEnabled = false;
+                }
             }
 
             CleanInfo();
 
             LoadList();
             InitializeFileSystemWatcher();
-            
+        }
+
+        private void repMainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            fsw.Created -= Fsw_Created;
+            fsw.Deleted -= Fsw_Deleted;
+            fsw.Renamed -= Fsw_Renamed;
         }
 
         private class Replay
@@ -987,18 +1136,21 @@ namespace CELO_Enhanced
             public string map_name { get; set; }
             public string game_date { get; set; }
             public string tag { get; set; }
-
+            public List<ChatEntry> chat { get; set; }
             public List<Player> players { get; set; }
+        }
+
+        public class ChatEntry
+        {
+            public string nickname { get; set; }
+            public string text { get; set; }
         }
 
         public class Player
         {
             public string icon { get; set; }
-
             public int race { get; set; }
-
             public string race_name { get; set; }
-
             public string nickname { get; set; }
         }
 
@@ -1029,7 +1181,7 @@ namespace CELO_Enhanced
             var parent = element.Parent as Panel;
             if (parent == null) return;
 
-            int maxZ = parent.Children.OfType<UIElement>()
+            var maxZ = parent.Children.OfType<UIElement>()
                 .Where(x => x != element)
                 .Select(x => Panel.GetZIndex(x))
                 .Max();

@@ -4,19 +4,19 @@
         Title="CELO - Generated script" Height="441" Width="478" WindowStartupLocation="CenterScreen"
         UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" ResizeMode="NoResize"
         Icon="icon-modified.ico" Loaded="CompMain_Loaded" MinHeight="449" MinWidth="478" SizeToContent="WidthAndHeight">
-    <Grid>
-        <Button x:Name="btnDone" Content="Compile script" HorizontalAlignment="Left" Margin="268,365,0,0"
-                VerticalAlignment="Top"
-                Width="189" Height="37" Click="btnDone_Click" />
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,365,0,0"
-                VerticalAlignment="Top" Width="100" Height="37" Click="btnCancel_Click" />
-        <TextBox x:Name="tBox_content" HorizontalAlignment="Left" Height="330" Margin="10,30,0,0"
-                 VerticalAlignment="Top" Width="447" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible"
-                 VerticalScrollBarVisibility="Visible" />
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Generated script file:"
-                   VerticalAlignment="Top" />
-        <TextBlock HorizontalAlignment="Left" Margin="168,10,0,0" TextWrapping="Wrap"
-                   Text="Edit it if you need, otherwise just click Compile script" VerticalAlignment="Top" Width="289" />
+	<Grid>
+		<Button x:Name="btnDone" Content="Compile script" HorizontalAlignment="Left" Margin="268,365,0,0"
+		        VerticalAlignment="Top"
+		        Width="189" Height="37" Click="btnDone_Click" />
+		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,365,0,0"
+		        VerticalAlignment="Top" Width="100" Height="37" Click="btnCancel_Click" />
+		<TextBox x:Name="tBox_content" HorizontalAlignment="Left" Height="330" Margin="10,30,0,0"
+		         VerticalAlignment="Top" Width="447" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible"
+		         VerticalScrollBarVisibility="Visible" />
+		<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Generated script file:"
+		           VerticalAlignment="Top" />
+		<TextBlock HorizontalAlignment="Left" Margin="168,10,0,0" TextWrapping="Wrap"
+		           Text="Edit it if you need, otherwise just click Compile script" VerticalAlignment="Top" Width="289" />
 
-    </Grid>
+	</Grid>
 </Window>

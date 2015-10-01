@@ -4,13 +4,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
-using System.Windows.Data;
 using Newtonsoft.Json.Linq;
 
 namespace CELO_Enhanced
@@ -18,7 +17,7 @@ namespace CELO_Enhanced
     public static class Utilities
     {
         /// <summary>
-        /// Check for internet connection
+        ///     Check for internet connection
         /// </summary>
         /// <returns>true if internet connection is available</returns>
         public static bool CheckInternet()
@@ -26,7 +25,7 @@ namespace CELO_Enhanced
             try
             {
                 using (var client = new WebClient())
-                using (Stream stream = client.OpenRead("http://www.google.com"))
+                using (var stream = client.OpenRead("http://www.google.com"))
                 {
                     return true;
                 }
@@ -38,7 +37,53 @@ namespace CELO_Enhanced
         }
 
         /// <summary>
-        /// Shows message box with error configurations
+        ///     Checks if website loads correctly
+        /// </summary>
+        /// <param name="url">website to load</param>
+        /// <param name="timeoutMs">timeout to quit trying to connect</param>
+        /// <returns>True if connection is good, false if something is not right</returns>
+        public static bool CheckWebSiteLoad(string url, int timeoutMs)
+        {
+            var request = (HttpWebRequest) WebRequest.Create(url);
+            request.Timeout = timeoutMs;
+            request.Method = "GET";
+            try
+            {
+                var res = (HttpWebResponse) request.GetResponse();
+                if (res.StatusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+
+            return false;
+        }
+
+        /// <summary>
+        ///     Pings an url
+        /// </summary>
+        /// <param name="url">domain to ping</param>
+        /// <returns>true if any ping returns otherwise false</returns>
+        public static bool PingDomain(string url)
+        {
+            var ping = new Ping();
+
+            var result = ping.Send(url);
+
+            if (result.Status != IPStatus.Success)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        ///     Shows message box with error configurations
         /// </summary>
         /// <param name="owner">Parent window</param>
         /// <param name="message">Error message inside message box</param>
@@ -49,7 +94,7 @@ namespace CELO_Enhanced
         }
 
         /// <summary>
-        /// Shows message box with warning configurations
+        ///     Shows message box with warning configurations
         /// </summary>
         /// <param name="owner">Parent window</param>
         /// <param name="message">Warning message inside message box</param>
@@ -60,7 +105,7 @@ namespace CELO_Enhanced
         }
 
         /// <summary>
-        /// Shows message box with information configurations
+        ///     Shows message box with information configurations
         /// </summary>
         /// <param name="owner">Parent window</param>
         /// <param name="message">Message inside message box</param>
@@ -71,7 +116,7 @@ namespace CELO_Enhanced
         }
 
         /// <summary>
-        /// Shows message box with question configurations
+        ///     Shows message box with question configurations
         /// </summary>
         /// <param name="owner">Parent window</param>
         /// <param name="message">Question inside message box</param>
@@ -82,7 +127,7 @@ namespace CELO_Enhanced
         }
 
         /// <summary>
-        /// Randomize List elements
+        ///     Randomize List elements
         /// </summary>
         /// <typeparam name="T">List type</typeparam>
         /// <param name="source">The list</param>
@@ -93,11 +138,11 @@ namespace CELO_Enhanced
             return source.OrderBy(item => rnd.Next());
         }
 
-        public static int SearchBytes(byte[] haystack, byte[] needle)
+        public static long SearchBytes(byte[] haystack, byte[] needle)
         {
             var len = needle.Length;
             var limit = haystack.Length - len;
-            for (var i = 0; i <= limit; i++)
+            for (long i = 0; i <= limit; i++)
             {
                 var k = 0;
                 for (; k < len; k++)
@@ -109,33 +154,33 @@ namespace CELO_Enhanced
             return -1;
         }
 
-
         /// <summary>
-        /// Byte Convertions Class
+        ///     Byte Convertions Class
         /// </summary>
         public static class Convertions
         {
             /// <summary>
-            /// Returns ASCII Text value of a Byte Array
+            ///     Returns ASCII Text value of a Byte Array
             /// </summary>
             /// <param name="arr">Byte array to convert</param>
             /// <returns></returns>
             public static string ByteArrToAscii(byte[] arr)
             {
-                String hexString = BitConverter.ToString(arr, 0, arr.Length).Replace("00", "");
+                var hexString = BitConverter.ToString(arr, 0, arr.Length).Replace("00", "");
                 var sb = new StringBuilder();
-                foreach (string s in Regex.Split(hexString, "-"))
+                foreach (var s in Regex.Split(hexString, "-"))
                 {
-                    for (int i = 0; i <= s.Length - 2; i += 2)
+                    for (var i = 0; i <= s.Length - 2; i += 2)
                     {
-                        sb.Append(Convert.ToString(Convert.ToChar(Int32.Parse(s.Substring(i, 2), NumberStyles.HexNumber))));
+                        sb.Append(
+                            Convert.ToString(Convert.ToChar(Int32.Parse(s.Substring(i, 2), NumberStyles.HexNumber))));
                     }
                 }
                 return sb.ToString();
             }
 
             /// <summary>
-            /// Alternative method to convert byte array into ASCII text string
+            ///     Alternative method to convert byte array into ASCII text string
             /// </summary>
             /// <param name="inp">Byte array to convert</param>
             /// <returns></returns>
@@ -145,7 +190,7 @@ namespace CELO_Enhanced
             }
 
             /// <summary>
-            /// Convert Integer into Hexadecimal string
+            ///     Convert Integer into Hexadecimal string
             /// </summary>
             /// <param name="num">Integer to convert</param>
             /// <returns></returns>
@@ -155,7 +200,7 @@ namespace CELO_Enhanced
             }
 
             /// <summary>
-            /// Convert Hexadecimal string to long
+            ///     Convert Hexadecimal string to long
             /// </summary>
             /// <param name="hex">Hexadecimal number in string</param>
             /// <returns></returns>
@@ -165,23 +210,22 @@ namespace CELO_Enhanced
             }
 
             /// <summary>
-            /// Converts string to byte array
+            ///     Converts string to byte array
             /// </summary>
             /// <param name="str">String to convert to byte array</param>
             /// <returns></returns>
             public static byte[] StringToByteArray(String str)
             {
-                int NumberChars = str.Length;
+                var NumberChars = str.Length;
                 var bytes = new byte[NumberChars/2];
-                for (int i = 0; i < NumberChars; i += 2)
+                for (var i = 0; i < NumberChars; i += 2)
                     bytes[i/2] = Convert.ToByte(str.Substring(i, 2), 16);
                 return bytes;
             }
-
         }
 
         /// <summary>
-        /// Class to handle INI Setting files
+        ///     Class to handle INI Setting files
         /// </summary>
         public class INIFile
         {
@@ -201,9 +245,8 @@ namespace CELO_Enhanced
                 string key, string def, StringBuilder retVal,
                 int size, string filePath);
 
-
             /// <summary>
-            /// Write value into a key inside an ini file
+            ///     Write value into a key inside an ini file
             /// </summary>
             /// <param name="Section">Section inside ini file</param>
             /// <param name="Key">Variable inside section</param>
@@ -213,9 +256,8 @@ namespace CELO_Enhanced
                 WritePrivateProfileString(Section, Key, Value, path);
             }
 
-
             /// <summary>
-            /// Read a key from an ini file
+            ///     Read a key from an ini file
             /// </summary>
             /// <param name="Section">Section inside ini file</param>
             /// <param name="Key">Variable inside section</param>
@@ -223,34 +265,33 @@ namespace CELO_Enhanced
             public string IniReadValue(string Section, string Key)
             {
                 var temp = new StringBuilder(255);
-                int i = GetPrivateProfileString(Section, Key, "", temp,
+                var i = GetPrivateProfileString(Section, Key, "", temp,
                     255, path);
                 return temp.ToString();
             }
         }
 
         /// <summary>
-        /// Class to handle logs of application
+        ///     Class to handle logs of application
         /// </summary>
         public class Log
         {
-            private string log_folder;
-            
+            private readonly string log_folder;
+
             public Log(String LogPath)
             {
                 log_folder = LogPath;
-                
             }
 
             /// <summary>
-            /// Write new line into log file
+            ///     Write new line into log file
             /// </summary>
             /// <param name="text">text to write</param>
             public void WriteLine(String text)
             {
                 var dir = new DirectoryInfo(log_folder);
-                int min = 0;
-                int number = 0;
+                var min = 0;
+                var number = 0;
                 foreach (var file in dir.GetFiles("*.log"))
                 {
                     number = Int32.Parse(file.Name.Replace(".log", "").Replace("CELO_LOG_", ""));
@@ -259,16 +300,21 @@ namespace CELO_Enhanced
                         min = number;
                     }
                 }
-                
-                DateTime dt = DateTime.Now;
-                String dateFormat = String.Format("{0}:{1}:{2}:{3}", dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
-                File.AppendAllText(log_folder + @"\CELO_LOG_" + min + ".log", dateFormat + " : " + text + Environment.NewLine);
+
+                var dt = DateTime.Now;
+                var dateFormat = String.Format("{0}:{1}:{2}:{3}", dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
+                try
+                {
+                    File.AppendAllText(log_folder + @"\CELO_LOG_" + min + ".log",
+                        dateFormat + " : " + text + Environment.NewLine);
+                }
+                catch
+                {
+                }
             }
 
-            
-
             /// <summary>
-            /// Create new log file
+            ///     Create new log file
             /// </summary>
             public void CreateNew()
             {
@@ -278,8 +324,8 @@ namespace CELO_Enhanced
                 }
 
                 var dir = new DirectoryInfo(log_folder);
-                int min = 0;
-                int number = 0;
+                var min = 0;
+                var number = 0;
                 foreach (var file in dir.GetFiles())
                 {
                     number = Int32.Parse(file.Name.Replace(".log", "").Replace("CELO_LOG_", ""));
@@ -289,19 +335,18 @@ namespace CELO_Enhanced
                     }
                 }
 
-                string log_name = "CELO_LOG_" + ((int)(min + 1)).ToString() + ".log";
+                var log_name = "CELO_LOG_" + (min + 1) + ".log";
 
-                
-                File.WriteAllText(log_folder + @"\" + log_name, "NEFFWARE - CELO ENHANCED LOG FILE" + Environment.NewLine + DateTime.Now.ToString("F") + Environment.NewLine + Environment.NewLine);
+
+                File.WriteAllText(log_folder + @"\" + log_name,
+                    "NEFFWARE - CELO ENHANCED LOG FILE" + Environment.NewLine + DateTime.Now.ToString("F") +
+                    Environment.NewLine + Environment.NewLine);
             }
-
         }
 
         public class FastCRC32
         {
-            private uint _crc32 = 0;
-
-            private static uint[] crc_32_tab = // CRC polynomial 0xedb88320 
+            private static readonly uint[] crc_32_tab = // CRC polynomial 0xedb88320 
             {
                 0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f,
                 0xe963a535, 0x9e6495a3, 0x0edb8832, 0x79dcb8a4, 0xe0d5e91e, 0x97d2d988,
@@ -348,15 +393,11 @@ namespace CELO_Enhanced
                 0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d
             };
 
+            internal uint CheckSum { get; set; }
+
             private static uint UPDC32(byte octet, uint crc)
             {
-                return (crc_32_tab[((crc) ^ ((byte) octet)) & 0xff] ^ ((crc) >> 8));
-            }
-
-            internal uint CheckSum
-            {
-                get { return _crc32; }
-                set { _crc32 = value; }
+                return (crc_32_tab[((crc) ^ octet) & 0xff] ^ ((crc) >> 8));
             }
 
             internal uint AddToCRC32(int c)
@@ -369,13 +410,13 @@ namespace CELO_Enhanced
                 byte lowByte, hiByte;
                 lowByte = (byte) (c & 0x00ff);
                 hiByte = (byte) (c >> 8);
-                _crc32 = UPDC32(hiByte, _crc32);
-                _crc32 = UPDC32(lowByte, _crc32);
-                return ~_crc32;
+                CheckSum = UPDC32(hiByte, CheckSum);
+                CheckSum = UPDC32(lowByte, CheckSum);
+                return ~CheckSum;
             }
 
             /// <summary>
-            /// Compute a checksum for a given string.
+            ///     Compute a checksum for a given string.
             /// </summary>
             /// <param name="text">The string to compute the checksum for.</param>
             /// <returns>The computed checksum.</returns>
@@ -383,11 +424,11 @@ namespace CELO_Enhanced
             {
                 uint oldcrc32;
                 oldcrc32 = 0xFFFFFFFF;
-                int len = text.Length;
+                var len = text.Length;
                 ushort uCharVal;
                 byte lowByte, hiByte;
 
-                for (int i = 0; len > 0; i++)
+                for (var i = 0; len > 0; i++)
                 {
                     --len;
                     uCharVal = text[len];
@@ -404,7 +445,7 @@ namespace CELO_Enhanced
             }
 
             /// <summary>
-            /// Compute a checksum for a given array of bytes.
+            ///     Compute a checksum for a given array of bytes.
             /// </summary>
             /// <param name="bytes">The array of bytes to compute the checksum for.</param>
             /// <returns>The computed checksum.</returns>
@@ -412,9 +453,9 @@ namespace CELO_Enhanced
             {
                 uint oldcrc32;
                 oldcrc32 = 0xFFFFFFFF;
-                int len = bytes.Length;
+                var len = bytes.Length;
 
-                for (int i = 0; len > 0; i++)
+                for (var i = 0; len > 0; i++)
                 {
                     --len;
                     oldcrc32 = UPDC32(bytes[len], oldcrc32);
@@ -422,7 +463,6 @@ namespace CELO_Enhanced
                 return ~oldcrc32;
             }
         }
-        
 
         public class SimpleTripleDES
         {
@@ -431,7 +471,7 @@ namespace CELO_Enhanced
             public static string Encrypt3DES(string toEncrypt, string salt, bool useHashing = true)
             {
                 byte[] keyArray;
-                byte[] toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
+                var toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
 
                 // If hashing use get hashcode regards to your key
                 if (useHashing)
@@ -451,8 +491,8 @@ namespace CELO_Enhanced
                 tdes.Padding = PaddingMode.PKCS7;
 
                 // Transform the specified region of bytes array to resultArray
-                ICryptoTransform cTransform = tdes.CreateEncryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                var cTransform = tdes.CreateEncryptor();
+                var resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 tdes.Clear();
 
                 // Return the encrypted data into unreadable string format
@@ -462,7 +502,7 @@ namespace CELO_Enhanced
             public static string Decrypt3DES(string cipherString, string salt, bool useHashing = true)
             {
                 byte[] keyArray;
-                byte[] toEncryptArray = Convert.FromBase64String(cipherString.Replace(' ', '+'));
+                var toEncryptArray = Convert.FromBase64String(cipherString.Replace(' ', '+'));
 
                 if (useHashing)
                 {
@@ -484,8 +524,8 @@ namespace CELO_Enhanced
                 tdes.Mode = CipherMode.ECB;
                 tdes.Padding = PaddingMode.PKCS7;
 
-                ICryptoTransform cTransform = tdes.CreateDecryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                var cTransform = tdes.CreateDecryptor();
+                var resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 tdes.Clear();
 
                 // Return the Clear decrypted TEXT
@@ -494,17 +534,17 @@ namespace CELO_Enhanced
         }
 
         /// <summary>
-        /// Class to handle steam api
+        ///     Class to handle steam api
         /// </summary>
         public static class Steam
         {
             /// <summary>
-            /// Steam Developer Key to access steam api
+            ///     Steam Developer Key to access steam api
             /// </summary>
             private const String DevKey = "D5818526BB103AD0F74740C3A264878F";
 
             /// <summary>
-            /// Gets time played from a steam user
+            ///     Gets time played from a steam user
             /// </summary>
             /// <param name="id">Steam ID</param>
             /// <param name="gameID">Game ID</param>
@@ -516,16 +556,16 @@ namespace CELO_Enhanced
                     var web = new WebClient();
                     using (web)
                     {
-                        string json =
+                        var json =
                             web.DownloadString(
                                 String.Format(
                                     "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&format=json",
                                     DevKey, id));
                         if (json != null)
                         {
-                            string[] ret = Regex.Split(json, "\n");
-                            int z = 0;
-                            foreach (string s in ret)
+                            var ret = Regex.Split(json, "\n");
+                            var z = 0;
+                            foreach (var s in ret)
                             {
                                 if (s.Contains("\"appid\": " + gameID + ","))
                                 {
@@ -548,7 +588,7 @@ namespace CELO_Enhanced
             }
 
             /// <summary>
-            /// Get Steam user nickname
+            ///     Get Steam user nickname
             /// </summary>
             /// <param name="id">Steam ID</param>
             /// <returns>User nickname</returns>
@@ -559,12 +599,12 @@ namespace CELO_Enhanced
                     var web = new WebClient();
                     using (web)
                     {
-                        string json =
+                        var json =
                             web.DownloadString(
                                 String.Format(
                                     "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={0}&steamids={1}",
                                     DevKey, id));
-                        JObject obj = JObject.Parse(json);
+                        var obj = JObject.Parse(json);
                         if (obj.HasValues)
                         {
                             return obj["response"]["players"][0]["personaname"].ToString();
@@ -578,8 +618,5 @@ namespace CELO_Enhanced
                 return null;
             }
         }
-
-
     }
-
 }

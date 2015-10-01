@@ -14,9 +14,9 @@ namespace CELO_Enhanced
         private readonly string FileName;
         private readonly int Game = 1;
         private readonly string GamePath;
+        private readonly string Name;
         private readonly string Version;
         private int LastV;
-        private string Name;
 
         public VersionChanger(string filename, string name, string version, string gamePath, string docPath, int game)
         {
@@ -118,7 +118,6 @@ namespace CELO_Enhanced
             tBox_version.Text = LastV.ToString();
         }
 
-
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             var regex = new Regex("[^0-9]+");
@@ -152,9 +151,9 @@ namespace CELO_Enhanced
         private void btn_apply_Click(object sender, RoutedEventArgs e)
         {
             var rng = new Random();
-            String tempName = "temp_rec" + rng.Next(1, 90000) + ".bin";
-            String OriginalPath = DocPath + @"\playback\" + FileName;
-            String TempPath = DocPath + @"\playback\" + tempName;
+            var tempName = "temp_rec" + rng.Next(1, 90000) + ".bin";
+            var OriginalPath = DocPath + @"\playback\" + FileName;
+            var TempPath = DocPath + @"\playback\" + tempName;
 
             try
             {
@@ -164,9 +163,9 @@ namespace CELO_Enhanced
                     {
                         File.Copy(OriginalPath, TempPath, true);
                         File.Copy(OriginalPath, DocPath + @"\playback\" + tBox_name.Text + ".rec", true);
-                        FileStream stream = File.Open(TempPath, FileMode.Open, FileAccess.ReadWrite);
+                        var stream = File.Open(TempPath, FileMode.Open, FileAccess.ReadWrite);
                         byte[] gameVersion = {0, 0};
-                        byte[] WantedVersion =
+                        var WantedVersion =
                             Utilities.Convertions.StringToByteArray(
                                 Utilities.Convertions.IntToHex(Int32.Parse((tBox_version.Text))));
                         gameVersion[0] = WantedVersion[1];
@@ -199,9 +198,9 @@ namespace CELO_Enhanced
                     if (tBox_version.Text.Length == 5)
                     {
                         File.Copy(OriginalPath, TempPath, true);
-                        FileStream stream = File.Open(TempPath, FileMode.Open, FileAccess.ReadWrite);
+                        var stream = File.Open(TempPath, FileMode.Open, FileAccess.ReadWrite);
                         byte[] gameVersion = {0, 0};
-                        byte[] WantedVersion =
+                        var WantedVersion =
                             Utilities.Convertions.StringToByteArray(
                                 Utilities.Convertions.IntToHex(Int32.Parse((tBox_version.Text))));
                         gameVersion[0] = WantedVersion[1];

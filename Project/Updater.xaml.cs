@@ -4,20 +4,18 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
 
 namespace CELO_Enhanced
 {
-
     public partial class Updater : Window
     {
+        private static readonly string xmlUrl = "http://www.neffware.com/downloads/celo/app.xml";
+        private readonly string baseDownloadURL = "http://www.neffware.com/downloads/celo/CELO_Enhanced_Setup.exe";
         private readonly WebClient webDownloader = new WebClient();
         private string FileName = "";
-        private readonly string baseDownloadURL = "http://www.neffware.com/downloads/celo/CELO_Enhanced_Setup.exe";
-        private readonly static string xmlUrl = "http://www.neffware.com/downloads/celo/app.xml";
 
         public Updater()
         {
@@ -33,36 +31,39 @@ namespace CELO_Enhanced
             {
                 if (Utilities.CheckInternet())
                 {
-                    var wb = new WebClient();
-                    String content;
-                    using (wb)
+                    if (Utilities.PingDomain("www.neffware.com"))
                     {
-                        content = wb.DownloadString(xmlUrl);
-                    }
-                    var rng = new Random();
-                    String path = MainWindow._AssemblyDir + @"\541da5ax.xml";
-                    File.Delete(path);
-                    File.WriteAllText(path, content, Encoding.UTF8);
-                    var doc = new XmlDocument();
-                    doc.Load(path);
-                    XmlNodeList XnList = doc.SelectNodes("Application");
-                    var newVersion = new Version();
-                    if (XnList != null)
-                    {
-                        foreach (XmlNode xnode in XnList)
+                        var wb = new WebClient();
+                        String content;
+                        using (wb)
                         {
-                            newVersion = Version.Parse(xnode["Version"].InnerText);
+                            content = wb.DownloadString(xmlUrl);
                         }
-                    }
+                        var rng = new Random();
+                        var path = MainWindow._AssemblyDir + @"\541da5ax.xml";
+                        File.Delete(path);
+                        File.WriteAllText(path, content, Encoding.UTF8);
+                        var doc = new XmlDocument();
+                        doc.Load(path);
+                        var XnList = doc.SelectNodes("Application");
+                        var newVersion = new Version();
+                        if (XnList != null)
+                        {
+                            foreach (XmlNode xnode in XnList)
+                            {
+                                newVersion = Version.Parse(xnode["Version"].InnerText);
+                            }
+                        }
 
-                    File.Delete(path);
-                    if (appVersion < newVersion)
-                    {
-                        return String.Format("{0}.{1}.{2}.{3}", newVersion.Major, newVersion.Minor, newVersion.Build,
-                            newVersion.Revision);
-                    }
+                        File.Delete(path);
+                        if (appVersion < newVersion)
+                        {
+                            return String.Format("{0}.{1}.{2}.{3}", newVersion.Major, newVersion.Minor, newVersion.Build,
+                                newVersion.Revision);
+                        }
 
-                    return null;
+                        return null;
+                    }
                 }
             }
             catch (Exception)
@@ -71,10 +72,8 @@ namespace CELO_Enhanced
             return null;
         }
 
-
         private void webDownloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-          
         }
 
         private async void webDownloader_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)

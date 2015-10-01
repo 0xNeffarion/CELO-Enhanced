@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -34,7 +33,6 @@ namespace CELO_Enhanced
 
         private void aboutWindow_Loaded(object sender, RoutedEventArgs e)
         {
-     
         }
 
         private void imgCELO_MouseEnter(object sender, MouseEventArgs e)
@@ -45,10 +43,8 @@ namespace CELO_Enhanced
         {
         }
 
-
         private void aboutWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            
         }
     }
 }

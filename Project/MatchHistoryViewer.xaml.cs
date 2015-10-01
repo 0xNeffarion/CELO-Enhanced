@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml;
 
+
 namespace CELO_Enhanced
 {
     /// <summary>
@@ -21,9 +20,9 @@ namespace CELO_Enhanced
     public partial class MatchHistoryViewer : Window
     {
         private readonly string _docPath;
-        private Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         private readonly int _gameSelected = 1;
         private readonly ObservableCollection<Match> _matches = new ObservableCollection<Match>();
+        private readonly Utilities.Log logFile = new Utilities.Log(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         private long SteamID_z;
 
         public MatchHistoryViewer(int game, string docPath)
@@ -37,15 +36,15 @@ namespace CELO_Enhanced
         {
             if (filename != "")
             {
-                String namesFile = String.Format(MainWindow._AssemblyDir + @"\data\maps\coh{0}\maps.data",
+                var namesFile = String.Format(MainWindow._AssemblyDir + @"\data\maps\coh{0}\maps.data",
                     (_gameSelected + 1));
-                foreach (string line in File.ReadAllLines(namesFile))
+                foreach (var line in File.ReadAllLines(namesFile))
                 {
                     if (!line.Contains("#"))
                     {
                         if (line.Contains(filename))
                         {
-                            string n1 = Regex.Split(line, "==")[0];
+                            var n1 = Regex.Split(line, "==")[0];
                             return n1;
                         }
                     }
@@ -61,41 +60,41 @@ namespace CELO_Enhanced
 
         private void LoadMatches()
         {
-            string dbFile = MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
-            string mapFolder = MainWindow._AssemblyDir + @"\data\maps\coh" + (_gameSelected + 1) + @"\";
+            var dbFile = MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
+            var mapFolder = MainWindow._AssemblyDir + @"\data\maps\coh" + (_gameSelected + 1) + @"\";
 
 
             var doc = new XmlDocument();
             doc.Load(dbFile);
-            XmlNodeList XnList = doc.SelectNodes("/Matches/Match");
-            int z = 0;
+            var XnList = doc.SelectNodes("/Matches/Match");
+            var z = 0;
             if (XnList != null)
             {
                 foreach (XmlNode xnode in XnList)
                 {
                     try
                     {
-                        int ID = z;
-                        String Replay = xnode["Replay"].InnerText;
-                        String GameDate = xnode["Date"].InnerText;
-                        String MapFileName = mapFolder + xnode["Map"].InnerText + ".jpg";
-                        String MapName = GetMapName(xnode["Map"].InnerText);
-                        int Type = Convert.ToInt32(xnode["Type"].InnerText);
+                        var ID = z;
+                        var Replay = xnode["Replay"].InnerText;
+                        var GameDate = xnode["Date"].InnerText;
+                        var MapFileName = mapFolder + xnode["Map"].InnerText + ".jpg";
+                        var MapName = GetMapName(xnode["Map"].InnerText);
+                        var Type = Convert.ToInt32(xnode["Type"].InnerText);
 
                         var Pls = new List<Player>();
-                        XmlNodeList plNodeList = xnode.SelectNodes("Players/Player");
-                        List<int> Ic = Enumerable.Range(0, plNodeList.Count).ToList().Randomize().ToList();
-                        for (int i = 0; i < plNodeList.Count; i++)
+                        var plNodeList = xnode.SelectNodes("Players/Player");
+                        var Ic = Enumerable.Range(0, plNodeList.Count).ToList().Randomize().ToList();
+                        for (var i = 0; i < plNodeList.Count; i++)
                         {
-                            XmlNode xnode2 = plNodeList.Item(i);
-                            String Nickname = xnode2["Nickname"].InnerText;
-                            Int64 SteamID = Int64.Parse(xnode2["SteamID"].InnerText);
-                            string Rank = xnode2["Ranking"].InnerText;
-                            String Level = xnode2["Level"].InnerText;
-                            int HoursPlayed = Int32.Parse(xnode2["Timeplayed"].InnerText);
-                            int ra = 0;
+                            var xnode2 = plNodeList.Item(i);
+                            var Nickname = xnode2["Nickname"].InnerText;
+                            var SteamID = Int64.Parse(xnode2["SteamID"].InnerText);
+                            var Rank = xnode2["Ranking"].InnerText;
+                            var Level = xnode2["Level"].InnerText;
+                            var HoursPlayed = Int32.Parse(xnode2["Timeplayed"].InnerText);
+                            var ra = 0;
                             ra = Int32.Parse(xnode2["Race"].InnerText);
-                            String ic = "";
+                            var ic = "";
                             if (_gameSelected == 1)
                             {
                                 ic = "Resources/coh2_" + ra + ".png";
@@ -104,7 +103,7 @@ namespace CELO_Enhanced
                             {
                                 ic = "Resources/coh1_" + ra + ".png";
                             }
-                            string rcName = "";
+                            var rcName = "";
                             switch (ra)
                             {
                                 case 0:
@@ -152,7 +151,7 @@ namespace CELO_Enhanced
                                     {
                                         rcName = "UK Forces";
                                     }
-                                    
+
                                     break;
                             }
                             Pls.Add(new Player
@@ -215,7 +214,7 @@ namespace CELO_Enhanced
             {
                 if (MatchList.SelectedIndex != -1)
                 {
-                    List<Player> players = _matches[MatchList.SelectedIndex].Players;
+                    var players = _matches[MatchList.SelectedIndex].Players;
                     playersList.ItemsSource = players;
                 }
             }
@@ -231,8 +230,8 @@ namespace CELO_Enhanced
             if (MessageBox.Show(this, "Are you sure you want to delete ALL matches?", "Delete Confirmation",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                string dir = MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1);
-                string dbFile = dir + @"\mhv.xml";
+                var dir = MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1);
+                var dbFile = dir + @"\mhv.xml";
                 File.WriteAllText(dbFile, @"<Matches></Matches>");
                 MatchList.ItemsSource = null;
                 playersList.ItemsSource = null;
@@ -257,13 +256,13 @@ namespace CELO_Enhanced
         {
             if (tBox_FilterText.Text.Length >= 3)
             {
-                ICollectionView icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
+                var icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
                 icv.Filter = null;
                 icv.Filter = Filter;
             }
             else if (tBox_FilterText.Text == "")
             {
-                ICollectionView icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
+                var icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
                 icv.Filter = null;
             }
         }
@@ -282,7 +281,7 @@ namespace CELO_Enhanced
             }
             else if (FilterDecision.SelectedIndex == 1)
             {
-                foreach (Player pl in match.Players)
+                foreach (var pl in match.Players)
                 {
                     if (pl.Nickname.ToLower().Contains(tBox_FilterText.Text.ToLower()))
                     {
@@ -292,7 +291,7 @@ namespace CELO_Enhanced
             }
             else if (FilterDecision.SelectedIndex == 2)
             {
-                foreach (Player pl in match.Players)
+                foreach (var pl in match.Players)
                 {
                     if (pl.SteamID.ToString().ToLower().Contains(tBox_FilterText.Text.ToLower()))
                     {
@@ -302,9 +301,9 @@ namespace CELO_Enhanced
             }
             else if (FilterDecision.SelectedIndex == 3)
             {
-                foreach (Player pl in match.Players)
+                foreach (var pl in match.Players)
                 {
-                    if (match.Date.ToString().ToLower().Contains(tBox_FilterText.Text.ToLower()))
+                    if (match.Date.ToLower().Contains(tBox_FilterText.Text.ToLower()))
                     {
                         return true;
                     }
@@ -320,13 +319,13 @@ namespace CELO_Enhanced
                 tBox_FilterText.Text = "";
                 if (tBox_FilterText.Text.Length >= 3)
                 {
-                    ICollectionView icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
+                    var icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
                     icv.Filter = null;
                     icv.Filter = Filter;
                 }
                 else if (tBox_FilterText.Text == "")
                 {
-                    ICollectionView icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
+                    var icv = CollectionViewSource.GetDefaultView(MatchList.ItemsSource);
                     icv.Filter = null;
                 }
             }
@@ -389,11 +388,11 @@ namespace CELO_Enhanced
 
         private void rpl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            string _cfgDocPath = "";
-            Image vImg = sender as Image;
+            var _cfgDocPath = "";
+            var vImg = sender as Image;
             var mc = vImg.DataContext as Match;
-           
-            Utilities.INIFile cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
+
+            var cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini"))
             {
                 _cfgDocPath = cfg.IniReadValue("Essencial", "CoH" + (_gameSelected + 1) + "_DocPath");
@@ -402,21 +401,22 @@ namespace CELO_Enhanced
             if (MessageBox.Show(this, "Do you want to copy this replay to playback folder?", "Copy Replay",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                var inp = new InputBox("Write a name for the replay:", "Replay name", mc.MapName + "_" + DateTime.Now.ToString("M"));
+                var inp = new InputBox("Write a name for the replay:", "Replay name",
+                    mc.MapName + "_" + DateTime.Now.ToString("M"));
                 inp.ShowDialog();
                 try
                 {
                     logFile.WriteLine("MATCH HISTORY VIEWER - START COPYING REPLAY");
-                    String value = inp.val.Replace(".rec", "");
-                    
+                    var value = inp.val.Replace(".rec", "");
+
                     File.Copy(MainWindow._AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\replays\" +
-                        mc.ReplayFileName, _cfgDocPath + @"\playback\" + value + ".rec", true);
+                              mc.ReplayFileName, _cfgDocPath + @"\playback\" + value + ".rec", true);
                     Utilities.showMessage(this, "Replay saved.\nLocation:" + _cfgDocPath + @"\playback\" + value + ".rec",
                         "Saved");
                 }
                 catch (Exception ex)
                 {
-                    logFile.WriteLine("EXCEPTION Copying replay (MHV): " + ex.ToString());
+                    logFile.WriteLine("EXCEPTION Copying replay (MHV): " + ex);
                 }
                 logFile.WriteLine("MATCH HISTORY VIEWER - ENDED COPYING REPLAY");
             }

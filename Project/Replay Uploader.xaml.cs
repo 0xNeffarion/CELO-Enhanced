@@ -38,12 +38,13 @@ namespace CELO_Enhanced
         private readonly WebBrowser wbLogin = new WebBrowser();
         private Boolean _pLoggedIn;
         private int autolog;
+        private int failsafe;
 
         public Replay_Uploader(string docPath, string filename, int game = 0)
         {
             mainINI = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
             bgWorker.DoWork += BgWorker_DoWork;
-            int feature = FEATURE_DISABLE_NAVIGATION_SOUNDS;
+            var feature = FEATURE_DISABLE_NAVIGATION_SOUNDS;
             CoInternetSetFeatureEnabled(feature, SET_FEATURE_ON_PROCESS, true);
             replayPath = docPath + @"\playback\" + filename;
             InitializeComponent();
@@ -76,7 +77,7 @@ namespace CELO_Enhanced
             {
                 try
                 {
-                    HtmlElementCollection elc = wbLogin.Document.GetElementsByTagName("input");
+                    var elc = wbLogin.Document.GetElementsByTagName("input");
                     pgBar.Value = 50;
                     foreach (HtmlElement el in elc)
                     {
@@ -93,7 +94,7 @@ namespace CELO_Enhanced
                             el.SetAttribute("checked", "true");
                         }
                     }
-                    HtmlElement ele2 = wbLogin.Document.GetElementsByTagName("input")["yt0"];
+                    var ele2 = wbLogin.Document.GetElementsByTagName("input")["yt0"];
                     ele2.InvokeMember("click");
                     _pLoggedIn = true;
                 }
@@ -156,16 +157,10 @@ namespace CELO_Enhanced
                             Utilities.SimpleTripleDES.Decrypt3DES(ReadV(mainINI, "ReplayManager", "Password"),
                                 "xCb54nZs235mi8", true);
                     }
-                    if (ReadV(mainINI, "ReplayManager", "AutoLogin").ToLower() == "true")
-                    {
-                        autolog = 1;
-                        btnLogin_Click(btnLogin, null);
-                    }
                 }
             }
         }
 
-        private int failsafe = 0;
         private async void WbLogin_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             if (_pLoggedIn)
@@ -212,7 +207,7 @@ namespace CELO_Enhanced
         private async void UploadFile()
         {
             pgBar.Value = 0;
-            HtmlElementCollection elc = wbLogin.Document.GetElementsByTagName("input");
+            var elc = wbLogin.Document.GetElementsByTagName("input");
             foreach (HtmlElement el in elc)
             {
                 if (el.Id == "ytThreadReplay_replayFile")
@@ -226,7 +221,7 @@ namespace CELO_Enhanced
                     pgBar.Value = 25;
                 }
             }
-            HtmlElementCollection elc2 = wbLogin.Document.GetElementsByTagName("textarea");
+            var elc2 = wbLogin.Document.GetElementsByTagName("textarea");
             foreach (HtmlElement el in elc2)
             {
                 if (el.Id == "Post_content")
@@ -235,21 +230,20 @@ namespace CELO_Enhanced
                     pgBar.Value = 45;
                 }
             }
-            HtmlElementCollection elements2 = wbLogin.Document.GetElementsByTagName("input");
+            var elements2 = wbLogin.Document.GetElementsByTagName("input");
             foreach (HtmlElement file in elements2)
             {
                 if (file.Id == "ThreadReplay_replayFile")
                 {
                     file.Focus();
-                    Thread ts = new Thread(PopulateFile);
+                    var ts = new Thread(PopulateFile);
                     ts.SetApartmentState(ApartmentState.STA);
                     ts.Start();
                     file.InvokeMember("Click");
-                    
                 }
             }
-            
-            HtmlElementCollection elements = wbLogin.Document.GetElementsByTagName("form");
+
+            var elements = wbLogin.Document.GetElementsByTagName("form");
             pgBar.Value = 85;
             await TaskEx.Delay(1000);
             foreach (HtmlElement currentElement in elements)
@@ -287,15 +281,14 @@ namespace CELO_Enhanced
 
         private async void btnUpload_Click(object sender, RoutedEventArgs e)
         {
-            
             if (tBox_title.Text.Length <= 0 || tBox_comment.Text.Length <= 0)
             {
                 Utilities.showError(this, "Title and comment is required for uploading");
                 return;
-            } 
-            
+            }
+
             if (MessageBox.Show(this, "Are you sure you want to upload the replay file?", "Confirmation",
-                    MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
                 await TaskEx.Delay(500);
                 UploadFile();
@@ -375,7 +368,7 @@ namespace CELO_Enhanced
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

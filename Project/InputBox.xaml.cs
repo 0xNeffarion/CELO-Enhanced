@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace CELO_Enhanced
 {
@@ -23,6 +22,5 @@ namespace CELO_Enhanced
             val = tBox_Text.Text;
             DialogResult = true;
         }
-
-     }
+    }
 }

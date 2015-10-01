@@ -5,287 +5,302 @@
         Height="627" Width="793" FontFamily="Roboto" IsTabStop="True" ResizeMode="CanMinimize"
         SizeToContent="WidthAndHeight" TextOptions.TextFormattingMode="Display" Icon="icon-modified.ico"
         UseLayoutRounding="True" WindowStartupLocation="CenterOwner" MinHeight="625" MinWidth="790"
-        Loaded="repMainWindow_Loaded">
-    <Window.Resources>
+        Loaded="repMainWindow_Loaded" Closing="repMainWindow_Closing">
+	<Window.Resources>
 
-        <Style TargetType="ListViewItem">
+		<Style TargetType="ListViewItem">
 
-            <Style.Resources>
+			<Style.Resources>
 
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF63A6A3"/>
+				<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF63A6A3" />
 
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FFC0E4F0"/>
+				<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FFC0E4F0" />
 
-            </Style.Resources>
+			</Style.Resources>
 
-        </Style>
+		</Style>
 
-    </Window.Resources>
-    <Grid Height="600" Width="790">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="463*" />
-            <RowDefinition Height="137*" />
-        </Grid.RowDefinitions>
-        <Border BorderBrush="#FFD5DFE5" BorderThickness="1" HorizontalAlignment="Left" Height="110" Margin="10,12,0,0"
-                VerticalAlignment="Top" Width="440" CornerRadius="4" Grid.Row="1">
-            <Grid>
-                <Button x:Name="btnFilter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Height="37"
-                        Margin="393,14,0,0" Click="btnFilter_Click" ToolTip="Apply Filter" Visibility="Hidden"
-                        IsDefault="True">
-                    <Image Source="Resources/btn_01.png" Width="16" Height="16"
-                           RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                           UseLayoutRounding="True" />
-                </Button>
-                <Button x:Name="btnCancelFilter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34"
-                        Height="37" Margin="393,62,0,0" Click="btnCancelFilter_Click" ToolTip="Remove Filter"
-                        Visibility="Hidden">
-                    <Image Source="Resources/defilter.png" Width="16" Height="16"
-                           RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                           UseLayoutRounding="True" />
-                </Button>
-            </Grid>
-        </Border>
+	</Window.Resources>
+	<Grid Height="600" Width="790">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="463*" />
+			<RowDefinition Height="137*" />
+		</Grid.RowDefinitions>
+		<Border BorderBrush="#FFD5DFE5" BorderThickness="1" HorizontalAlignment="Left" Height="110" Margin="10,12,0,0"
+		        VerticalAlignment="Top" Width="440" CornerRadius="4" Grid.Row="1">
+			<Grid>
+				<Button x:Name="btnFilter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Height="37"
+				        Margin="393,14,0,0" Click="btnFilter_Click" ToolTip="Apply Filter" Visibility="Hidden"
+				        IsDefault="True">
+					<Image Source="Resources/btn_01.png" Width="16" Height="16"
+					       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+					       UseLayoutRounding="True" />
+				</Button>
+				<Button x:Name="btnCancelFilter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34"
+				        Height="37" Margin="393,62,0,0" Click="btnCancelFilter_Click" ToolTip="Remove Filter"
+				        Visibility="Hidden">
+					<Image Source="Resources/defilter.png" Width="16" Height="16"
+					       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+					       UseLayoutRounding="True" />
+				</Button>
+			</Grid>
+		</Border>
 
-        <ListView x:Name="replayList" HorizontalAlignment="Left" Height="453" Margin="10,10,0,0"
-                  VerticalAlignment="Center" Width="438" UseLayoutRounding="True"
-                  ScrollViewer.HorizontalScrollBarVisibility="Visible" RenderTransformOrigin="0.5,0.5"
-                  BorderBrush="#FFE0E0E0" Foreground="Black" SelectionChanged="replayList_SelectionChanged"
-                  Loaded="replayList_Loaded">
+		<ListView x:Name="replayList" HorizontalAlignment="Left" Height="453" Margin="10,10,0,0"
+		          VerticalAlignment="Center" Width="438" UseLayoutRounding="True"
+		          ScrollViewer.HorizontalScrollBarVisibility="Visible" RenderTransformOrigin="0.5,0.5"
+		          BorderBrush="#FFE0E0E0" Foreground="Black" SelectionChanged="replayList_SelectionChanged"
+		          Loaded="replayList_Loaded">
 
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Expander IsExpanded="True" BorderBrush="#FFB8B8B8" BorderThickness="0,0,0,1">
-                                            <Expander.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="11.75"
-                                                               VerticalAlignment="Bottom" />
-                                                </StackPanel>
-                                            </Expander.Header>
-                                            <ItemsPresenter />
-                                        </Expander>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                </GroupStyle>
-            </ListView.GroupStyle>
-            <ListView.View>
-                <GridView>
+			<ListView.GroupStyle>
+				<GroupStyle>
+					<GroupStyle.ContainerStyle>
+						<Style TargetType="{x:Type GroupItem}">
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Expander IsExpanded="True" BorderBrush="#FFB8B8B8" BorderThickness="0,0,0,1">
+											<Expander.Header>
+												<StackPanel Orientation="Horizontal">
+													<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="11.75"
+													           VerticalAlignment="Bottom" />
+												</StackPanel>
+											</Expander.Header>
+											<ItemsPresenter />
+										</Expander>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</GroupStyle.ContainerStyle>
+				</GroupStyle>
+			</ListView.GroupStyle>
+			<ListView.View>
+				<GridView>
 
-                    <GridViewColumn Header="Map" Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <Image VerticalAlignment="Center" x:Name="picReplayList"
-                                           Source="{Binding map_file}" Width="Auto" Height="75" Stretch="Uniform"
-                                           RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True"
-                                           HorizontalAlignment="Center" />
+					<GridViewColumn Header="Map" Width="75">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<Image VerticalAlignment="Center" x:Name="picReplayList"
+									       Source="{Binding map_file}" Width="Auto" Height="75" Stretch="Uniform"
+									       RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True"
+									       HorizontalAlignment="Center" />
 
-                                </StackPanel>
+								</StackPanel>
 
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Replay" Width="380">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock VerticalAlignment="Center" TextAlignment="Left" Text="{Binding name}"
-                                               FontWeight="Bold" FontSize="14" />
-                                    <TextBlock VerticalAlignment="Bottom" TextAlignment="Left"
-                                               Text="{Binding map_name}" FontStyle="Italic" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Header="Replay" Width="380">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock VerticalAlignment="Center" TextAlignment="Left" Text="{Binding name}"
+									           FontWeight="Bold" FontSize="14" />
+									<TextBlock VerticalAlignment="Bottom" TextAlignment="Left"
+									           Text="{Binding map_name}" FontStyle="Italic" />
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
 
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
 
-        </ListView>
-        <Expander x:Name="filterDates" Header="Filter Dates" HorizontalAlignment="Left" Margin="11,14,0,0"
-                  VerticalAlignment="Top" Height="82" Width="380" BorderBrush="{x:Null}"
-                  Expanded="filterDates_Expanded" BorderThickness="0" Collapsed="filterDates_Collapsed" Grid.Row="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="49*" />
-                    <ColumnDefinition Width="389*" />
-                </Grid.ColumnDefinitions>
-                <DatePicker x:Name="date_end" HorizontalAlignment="Left" Margin="49,34,0,0" VerticalAlignment="Top"
-                            Width="281" FirstDayOfWeek="Monday" Grid.Column="1" />
-                <DatePicker x:Name="date_start" HorizontalAlignment="Left" Margin="49,5,0,0" VerticalAlignment="Top"
-                            Width="281" FirstDayOfWeek="Monday" Grid.Column="1" />
-                <Label Content="Starting date:" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top"
-                       Grid.ColumnSpan="2" />
-                <Label Content="Ending date:" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"
-                       Grid.ColumnSpan="2" />
-            </Grid>
-        </Expander>
-        <Expander x:Name="filterName" Header="Filter Names" HorizontalAlignment="Left" Margin="11,39,0,0"
-                  VerticalAlignment="Top" Height="82" Width="380" BorderBrush="{x:Null}" ExpandDirection="Up"
-                  BorderThickness="0" Expanded="filterName_Expanded" Collapsed="filterName_Collapsed" Grid.Row="1">
+		</ListView>
+		<Expander x:Name="filterDates" Header="Filter Dates" HorizontalAlignment="Left" Margin="11,14,0,0"
+		          VerticalAlignment="Top" Height="82" Width="380" BorderBrush="{x:Null}"
+		          Expanded="filterDates_Expanded" BorderThickness="0" Collapsed="filterDates_Collapsed" Grid.Row="1">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="49*" />
+					<ColumnDefinition Width="389*" />
+				</Grid.ColumnDefinitions>
+				<DatePicker x:Name="date_end" HorizontalAlignment="Left" Margin="49,34,0,0" VerticalAlignment="Top"
+				            Width="281" FirstDayOfWeek="Monday" Grid.Column="1" />
+				<DatePicker x:Name="date_start" HorizontalAlignment="Left" Margin="49,5,0,0" VerticalAlignment="Top"
+				            Width="281" FirstDayOfWeek="Monday" Grid.Column="1" />
+				<Label Content="Starting date:" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top"
+				       Grid.ColumnSpan="2" />
+				<Label Content="Ending date:" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"
+				       Grid.ColumnSpan="2" />
+			</Grid>
+		</Expander>
+		<Expander x:Name="filterName" Header="Filter Names" HorizontalAlignment="Left" Margin="11,39,0,0"
+		          VerticalAlignment="Top" Height="82" Width="380" BorderBrush="{x:Null}" ExpandDirection="Up"
+		          BorderThickness="0" Expanded="filterName_Expanded" Collapsed="filterName_Collapsed" Grid.Row="1">
 
-            <Grid>
-                <Label Content="Search by name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
-                       Width="102" />
-                <TextBox x:Name="tBox_search" HorizontalAlignment="Left" Height="23" Margin="117,13,0,0"
-                         TextWrapping="Wrap" VerticalAlignment="Top" Width="257" />
-            </Grid>
-        </Expander>
-        <GroupBox Header="Actions" HorizontalAlignment="Left" Margin="455,325,0,15" Width="312" Grid.RowSpan="2">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-
-
-                <Button x:Name="btn_delete" HorizontalAlignment="Left" Height="38" 
-                        VerticalAlignment="Top" Width="278" Grid.ColumnSpan="3" Click="btn_delete_Click" Margin="0,7">
-                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Image Source="Resources/replay_delete.png" Stretch="None" Width="27"
-                               RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                               UseLayoutRounding="True" />
-                        <TextBlock x:Name="txt_delrep2" Text="Delete seletected replay(s)" VerticalAlignment="Center"
-                                   TextOptions.TextFormattingMode="Display" />
-                    </DockPanel>
-                </Button>
-                <Button x:Name="btn_rename" HorizontalAlignment="Left" Height="38" Margin="0,7"
-                        VerticalAlignment="Top" Width="278" Grid.ColumnSpan="3" Click="btn_rename_Click">
-                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Image Source="Resources/replay_editname.png" Stretch="None" Width="27"
-                               RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                               UseLayoutRounding="True" />
-                        <TextBlock x:Name="txt_delrep3" Text="Rename seletected replay(s)" VerticalAlignment="Center"
-                                   TextOptions.TextFormattingMode="Display" />
-                    </DockPanel>
-                </Button>
-                <Button x:Name="btn_changeVersion" HorizontalAlignment="Left" Height="38" Margin="0,7"
-                        VerticalAlignment="Top" Width="278" Grid.ColumnSpan="3" Click="btn_changeVersion_Click">
-                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Image Source="Resources/replays_edit.png" Stretch="None" Width="27"
-                               RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                               UseLayoutRounding="True" />
-                        <TextBlock x:Name="txt_editVersion" Text="Edit selected replay(s) version"
-                                   VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
-                    </DockPanel>
-                </Button>
-                <Button x:Name="btn_upload" HorizontalAlignment="Left" Height="38" Margin="0,7"
-                        VerticalAlignment="Top" Width="278" Click="btn_upload_Click" Grid.ColumnSpan="3">
-                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Image Source="Resources/coh2org.png" Stretch="Uniform" Width="16"
-                               RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
-                               UseLayoutRounding="True" />
-                        <TextBlock x:Name="txt_uploadReplay" Text="  Upload selected replay(s) to COH2.ORG"
-                                   VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
-                    </DockPanel>
-                </Button>
-            </StackPanel>
-        </GroupBox>
-        <Image x:Name="pic_error" Source="Resources/pic_error.png" Margin="423,10,348,431"
-               RenderOptions.EdgeMode="Aliased"
-               UseLayoutRounding="True" Cursor="Hand" MouseUp="pic_error_MouseUp" ToolTip="Replay's parsing warnings!"
-               Width="19" Visibility="Hidden" />
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="310" Margin="455,10,0,0" VerticalAlignment="Top" Width="312" Background="{x:Null}">
-            <TabItem Header="Replay Information">
-                <Grid Width="300" Margin="3,0,3,4">
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="125" Margin="10,10,0,0" VerticalAlignment="Top"
-            		Width="280"
-            		Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"
-            		UseLayoutRounding="True">
-                        <Forms:PictureBox x:Name="pic_map" SizeMode="Zoom" Enabled="True" />
-                    </WindowsFormsHost>
-                    <Label x:Name="txt_date" Content="Date:" HorizontalAlignment="Left" Margin="10,193,0,0"
-            		VerticalAlignment="Top" Width="280" />
-                    <Label x:Name="txt_time" Content="Time:" HorizontalAlignment="Left" Margin="10,219,0,0"
-            		VerticalAlignment="Top" Width="280" />
-                    <Label x:Name="txt_name" Content="Name:" HorizontalAlignment="Left" Margin="10,141,0,0"
-            		VerticalAlignment="Top" Width="280" />
-                    <Label x:Name="txt_mapname" Content="Map:" HorizontalAlignment="Left" Margin="10,167,0,0"
-            		VerticalAlignment="Top" Width="280" />
-                    <Label x:Name="txt_version" Content="Version:" HorizontalAlignment="Left" Margin="10,246,0,0"
-            		VerticalAlignment="Top" Width="280" />
-                </Grid>
-            </TabItem>
-            <TabItem x:Name="tabPlayers" Header="Players List" IsEnabled="False">
-                <Grid Margin="4">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <GroupBox Grid.Row="0" Header="Allies">
-                       
-                            <ListBox x:Name="AlliesList" UseLayoutRounding="True" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <ListBox.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                            </ListBox.Resources>
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="2" IsItemsHost="True">
-                                    </UniformGrid>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding icon}" Stretch="Uniform" Height="23"
-                       						HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <Image.ToolTip>
-                                                    <StackPanel>
-                                                        <TextBlock Text="{Binding race_name}"/>
-                                                    </StackPanel>
-                                                </Image.ToolTip>
-                                            </Image>
-                                        <TextBlock ToolTipService.ToolTip="{Binding nickname}" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"><Run Text=" " /><Run Text=" "/><Run Text="{Binding nickname}" /></TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-
-                     </GroupBox>
+			<Grid>
+				<Label Content="Search by name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+				       Width="102" />
+				<TextBox x:Name="tBox_search" HorizontalAlignment="Left" Height="23" Margin="117,13,0,0"
+				         TextWrapping="Wrap" VerticalAlignment="Top" Width="257" />
+			</Grid>
+		</Expander>
+		<GroupBox Header="Actions" HorizontalAlignment="Left" Margin="455,325,0,15" Width="312" Grid.RowSpan="2">
+			<StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
 
 
-                    <GroupBox Grid.Row="1" Header="Axis">
+				<Button x:Name="btn_delete" HorizontalAlignment="Left" Height="38"
+				        VerticalAlignment="Top" Width="278" Grid.ColumnSpan="3" Click="btn_delete_Click" Margin="0,7">
+					<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Image Source="Resources/replay_delete.png" Stretch="None" Width="27"
+						       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+						       UseLayoutRounding="True" />
+						<TextBlock x:Name="txt_delrep2" Text="Delete seletected replay(s)" VerticalAlignment="Center"
+						           TextOptions.TextFormattingMode="Display" />
+					</DockPanel>
+				</Button>
+				<Button x:Name="btn_rename" HorizontalAlignment="Left" Height="38" Margin="0,7"
+				        VerticalAlignment="Top" Width="278" Grid.ColumnSpan="3" Click="btn_rename_Click">
+					<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Image Source="Resources/replay_editname.png" Stretch="None" Width="27"
+						       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+						       UseLayoutRounding="True" />
+						<TextBlock x:Name="txt_delrep3" Text="Rename seletected replay(s)" VerticalAlignment="Center"
+						           TextOptions.TextFormattingMode="Display" />
+					</DockPanel>
+				</Button>
+				<Button x:Name="btn_changeVersion" HorizontalAlignment="Left" Height="38" Margin="0,7"
+				        VerticalAlignment="Top" Width="278" Grid.ColumnSpan="3" Click="btn_changeVersion_Click">
+					<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Image Source="Resources/replays_edit.png" Stretch="None" Width="27"
+						       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+						       UseLayoutRounding="True" />
+						<TextBlock x:Name="txt_editVersion" Text="Edit selected replay(s) version"
+						           VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
+					</DockPanel>
+				</Button>
+				<Button x:Name="btn_upload" HorizontalAlignment="Left" Height="38" Margin="0,7"
+				        VerticalAlignment="Top" Width="278" Click="btn_upload_Click" Grid.ColumnSpan="3">
+					<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+						<Image Source="Resources/coh2org.png" Stretch="Uniform" Width="16"
+						       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
+						       UseLayoutRounding="True" />
+						<TextBlock x:Name="txt_uploadReplay" Text="  Upload selected replay(s) to COH2.ORG"
+						           VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" />
+					</DockPanel>
+				</Button>
+			</StackPanel>
+		</GroupBox>
+		<Image x:Name="pic_error" Source="Resources/pic_error.png" Margin="423,10,348,431"
+		       RenderOptions.EdgeMode="Aliased"
+		       UseLayoutRounding="True" Cursor="Hand" MouseUp="pic_error_MouseUp" ToolTip="Replay's parsing warnings!"
+		       Width="19" Visibility="Hidden" />
+		<TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="310" Margin="455,10,0,0" VerticalAlignment="Top"
+		            Width="312" Background="{x:Null}">
+			<TabItem Header="Replay Information">
+				<Grid Width="300" Margin="3,0,3,4">
+					<WindowsFormsHost HorizontalAlignment="Left" Height="125" Margin="10,10,0,0" VerticalAlignment="Top"
+					                  Width="280"
+					                  Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"
+					                  UseLayoutRounding="True">
+						<Forms:PictureBox x:Name="pic_map" SizeMode="Zoom" Enabled="True" />
+					</WindowsFormsHost>
+					<Label x:Name="txt_date" Content="Date:" HorizontalAlignment="Left" Margin="10,193,0,0"
+					       VerticalAlignment="Top" Width="280" />
+					<Label x:Name="txt_time" Content="Time:" HorizontalAlignment="Left" Margin="10,219,0,0"
+					       VerticalAlignment="Top" Width="280" />
+					<Label x:Name="txt_name" Content="Name:" HorizontalAlignment="Left" Margin="10,141,0,0"
+					       VerticalAlignment="Top" Width="280" />
+					<Label x:Name="txt_mapname" Content="Map:" HorizontalAlignment="Left" Margin="10,167,0,0"
+					       VerticalAlignment="Top" Width="280" />
+					<Label x:Name="txt_version" Content="Version:" HorizontalAlignment="Left" Margin="10,246,0,0"
+					       VerticalAlignment="Top" Width="280" />
+				</Grid>
+			</TabItem>
+			<TabItem x:Name="tabPlayers" Header="Players List" IsEnabled="False">
+				<Grid Margin="4">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<GroupBox Grid.Row="0" Header="Allies">
 
-                        <ListBox x:Name="AxisList" UseLayoutRounding="True" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <ListBox.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                            </ListBox.Resources>
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="2" IsItemsHost="True">
-                                    </UniformGrid>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding icon}" Stretch="Uniform" Height="23"
-                       						HorizontalAlignment="Left" VerticalAlignment="Center">
-                                            <Image.ToolTip>
-                                                <StackPanel>
-                                                    <TextBlock Text="{Binding race_name}"/>
-                                                </StackPanel>
-                                            </Image.ToolTip>
-                                        </Image>
-                                        <TextBlock ToolTipService.ToolTip="{Binding nickname}" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"><Run Text=" " /><Run Text=" "/><Run Text="{Binding nickname}" /></TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+						<ListBox x:Name="AlliesList" UseLayoutRounding="True" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch"
+						         VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+						         ScrollViewer.VerticalScrollBarVisibility="Disabled">
+							<ListBox.Resources>
+								<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+								<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+								<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+							</ListBox.Resources>
+							<ListBox.ItemsPanel>
+								<ItemsPanelTemplate>
+									<UniformGrid Columns="2" IsItemsHost="True" />
+								</ItemsPanelTemplate>
+							</ListBox.ItemsPanel>
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+										<Image RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding icon}" Stretch="Uniform" Height="23"
+										       HorizontalAlignment="Left" VerticalAlignment="Center">
+											<Image.ToolTip>
+												<StackPanel>
+													<TextBlock Text="{Binding race_name}" />
+												</StackPanel>
+											</Image.ToolTip>
+										</Image>
+										<TextBlock ToolTipService.ToolTip="{Binding nickname}" VerticalAlignment="Center" FontSize="14"
+										           FontWeight="SemiBold" TextTrimming="CharacterEllipsis" TextWrapping="Wrap">
+											<Run Text=" " /><Run Text=" " /><Run Text="{Binding nickname}" />
+										</TextBlock>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
 
-                    </GroupBox>
-                    
-                </Grid>
-            </TabItem>
+					</GroupBox>
 
-        </TabControl>
-    </Grid>
+
+					<GroupBox Grid.Row="1" Header="Axis">
+
+						<ListBox x:Name="AxisList" UseLayoutRounding="True" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch"
+						         VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+						         ScrollViewer.VerticalScrollBarVisibility="Disabled">
+							<ListBox.Resources>
+								<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+								<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+								<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+							</ListBox.Resources>
+							<ListBox.ItemsPanel>
+								<ItemsPanelTemplate>
+									<UniformGrid Columns="2" IsItemsHost="True" />
+								</ItemsPanelTemplate>
+							</ListBox.ItemsPanel>
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+										<Image RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding icon}" Stretch="Uniform" Height="23"
+										       HorizontalAlignment="Left" VerticalAlignment="Center">
+											<Image.ToolTip>
+												<StackPanel>
+													<TextBlock Text="{Binding race_name}" />
+												</StackPanel>
+											</Image.ToolTip>
+										</Image>
+										<TextBlock ToolTipService.ToolTip="{Binding nickname}" VerticalAlignment="Center" FontSize="14"
+										           FontWeight="SemiBold" TextTrimming="CharacterEllipsis" TextWrapping="Wrap">
+											<Run Text=" " /><Run Text=" " /><Run Text="{Binding nickname}" />
+										</TextBlock>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+
+					</GroupBox>
+
+				</Grid>
+			</TabItem>
+			<TabItem x:Name="tabChat" Header="Chat" IsEnabled="false">
+				<Grid>
+					<RichTextBox x:Name="txtReplayChat" AcceptsReturn="True" Margin="10" IsReadOnly="True"
+					             IsReadOnlyCaretVisible="True" VerticalScrollBarVisibility="Auto" Background="{x:Null}"
+					             BorderBrush="{x:Null}" BorderThickness="1" FontSize="12" />
+				</Grid>
+			</TabItem>
+		</TabControl>
+	</Grid>
 
 </Window>

@@ -5,12 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CELO_Enhanced"
         mc:Ignorable="d"
-        Title="CELO Enhanced - Change log" Height="328" Width="503" ResizeMode="NoResize" WindowStyle="ToolWindow" Icon="icon-modified.ico" TextOptions.TextFormattingMode="Display" FontFamily="Roboto" MinHeight="338" MinWidth="513" Loaded="WhatsNewWindow_Loaded" Topmost="True" WindowStartupLocation="CenterScreen" Closing="WhatsNewWindow_Closing">
-    <Grid>
-        <TextBox x:Name="txtChanges" HorizontalAlignment="Left" Height="189" Margin="10,65,0,0" VerticalAlignment="Top" Width="477" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsUndoEnabled="False" TabIndex="1"/>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Width="477" Height="31" TabIndex="2" Click="btnClose_Click"/>
-        <TextBlock x:Name="txtWN" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Height="29" Width="477" TextAlignment="Center" FontSize="16" FontWeight="Medium"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,39,0,0" TextWrapping="Wrap" Text="Changelog:" VerticalAlignment="Top" Height="21" Width="91" TextAlignment="Center"/>
+        Title="CELO Enhanced - Change log" Height="320" Width="480" ResizeMode="CanResizeWithGrip"
+        WindowStyle="ToolWindow" Icon="icon-modified.ico" TextOptions.TextFormattingMode="Display" FontFamily="Roboto"
+        MinHeight="200" MinWidth="400" Loaded="WhatsNewWindow_Loaded" Topmost="True"
+        WindowStartupLocation="CenterScreen" Closing="WhatsNewWindow_Closing" MaxHeight="1000" MaxWidth="1000">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="45" />
+			<RowDefinition Height="111*" />
+			<RowDefinition Height="23*" />
+		</Grid.RowDefinitions>
+		<TextBox x:Name="txtChanges" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" TextWrapping="Wrap"
+		         VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsUndoEnabled="False"
+		         TabIndex="1" Margin="15" Grid.Row="1" BorderThickness="1" BorderBrush="#FF979797" FontSize="13" />
+		<Button x:Name="btnClose" Content="Close" Height="31" TabIndex="2" Click="btnClose_Click" Grid.Row="2" Margin="25,0"
+		        FontSize="13" />
+		<TextBlock x:Name="txtWN" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Height="29" TextAlignment="Center"
+		           FontSize="16" FontWeight="Medium" Margin="5,10,5,0" />
 
-    </Grid>
+	</Grid>
 </Window>

@@ -77,9 +77,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ExceptionReporter.WinForms">
-      <HintPath>..\External Libs\ExceptionReporter.WinForms.dll</HintPath>
-    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -145,6 +142,8 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters.cs" />
+    <Compile Include="FloatingOSDWindow.cs" />
+    <Compile Include="FloatingWindow.cs" />
     <Compile Include="HotKeyGen.xaml.cs">
       <DependentUpon>HotKeyGen.xaml</DependentUpon>
     </Compile>
@@ -168,9 +167,6 @@
     </Compile>
     <Compile Include="ReplayManager.xaml.cs">
       <DependentUpon>ReplayManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ReplayPlayer.xaml.cs">
-      <DependentUpon>ReplayPlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="ScriptCompiler.xaml.cs">
       <DependentUpon>ScriptCompiler.xaml</DependentUpon>
@@ -233,10 +229,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReplayManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ReplayPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -540,10 +532,16 @@
     <Content Include="data\maps\coh2\2p_karelia.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\maps\coh2\2p_sturzdorf.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\maps\coh2\4p_bystraya_voda.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\4p_dusseldorf.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\4p_ecliptic_fields.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\4p_einhoven_country.jpg">
@@ -561,10 +559,16 @@
     <Content Include="data\maps\coh2\6p_across_the_rhine.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\maps\coh2\6p_montherme.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\maps\coh2\6p_pavlovs_house.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\6p_wolfs_lair.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\8p_achelous_river.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\8p_essen_steelworks.jpg">
@@ -574,6 +578,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\8p_port_of_hamburg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\maps\coh2\8p_redball_express.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\maps\coh2\8p_sittard_2.jpg">

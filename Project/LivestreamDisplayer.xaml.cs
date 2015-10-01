@@ -16,16 +16,15 @@ namespace CELO_Enhanced
         private readonly String[] PlayersContent = new String[8];
         private int A1;
         private String After = "";
-        private String Last = "";
-        private String OutputFolder = "";
         private Utilities.INIFile cfg, cfg2;
         private Boolean derp;
+        private String Last = "";
+        private String OutputFolder = "";
 
         public LivestreamDisplayer()
         {
             InitializeComponent();
         }
-
 
         private void DisplayerWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -52,38 +51,37 @@ namespace CELO_Enhanced
             else
             {
                 OutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                           @"\CELO\Livestream Displayer";
+                               @"\CELO\Livestream Displayer";
             }
             Directory.CreateDirectory(OutputFolder);
-            
+
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\lsd.ini"))
             {
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     PlayersContent[p] = cfg.IniReadValue("Players", "P" + (p + 1));
                 }
-                
             }
             else
             {
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     PlayersContent[p] = "%NICK% Ladder rank is %RANK% with a total of %HOURS% hours played";
                 }
                 tBox_FileContent.Text = "%NICK% Ladder rank is %RANK% with a total of %HOURS% hours played";
 
                 FixText();
-                for (int i = 0; i < PlayersContent.Length; i++)
+                for (var i = 0; i < PlayersContent.Length; i++)
                 {
                     cfg.IniWriteValue("Players", "P" + (i + 1), tBox_FileContent.Text);
                 }
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     File.WriteAllText(OutputFolder + @"\player_" + (p + 1) + ".txt", "", Encoding.UTF8);
                 }
             }
 
-            for (int p = 0; p < PlayersContent.Length; p++)
+            for (var p = 0; p < PlayersContent.Length; p++)
             {
                 PlayersContent[p] = cfg.IniReadValue("Players", "P" + (p + 1));
             }
@@ -91,7 +89,6 @@ namespace CELO_Enhanced
             Last = PlayersContent[playerListBox.SelectedIndex];
             tBox_path.Text = OutputFolder;
             cfg2.IniWriteValue("Livestream_Displayer", "OutputFolder", tBox_path.Text);
-            
         }
 
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
@@ -102,7 +99,7 @@ namespace CELO_Enhanced
             {
                 tBox_path.Text = fd.SelectedPath;
                 OutputFolder = fd.SelectedPath;
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     File.WriteAllText(OutputFolder + @"\player_" + (p + 1) + ".txt", "", Encoding.UTF8);
                 }
@@ -114,16 +111,16 @@ namespace CELO_Enhanced
             try
             {
                 FixText();
-                for (int i = 0; i < PlayersContent.Length; i++)
+                for (var i = 0; i < PlayersContent.Length; i++)
                 {
                     cfg.IniWriteValue("Players", "P" + (i + 1), tBox_FileContent.Text);
                 }
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     PlayersContent[p] = cfg.IniReadValue("Players", "P" + (p + 1));
                 }
                 Utilities.showMessage(this, "All players files have been saved.", "Saved");
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     File.WriteAllText(OutputFolder + @"\player_" + (p + 1) + ".txt", "", Encoding.UTF8);
                 }
@@ -164,7 +161,7 @@ namespace CELO_Enhanced
                                 return;
                             }
                         }
-                        for (int p = 0; p < PlayersContent.Length; p++)
+                        for (var p = 0; p < PlayersContent.Length; p++)
                         {
                             PlayersContent[p] = cfg.IniReadValue("Players", "P" + (p + 1));
                         }
@@ -188,13 +185,13 @@ namespace CELO_Enhanced
             {
                 FixText();
                 cfg.IniWriteValue("Players", "P" + (playerListBox.SelectedIndex + 1), tBox_FileContent.Text);
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     PlayersContent[p] = cfg.IniReadValue("Players", "P" + (p + 1));
                 }
                 Utilities.showMessage(this, "Player " + (playerListBox.SelectedIndex + 1) + " file has been saved.",
                     "Saved");
-                for (int p = 0; p < PlayersContent.Length; p++)
+                for (var p = 0; p < PlayersContent.Length; p++)
                 {
                     File.WriteAllText(OutputFolder + @"\player_" + (p + 1) + ".txt", "", Encoding.UTF8);
                 }
@@ -213,11 +210,11 @@ namespace CELO_Enhanced
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             cfg2.IniWriteValue("Livestream_Displayer", "OutputFolder", tBox_path.Text);
-            for (int i = 0; i < PlayersContent.Length; i++)
+            for (var i = 0; i < PlayersContent.Length; i++)
             {
                 cfg.IniWriteValue("Players", "P" + (i + 1), PlayersContent[i]);
             }
-            for (int p = 0; p < PlayersContent.Length; p++)
+            for (var p = 0; p < PlayersContent.Length; p++)
             {
                 File.WriteAllText(OutputFolder + @"\player_" + (p + 1) + ".txt", "", Encoding.UTF8);
             }
@@ -234,7 +231,7 @@ namespace CELO_Enhanced
         private void FixText()
         {
             String[] Keys = {"RANK", "NICK", "STEAMID", "HOURS", "LEVEL"};
-            foreach (string word in Keys)
+            foreach (var word in Keys)
             {
                 if (tBox_FileContent.Text.Contains("%" + word.ToLower() + "%"))
                 {

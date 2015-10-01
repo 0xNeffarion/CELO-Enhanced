@@ -5,92 +5,92 @@
         ScrollViewer.VerticalScrollBarVisibility="Disabled" SizeToContent="WidthAndHeight"
         TextOptions.TextFormattingMode="Display" WindowStartupLocation="CenterScreen" Icon="icon-modified.ico"
         Loaded="DisplayerWindow_Loaded" MinWidth="857" MinHeight="413">
-    <Grid>
-        <Border BorderBrush="#FFB2C8D4" BorderThickness="1" HorizontalAlignment="Left" Height="279" Margin="612,82,0,0"
-                VerticalAlignment="Top" Width="219">
-            <Grid>
+	<Grid>
+		<Border BorderBrush="#FFB2C8D4" BorderThickness="1" HorizontalAlignment="Left" Height="279" Margin="612,82,0,0"
+		        VerticalAlignment="Top" Width="219">
+			<Grid>
 
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap"
-                           Text="This way you can put players information into your Livestream. In order to add them using OBS (Open Broadcaster Software), you have a add a TEXT Source in your Scene, and chose the player files."
-                           VerticalAlignment="Top" Height="148" Width="200" Margin="10,125,0,0" TextAlignment="Center"
-                           FontWeight="SemiBold" FontSize="13" />
-                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"
-                           Text="The Livestream Displayer creates a file for each player with the specified variables in any order or layout when a game is about to start."
-                           VerticalAlignment="Top" FontSize="13" TextAlignment="Center" Height="104" />
-            </Grid>
-        </Border>
+				<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap"
+				           Text="This way you can put players information into your Livestream. In order to add them using OBS (Open Broadcaster Software), you have a add a TEXT Source in your Scene, and chose the player files."
+				           VerticalAlignment="Top" Height="148" Width="200" Margin="10,125,0,0" TextAlignment="Center"
+				           FontWeight="SemiBold" FontSize="13" />
+				<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"
+				           Text="The Livestream Displayer creates a file for each player with the specified variables in any order or layout when a game is about to start."
+				           VerticalAlignment="Top" FontSize="13" TextAlignment="Center" Height="104" />
+			</Grid>
+		</Border>
 
-        <Border BorderBrush="#FFB2C8D4" BorderThickness="1" HorizontalAlignment="Left" Height="64" Margin="612,13,0,0"
-                VerticalAlignment="Top" Width="219" />
+		<Border BorderBrush="#FFB2C8D4" BorderThickness="1" HorizontalAlignment="Left" Height="64" Margin="612,13,0,0"
+		        VerticalAlignment="Top" Width="219" />
 
-        <ListBox x:Name="playerListBox" HorizontalAlignment="Left" Height="212" Margin="8,12,0,0"
-                 VerticalAlignment="Top" Width="191" HorizontalContentAlignment="Center" FontSize="15"
-                 SelectedIndex="0" SelectionChanged="playerListBox_SelectionChanged"
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontWeight="SemiBold"
-                 VerticalContentAlignment="Center">
-            <ListBoxItem Content="Player 1 (You)" />
-            <ListBoxItem Content="Player 2" />
-            <ListBoxItem Content="Player 3" />
-            <ListBoxItem Content="Player 4" />
-            <ListBoxItem Content="Player 5" />
-            <ListBoxItem Content="Player 6" />
-            <ListBoxItem Content="Player 7" />
-            <ListBoxItem Content="Player 8" />
-        </ListBox>
-        <GroupBox Header="File" HorizontalAlignment="Left" Margin="208,42,0,0" VerticalAlignment="Top" Height="182"
-                  Width="392">
-            <Grid Margin="0,0,0,-1">
-                <TextBox x:Name="tBox_FileContent" HorizontalAlignment="Left" Height="140" Margin="10,10,0,0"
-                         TextWrapping="Wrap" VerticalAlignment="Top" Width="358"
-                         TextChanged="tBox_FileContent_TextChanged">
-                    <TextBox.BorderBrush>
-                        <LinearGradientBrush EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
-                            <GradientStop Color="#FFABADB3" Offset="0.05" />
-                            <GradientStop Color="#FFE2E3EA" Offset="0.07" />
-                            <GradientStop Color="#FFC5CFD8" Offset="1" />
-                        </LinearGradientBrush>
-                    </TextBox.BorderBrush>
-                </TextBox>
-            </Grid>
-        </GroupBox>
-        <Image HorizontalAlignment="Left" Height="46" Margin="694,22,0,0" VerticalAlignment="Top" Width="86"
-               Source="Resources/vidcap.png" />
-        <GroupBox Header="Variables" HorizontalAlignment="Left" Margin="208,229,0,0" VerticalAlignment="Top"
-                  Height="135" Width="392">
-            <Grid>
-                <Label Content="Nickname - " HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top"
-                       Width="73" />
-                <Label Content="Ladder Rank - " HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top"
-                       Width="84" />
-                <Label Content="Hours Played - " HorizontalAlignment="Left" Margin="199,18,0,0" VerticalAlignment="Top" />
-                <Label Content="Game Level - " HorizontalAlignment="Left" Margin="209,43,0,0" VerticalAlignment="Top"
-                       Width="81" />
-                <Label Content="Steam ID - " HorizontalAlignment="Left" Margin="28,68,0,0" VerticalAlignment="Top"
-                       Width="66" />
-                <Label Content="%NICK%" HorizontalAlignment="Left" Margin="94,18,0,0" VerticalAlignment="Top"
-                       FontWeight="Bold" />
-                <Label Content="%RANK%" HorizontalAlignment="Left" Margin="94,43,0,0" VerticalAlignment="Top"
-                       FontWeight="Bold" />
-                <Label Content="%STEAMID%" HorizontalAlignment="Left" Margin="94,68,0,0" VerticalAlignment="Top"
-                       FontWeight="Bold" />
-                <Label Content="%HOURS%" HorizontalAlignment="Left" Margin="290,18,0,0" VerticalAlignment="Top"
-                       FontWeight="Bold" />
-                <Label Content="%LEVEL%" HorizontalAlignment="Left" Margin="290,43,0,0" VerticalAlignment="Top"
-                       FontWeight="Bold" />
-            </Grid>
-        </GroupBox>
-        <Button x:Name="btnCreateAll" Content="Save all files" HorizontalAlignment="Left" Margin="10,229,0,0"
-                VerticalAlignment="Top" Width="189" Height="31" Click="btnCreateAll_Click" />
-        <Button x:Name="btnCreateSelected" Content="Save for selected player" HorizontalAlignment="Left"
-                Margin="10,265,0,0" VerticalAlignment="Top" Width="189" Height="31" Click="btnCreateSelected_Click" />
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="10,330,0,0"
-                VerticalAlignment="Top" Width="189" Height="31" Click="btnClose_Click" />
-        <TextBox x:Name="tBox_path" HorizontalAlignment="Left" Height="24" Margin="295,13,0,0" VerticalAlignment="Top"
-                 Width="227" IsEnabled="False" />
-        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="527,13,0,0"
-                VerticalAlignment="Top" Width="73" RenderTransformOrigin="0.479,1" Height="24" Click="btnBrowse_Click" />
-        <Label Content="Output Folder:" HorizontalAlignment="Left" Margin="208,12,0,0" VerticalAlignment="Top" />
+		<ListBox x:Name="playerListBox" HorizontalAlignment="Left" Height="212" Margin="8,12,0,0"
+		         VerticalAlignment="Top" Width="191" HorizontalContentAlignment="Center" FontSize="15"
+		         SelectedIndex="0" SelectionChanged="playerListBox_SelectionChanged"
+		         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+		         ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontWeight="SemiBold"
+		         VerticalContentAlignment="Center">
+			<ListBoxItem Content="Player 1 (You)" />
+			<ListBoxItem Content="Player 2" />
+			<ListBoxItem Content="Player 3" />
+			<ListBoxItem Content="Player 4" />
+			<ListBoxItem Content="Player 5" />
+			<ListBoxItem Content="Player 6" />
+			<ListBoxItem Content="Player 7" />
+			<ListBoxItem Content="Player 8" />
+		</ListBox>
+		<GroupBox Header="File" HorizontalAlignment="Left" Margin="208,42,0,0" VerticalAlignment="Top" Height="182"
+		          Width="392">
+			<Grid Margin="0,0,0,-1">
+				<TextBox x:Name="tBox_FileContent" HorizontalAlignment="Left" Height="140" Margin="10,10,0,0"
+				         TextWrapping="Wrap" VerticalAlignment="Top" Width="358"
+				         TextChanged="tBox_FileContent_TextChanged">
+					<TextBox.BorderBrush>
+						<LinearGradientBrush EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
+							<GradientStop Color="#FFABADB3" Offset="0.05" />
+							<GradientStop Color="#FFE2E3EA" Offset="0.07" />
+							<GradientStop Color="#FFC5CFD8" Offset="1" />
+						</LinearGradientBrush>
+					</TextBox.BorderBrush>
+				</TextBox>
+			</Grid>
+		</GroupBox>
+		<Image HorizontalAlignment="Left" Height="46" Margin="694,22,0,0" VerticalAlignment="Top" Width="86"
+		       Source="Resources/vidcap.png" />
+		<GroupBox Header="Variables" HorizontalAlignment="Left" Margin="208,229,0,0" VerticalAlignment="Top"
+		          Height="135" Width="392">
+			<Grid>
+				<Label Content="Nickname - " HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top"
+				       Width="73" />
+				<Label Content="Ladder Rank - " HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top"
+				       Width="84" />
+				<Label Content="Hours Played - " HorizontalAlignment="Left" Margin="199,18,0,0" VerticalAlignment="Top" />
+				<Label Content="Game Level - " HorizontalAlignment="Left" Margin="209,43,0,0" VerticalAlignment="Top"
+				       Width="81" />
+				<Label Content="Steam ID - " HorizontalAlignment="Left" Margin="28,68,0,0" VerticalAlignment="Top"
+				       Width="66" />
+				<Label Content="%NICK%" HorizontalAlignment="Left" Margin="94,18,0,0" VerticalAlignment="Top"
+				       FontWeight="Bold" />
+				<Label Content="%RANK%" HorizontalAlignment="Left" Margin="94,43,0,0" VerticalAlignment="Top"
+				       FontWeight="Bold" />
+				<Label Content="%STEAMID%" HorizontalAlignment="Left" Margin="94,68,0,0" VerticalAlignment="Top"
+				       FontWeight="Bold" />
+				<Label Content="%HOURS%" HorizontalAlignment="Left" Margin="290,18,0,0" VerticalAlignment="Top"
+				       FontWeight="Bold" />
+				<Label Content="%LEVEL%" HorizontalAlignment="Left" Margin="290,43,0,0" VerticalAlignment="Top"
+				       FontWeight="Bold" />
+			</Grid>
+		</GroupBox>
+		<Button x:Name="btnCreateAll" Content="Save all files" HorizontalAlignment="Left" Margin="10,229,0,0"
+		        VerticalAlignment="Top" Width="189" Height="31" Click="btnCreateAll_Click" />
+		<Button x:Name="btnCreateSelected" Content="Save for selected player" HorizontalAlignment="Left"
+		        Margin="10,265,0,0" VerticalAlignment="Top" Width="189" Height="31" Click="btnCreateSelected_Click" />
+		<Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="10,330,0,0"
+		        VerticalAlignment="Top" Width="189" Height="31" Click="btnClose_Click" />
+		<TextBox x:Name="tBox_path" HorizontalAlignment="Left" Height="24" Margin="295,13,0,0" VerticalAlignment="Top"
+		         Width="227" IsEnabled="False" />
+		<Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="527,13,0,0"
+		        VerticalAlignment="Top" Width="73" RenderTransformOrigin="0.479,1" Height="24" Click="btnBrowse_Click" />
+		<Label Content="Output Folder:" HorizontalAlignment="Left" Margin="208,12,0,0" VerticalAlignment="Top" />
 
-    </Grid>
+	</Grid>
 </Window>
