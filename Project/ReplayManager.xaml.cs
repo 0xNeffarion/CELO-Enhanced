@@ -317,15 +317,17 @@ namespace CELO_Enhanced
             return returnStr;
         }
 
+        public long totalTime = 0;
+
         private void ParseCOH2_Replays()
         {
             var z = 0;
             var di = new DirectoryInfo(doc_path + @"\playback");
             Byte[] btNeedle = {68, 65, 84, 65, 80, 76, 65, 83};
-            var watch = new Stopwatch();
-            watch.Start();
+           
             foreach (var file in di.GetFiles("*.rec"))
             {
+                
                 var bytArray = File.ReadAllBytes(file.FullName);
                 try
                 {
@@ -590,12 +592,12 @@ namespace CELO_Enhanced
 
                     // START CHAT
                     var ChatEntries = new List<ChatEntry>();
-
+                    
                     if (isChatEnabled)
                     {
                         try
                         {
-                            var startPos = Utilities.SearchBytes(bytArray, btNeedle) + 50;
+                            var startPos = Utilities.SearchBytes(bytArray, btNeedle) + 75;
                             var curPos = startPos;
                             long PlayerPos = 0;
                             long fs1 = 0;
@@ -684,7 +686,10 @@ namespace CELO_Enhanced
                 {
                 }
                 z++;
+                
+
             }
+            
         }
 
         private void ParseCOH_Replays()
@@ -1124,6 +1129,7 @@ namespace CELO_Enhanced
             fsw.Created -= Fsw_Created;
             fsw.Deleted -= Fsw_Deleted;
             fsw.Renamed -= Fsw_Renamed;
+            
         }
 
         private class Replay

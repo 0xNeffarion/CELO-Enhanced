@@ -25,7 +25,7 @@ namespace CELO_Enhanced
             Current.Exit += Current_Exit;
             cfgFile = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
             logFile.CreateNew();
-
+            
 
             logFile.WriteLine("CELO - STARTED");
             logFile.WriteLine("CELO VERSION: " + Assembly.GetExecutingAssembly().GetName().Version);
@@ -47,7 +47,7 @@ namespace CELO_Enhanced
             if (Utilities.FastCRC32.CRC32String(e.ToString()) != 1532817726)
             {
                 logFile.WriteLine("UNHANDLED EXCEPTION (4) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " +
-                                  e.Exception);
+                                  e.Exception.ToString());
             }
         }
 
@@ -59,7 +59,7 @@ namespace CELO_Enhanced
                 MessageBoxButton.OK, MessageBoxImage.Error);
 
             logFile.WriteLine("UNHANDLED EXCEPTION (2) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " +
-                              e.Exception);
+                              e.Exception.ToString());
             e.Handled = true;
         }
 
@@ -71,17 +71,20 @@ namespace CELO_Enhanced
                 MessageBoxButton.OK, MessageBoxImage.Error);
 
             logFile.WriteLine("UNHANDLED EXCEPTION (3) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " +
-                              e.Exception);
+                              e.Exception.ToString());
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(
-                "A Critical error caused the application to crash!\nThe exception has been logged.\nError code: " +
-                Utilities.FastCRC32.CRC32String(e.ToString()), "ERROR",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+            
+            if (Utilities.FastCRC32.CRC32String(e.ToString()) != 2225983837)
+            {
+                MessageBox.Show("A Critical error caused the application to crash!\nThe exception has been logged.\nError code: " +
+                    Utilities.FastCRC32.CRC32String(e.ToString()), "ERROR",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
 
-            logFile.WriteLine("UNHANDLED EXCEPTION (1) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") : " + e);
+            }
+            logFile.WriteLine("UNHANDLED EXCEPTION (1) (Hash: " + Utilities.FastCRC32.CRC32String(e.ToString()) + ") (IsTerminate? : " + e.IsTerminating.ToString() + ") : " + (e.ExceptionObject as Exception).ToString());
         }
 
         private void Current_Exit(object sender, ExitEventArgs e)

@@ -121,9 +121,10 @@ namespace CELO_Enhanced
             ImageSource sr = new BitmapImage(new Uri(@"pack://application:,,,/Resources/LSD_0.png"));
             imgLSD.Source = sr;
         }
-
+       
         private void imgGameWatcher_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            
             if (isFirstTime())
             {
                 MessageBox.Show(this,
@@ -134,15 +135,17 @@ namespace CELO_Enhanced
             }
             else
             {
-                setcfg();
-                SelectedGame = cBoxGame.SelectedIndex;
                 logFile.WriteLine("START SCREEN - Loading Game Watcher");
-                var mn = new MainWindow();
+                MainWindow mn = new MainWindow();
                 mn.Show();
                 mn.Focus();
+                setcfg();
+                SelectedGame = cBoxGame.SelectedIndex;
+
                 Close();
                 logFile.WriteLine("START SCREEN - ENDED");
             }
+            
         }
 
         private void imgRepManager_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

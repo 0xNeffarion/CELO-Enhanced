@@ -718,3 +718,5 @@ S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CE
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.exe
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+S:\Programming\C#\Visual Studio\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
+S:\Programming\C#\Visual Studio\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb

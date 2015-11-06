@@ -25,8 +25,7 @@ using System.Windows.Threading;
 using System.Xml;
 using HtmlAgilityPack;
 using Microsoft.VisualBasic.Devices;
-using MouseKeyboardActivityMonitor;
-using MouseKeyboardActivityMonitor.WinApi;
+using Gma.System.MouseKeyHook;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using Color = System.Drawing.Color;
@@ -46,6 +45,42 @@ namespace CELO_Enhanced
             InitializeComponent();
             Application.Current.MainWindow = this;
             cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
+            globalHook = Hook.GlobalEvents();
+            globalHook.KeyDown += GlobalHook_KeyDown;
+            globalHook.MouseClick += GlobalHook_MouseClick;
+            
+        }
+
+        private void GlobalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (isKeyboardHookEnabled)
+            {
+                if (e.KeyCode == Keys.F4)
+                {
+                    _warspoilTimeSpan = new TimeSpan(0,0,0,0);
+                    
+                }
+            }
+        }
+
+        private void GlobalHook_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (isMouseHookEnabled)
+            {
+                try
+                {
+                    var app = GetActiveWindowTitle();
+                    if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
+                    {
+                        clicks++;
+                        game_cpmTotal.Content = "Clicks: " + clicks;
+                    }
+                }
+                catch
+                {
+                }
+            }
+
         }
 
         public ImageSource SourceToImage(string source)
@@ -224,12 +259,16 @@ namespace CELO_Enhanced
         private DispatcherTimer _logTimer;
         private DispatcherTimer _updTimer;
         private DispatcherTimer _failsafeTimer;
+        private DispatcherTimer _warSpoilTimer;
+        private TimeSpan _warspoilTimeSpan;
+        private readonly TimeSpan tm = new TimeSpan(0, 3, 0, 0);
         private int mins;
         private int ping;
         private Thread th;
 
         private void LoadTimers()
         {
+            
             _cfgTimerInt = 2200;
             logFile.WriteLine("MAIN WINDOW - Loading reader timer");
             _readerTimer = new DispatcherTimer(DispatcherPriority.Background);
@@ -267,6 +306,28 @@ namespace CELO_Enhanced
             _failsafeTimer.Interval = new TimeSpan(0, 0, 0, 25);
             _failsafeTimer.Tick += _failsafeTimer_Tick;
             logFile.WriteLine("MAIN WINDOW - Loaded failsafe timer");
+            logFile.WriteLine("MAIN WINDOW - Loading warspoil timer");
+            _warSpoilTimer = new DispatcherTimer(DispatcherPriority.Background);
+            _warSpoilTimer.IsEnabled = false;
+            _warSpoilTimer.Interval = new TimeSpan(0, 0, 1);
+            _warSpoilTimer.Tick += _warSpoilTimer_Tick;
+            logFile.WriteLine("MAIN WINDOW - Loaded warspoil timer");
+
+        }
+
+        private void _warSpoilTimer_Tick(object sender, EventArgs e)
+        {
+            _warspoilTimeSpan = _warspoilTimeSpan.Add(new TimeSpan(0, 0, 0, 1, 0));
+            TimeSpan resTm = tm.Subtract(_warspoilTimeSpan);
+            if (resTm.TotalSeconds > 0)
+            {
+                match_drop.Text = "Approx. Warspoil countdown: " + resTm.ToString("c") + " (F4 Resets)";
+            }
+            else
+            {
+                match_drop.Text = "Approx. Warspoil countdown: Finished (F4 Resets)";
+            }
+
         }
 
         private void _failsafeTimer_Tick(object sender, EventArgs e)
@@ -429,6 +490,7 @@ namespace CELO_Enhanced
                                     {
                                         _osdList.All(x => x.Hide());
                                         _osdList.Clear();
+                                        
                                     }
                                 }
                             }
@@ -666,6 +728,17 @@ namespace CELO_Enhanced
         #endregion
 
         #region Menus
+
+        private void mnuSendFb_Click(object sender, RoutedEventArgs e)
+        {
+            Feedback fb = new Feedback();
+            fb.ShowDialog();
+        }
+
+        private void mnuDonate_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://www.neffware.com/index.php/support");
+        }
 
         private void mnuMHV_Click(object sender, RoutedEventArgs e)
         {
@@ -984,7 +1057,9 @@ namespace CELO_Enhanced
         private readonly String _copyLogPath = AppDomain.CurrentDomain.BaseDirectory + @"\data\log.tempf";
         private readonly ObservableCollection<Player> _players = new ObservableCollection<Player>();
         private readonly List<FloatingOSDWindow> _osdList = new List<FloatingOSDWindow>();
-        private readonly MouseHookListener mhl = new MouseHookListener(new GlobalHooker());
+        private IKeyboardMouseEvents globalHook;
+        private bool isMouseHookEnabled = false;
+        private bool isKeyboardHookEnabled = false;
         private WebBrowser webFlags;
         private Thread InfoThread;
         private List<String> _logContent = new List<String>();
@@ -1208,7 +1283,7 @@ namespace CELO_Enhanced
                             {
                                 _matchBeingPlayed = false;
                                 _pingTimer.IsEnabled = false;
-                                mhl.Enabled = false;
+                               
                                 _cpmTimer.IsEnabled = false;
                                 CleanLSD();
                                 return true;
@@ -1225,10 +1300,12 @@ namespace CELO_Enhanced
                             var str2 = str.Split(':');
                             if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
                             {
+                                isMouseHookEnabled = false;
+                                _warSpoilTimer.IsEnabled = false;
                                 _matchBeingPlayed = false;
                                 PassAgeGateCookie();
                                 _pingTimer.IsEnabled = false;
-                                mhl.Enabled = false;
+                              
                                 _cpmTimer.IsEnabled = false;
                                 CleanLSD();
                                 return true;
@@ -1864,14 +1941,6 @@ namespace CELO_Enhanced
         {
             switch (game)
             {
-                case 0:
-
-                    var ps = false;
-
-                    match_type.Content = String.Format("Type: {0}vs{0}", (playerList.Items.Count/2));
-                    logFile.WriteLine("MAIN WINDOW - Watcher - Match type: " + match_type.Content);
-                    break;
-
                 case 1:
                     if (IsLoaded)
                     {
@@ -1901,9 +1970,8 @@ namespace CELO_Enhanced
                                 }
                             }
                         }
-                        var ps2 = false;
-                        match_type.Content = String.Format("Type: {0}vs{0}", (_players.Count/2));
-                        logFile.WriteLine("MAIN WINDOW - Watcher - Match type: " + match_type.Content);
+                        
+                        
                     }
 
                     break;
@@ -1927,10 +1995,11 @@ namespace CELO_Enhanced
                 _pingTimer.IsEnabled = true;
                 clicks = 0;
                 mins = 0;
+                isKeyboardHookEnabled = true;
+                _warSpoilTimer.IsEnabled = true;
+                logFile.WriteLine("MAIN WINDOW - Watcher - Keyboard Hook enabled (Warspoils Drop)");
+                isMouseHookEnabled = true;
                 logFile.WriteLine("MAIN WINDOW - Watcher - Mouse Hook enabled (CPM)");
-                mhl.Enabled = true;
-
-                mhl.MouseClick += Mhl_MouseClick;
                 logFile.WriteLine("MAIN WINDOW - Watcher - CPM Timer is enabled");
                 _cpmTimer.IsEnabled = true;
                 game_cpm.Content = "CPM: 0";
@@ -2419,22 +2488,6 @@ namespace CELO_Enhanced
 
         #region CoH Functions
 
-        private void Mhl_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            try
-            {
-                var app = GetActiveWindowTitle();
-                if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
-                {
-                    clicks++;
-                    game_cpmTotal.Content = "Clicks: " + clicks;
-                }
-            }
-            catch
-            {
-            }
-        }
-
         private void RenderLSD()
         {
             if (_cfgLsdOutput != "")
@@ -2511,62 +2564,65 @@ namespace CELO_Enhanced
 
                     var dbFile = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
                     var repFolder = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\replays";
-                    if (!File.Exists(dbFile) || File.ReadAllText(dbFile) == "")
+                    if (!File.Exists(dbFile))
                     {
                         XmlWriter xWriter = new XmlTextWriter(new StreamWriter(dbFile));
                         xWriter.WriteStartElement("Matches");
                     }
-                    Directory.CreateDirectory(repFolder);
-                    var ReplayFile = _cfgDocPath + @"\playback\temp.rec";
-                    var ReplayCopy = Guid.NewGuid() + ".rec";
-                    File.Copy(ReplayFile, repFolder + @"\" + ReplayCopy, true);
-                    var gameDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
-                    var MapFileName = ReplayManager.RetrieveMap(repFolder + @"\" + ReplayCopy, _gameSelected);
-
-                    var document = new XmlDocument();
-                    document.Load(dbFile);
-                    XmlNode MatchNode = document.CreateElement("Match");
-                    XmlNode ReplayNode = document.CreateElement("Replay");
-                    ReplayNode.InnerText = ReplayCopy;
-                    XmlNode DateNode = document.CreateElement("Date");
-                    DateNode.InnerText = gameDate;
-                    XmlNode MapNode = document.CreateElement("Map");
-                    MapNode.InnerText = MapFileName;
-                    XmlNode TypeNode = document.CreateElement("Type");
-                    TypeNode.InnerText = (_players.Count/2).ToString();
-                    XmlNode PlayersNode = document.CreateElement("Players");
-                    MatchNode.AppendChild(ReplayNode);
-                    MatchNode.AppendChild(DateNode);
-                    MatchNode.AppendChild(MapNode);
-                    MatchNode.AppendChild(TypeNode);
-                    MatchNode.AppendChild(PlayersNode);
-
-                    for (var i = 0; i < _players.Count; i++)
+                    if (File.Exists(dbFile))
                     {
-                        XmlNode PLNode = document.CreateElement("Player");
+                        Directory.CreateDirectory(repFolder);
+                        var ReplayFile = _cfgDocPath + @"\playback\temp.rec";
+                        var ReplayCopy = Guid.NewGuid() + ".rec";
+                        File.Copy(ReplayFile, repFolder + @"\" + ReplayCopy, true);
+                        var gameDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
+                        var MapFileName = ReplayManager.RetrieveMap(repFolder + @"\" + ReplayCopy, _gameSelected);
 
-                        XmlNode NickNode = document.CreateElement("Nickname");
-                        NickNode.InnerText = _players[i].Nickname;
-                        XmlNode RaceNode = document.CreateElement("Race");
-                        RaceNode.InnerText = _players[i].Race.ToString();
-                        XmlNode RankNode = document.CreateElement("Ranking");
-                        RankNode.InnerText = _players[i].Ranking;
-                        XmlNode LevelNode = document.CreateElement("Level");
-                        LevelNode.InnerText = _players[i].Level;
-                        XmlNode TimeNode = document.CreateElement("Timeplayed");
-                        TimeNode.InnerText = _players[i].TimePlayed.ToString();
-                        XmlNode SteamNode = document.CreateElement("SteamID");
-                        SteamNode.InnerText = _players[i].SteamID.ToString();
-                        PlayersNode.AppendChild(PLNode);
-                        PLNode.AppendChild(NickNode);
-                        PLNode.AppendChild(RaceNode);
-                        PLNode.AppendChild(RankNode);
-                        PLNode.AppendChild(LevelNode);
-                        PLNode.AppendChild(TimeNode);
-                        PLNode.AppendChild(SteamNode);
+                        var document = new XmlDocument();
+                        document.Load(dbFile);
+                        XmlNode MatchNode = document.CreateElement("Match");
+                        XmlNode ReplayNode = document.CreateElement("Replay");
+                        ReplayNode.InnerText = ReplayCopy;
+                        XmlNode DateNode = document.CreateElement("Date");
+                        DateNode.InnerText = gameDate;
+                        XmlNode MapNode = document.CreateElement("Map");
+                        MapNode.InnerText = MapFileName;
+                        XmlNode TypeNode = document.CreateElement("Type");
+                        TypeNode.InnerText = (_players.Count/2).ToString();
+                        XmlNode PlayersNode = document.CreateElement("Players");
+                        MatchNode.AppendChild(ReplayNode);
+                        MatchNode.AppendChild(DateNode);
+                        MatchNode.AppendChild(MapNode);
+                        MatchNode.AppendChild(TypeNode);
+                        MatchNode.AppendChild(PlayersNode);
+
+                        for (var i = 0; i < _players.Count; i++)
+                        {
+                            XmlNode PLNode = document.CreateElement("Player");
+
+                            XmlNode NickNode = document.CreateElement("Nickname");
+                            NickNode.InnerText = _players[i].Nickname;
+                            XmlNode RaceNode = document.CreateElement("Race");
+                            RaceNode.InnerText = _players[i].Race.ToString();
+                            XmlNode RankNode = document.CreateElement("Ranking");
+                            RankNode.InnerText = _players[i].Ranking;
+                            XmlNode LevelNode = document.CreateElement("Level");
+                            LevelNode.InnerText = _players[i].Level;
+                            XmlNode TimeNode = document.CreateElement("Timeplayed");
+                            TimeNode.InnerText = _players[i].TimePlayed.ToString();
+                            XmlNode SteamNode = document.CreateElement("SteamID");
+                            SteamNode.InnerText = _players[i].SteamID.ToString();
+                            PlayersNode.AppendChild(PLNode);
+                            PLNode.AppendChild(NickNode);
+                            PLNode.AppendChild(RaceNode);
+                            PLNode.AppendChild(RankNode);
+                            PLNode.AppendChild(LevelNode);
+                            PLNode.AppendChild(TimeNode);
+                            PLNode.AppendChild(SteamNode);
+                        }
+                        document.DocumentElement.AppendChild(MatchNode);
+                        document.Save(dbFile);
                     }
-                    document.DocumentElement.AppendChild(MatchNode);
-                    document.Save(dbFile);
                 }
                 catch (Exception ex)
                 {

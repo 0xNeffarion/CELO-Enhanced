@@ -35,8 +35,12 @@
 			<Menu x:Name="menuMain" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" BorderThickness="0,0,0,1"
 			      FontFamily="Roboto" Margin="2,1,0,0" Padding="1,2,0,0"
 			      Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
-
-				<MenuItem x:Name="mnuFile" Header="File" TabIndex="1">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem x:Name="mnuFile" Header="File" TabIndex="1">
 					<MenuItem x:Name="mnuRestart" Header="Restart CELO" Click="mnuRestart_Click">
 						<MenuItem.Icon>
 							<Image Source="Resources/menu_02.png" Height="16" Width="16" Stretch="Fill" />
@@ -88,45 +92,50 @@
 						</MenuItem.Icon>
 					</MenuItem>
 				</MenuItem>
-				<MenuItem x:Name="mnuHelp" Header="Help" TabIndex="5">
-					<MenuItem x:Name="mnuCheckUpd" Header="Check for Updates" Click="mnuCheckUpd_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_07.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="mnuLogs" Header="Open Logs Folder" Click="mnuLogs_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_018.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem Header="About" Click="mnuHelp_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_015.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-				</MenuItem>
-				<MenuItem x:Name="mnuNewUpdate" FontSize="14" FontWeight="Bold" Background="{x:Null}" Foreground="#FFFF8000"
+                <MenuItem x:Name="mnuHelp" Header="Help" TabIndex="5">
+                    <MenuItem x:Name="mnuCheckUpd" Header="Check for Updates" Click="mnuCheckUpd_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_07.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnuLogs" Header="Open Logs Folder" Click="mnuLogs_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_018.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="About" Click="mnuHelp_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_015.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem x:Name="mnuNewUpdate" FontSize="14" FontWeight="Bold" Background="{x:Null}" Foreground="#FFFF8000"
 				          Header="!NEW UPDATE IS AVAILABLE!" Click="mnuNewUpdate_Click" VerticalAlignment="Top" Padding="0"
 				          Cursor="Hand" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Disabled"
 				          IsEnabled="False" Opacity="0" BorderBrush="{x:Null}" BorderThickness="0" Focusable="False"
 				          IsTabStop="False" />
-			</Menu>
 
-		</DockPanel>
+
+                    
+                    <MenuItem x:Name="mnuDonate"  Header="Donate" TabIndex="5" Click="mnuDonate_Click" HorizontalAlignment="Right" />
+                    <MenuItem x:Name="mnuSendFb" Header="Send feedback" TabIndex="6" Click="mnuSendFb_Click" Width="95" HorizontalAlignment="Right" />
+                
+            </Menu>
+            
+        </DockPanel>
 
 		<GroupBox x:Name="groupMatchInfo" Header="Match Information" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"
 		          Margin="6,6,13,6">
 			<Grid>
 				<StackPanel Margin="2">
-					<Label x:Name="match_type" Content="Type: N/A"
-					       Height="25" FontSize="11" TextOptions.TextFormattingMode="Display" VerticalContentAlignment="Stretch"
-					       HorizontalContentAlignment="Stretch" />
+                    <TextBlock x:Name="match_drop" Text="Approx. Warspoil countdown: 03:00:00 (F4 Resets)"
+					       Height="38" FontSize="11" TextOptions.TextFormattingMode="Display" TextWrapping="Wrap" TextAlignment="Center" Margin="0,2,0,0"  />
 					<Label x:Name="match_map" Content="Map: N/A"
 					       Height="25" FontSize="11" TextOptions.TextFormattingMode="Display" HorizontalContentAlignment="Stretch"
 					       VerticalContentAlignment="Stretch" />
-					<Image x:Name="match_mapImg" Height="90" RenderOptions.BitmapScalingMode="HighQuality"
+					<Image x:Name="match_mapImg" Height="75" RenderOptions.BitmapScalingMode="HighQuality"
 					       RenderOptions.EdgeMode="Aliased"
-					       UseLayoutRounding="True" Margin="6">
+					       UseLayoutRounding="True" Margin="6,1,6,6">
 						<Image.ToolTip>
 							<StackPanel Orientation="Vertical">
 								<Image x:Name="match_imgTooltip" RenderOptions.BitmapScalingMode="NearestNeighbor"

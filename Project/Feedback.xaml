@@ -1,0 +1,39 @@
+﻿<Window x:Name="FeedbackWindow" x:Class="CELO_Enhanced.Feedback"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CELO_Enhanced"
+        mc:Ignorable="d"
+        Title="CELO -  Send Feedback" Height="476" Width="530" FontSize="13" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" TextOptions.TextFormattingMode="Display" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="NoResize" MinHeight="340" MinWidth="530" Icon="icon-modified.ico" Loaded="FeedbackWindow_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="155*"/>
+            <ColumnDefinition Width="369*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="236*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="61*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Margin="0,5,0,0">
+            <Label x:Name="label" Content="If you would like to give some constructive feedback fill out the forms below:" FontSize="14" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBlock x:Name="labelBug" Text="Please do not use this for bug reporting.&#x0a;Instead click here to send a PM to my coh2.org profile" FontSize="12" FontWeight="SemiBold"  Foreground="#FFFF0202" TextAlignment="Center" Height="36" Margin="0,5,0,0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MouseLeftButtonDown="labelBug_MouseLeftButtonDown" Cursor="Hand" />
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,15,0,0" Grid.RowSpan="3">
+            <TextBlock Text="Name/Email (Optional):" Height="24" TextAlignment="Right"/>
+            <TextBlock Text="Text:" Height="24" TextAlignment="Right" Margin="0,15,0,0"/>
+
+
+        </StackPanel>
+        <TextBlock x:Name="txtCodeQuestion" Text="" Grid.Row="2" Grid.Column="0" TextAlignment="Right" Margin="0,9"/>
+        <TextBox Margin="10,9,25,9" x:Name="txtCode" Grid.Column="1" Grid.Row="2" MaxLines="1" TabIndex="3" TextChanged="txtCode_TextChanged" />
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,15,0,0" Grid.RowSpan="3">
+            <TextBox x:Name="txtName" Margin="10,0,25,0" Height="24" MaxLines="1" TabIndex="1"></TextBox>
+            <TextBox x:Name="txtText" Margin="10,15,25,0" AcceptsReturn="True" AutoWordSelection="True" TextWrapping="Wrap" MaxLines="2" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="195" TabIndex="2" TextChanged="txtText_TextChanged" />
+        </StackPanel>
+        <Button x:Name="buttonSend" Grid.Column="1" Grid.Row="3" Margin="12" Content="Send" TabIndex="5" Click="buttonSend_Click" IsDefault="True" IsEnabled="False"/>
+        <Button x:Name="buttonClose" Grid.Column="0" Grid.Row="3" Margin="12" Content="Close" TabIndex="4" Click="buttonClose_Click"/>
+    </Grid>
+</Window>
