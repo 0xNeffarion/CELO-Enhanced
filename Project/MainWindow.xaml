@@ -11,7 +11,7 @@
 	Icon="icon-modified.ico"
 	MinHeight="450" MinWidth="611" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"
 	ShowActivated="False" TextOptions.TextFormattingMode="Display" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-	WindowStartupLocation="CenterScreen" UseLayoutRounding="False"
+	WindowStartupLocation="CenterScreen" UseLayoutRounding="True"
 	IsHitTestVisible="True" IsTabStop="True" Loaded="Celo_Main_Loaded" FontSize="13" Closing="Celo_Main_Closing">
 	<Window.Resources>
 		<celoEnhanced:Converters x:Key="ImageConv" />
@@ -272,7 +272,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-									<Image HorizontalAlignment="Left" Width="19"
+                                    <Image HorizontalAlignment="Left" Width="19" RenderOptions.BitmapScalingMode="HighQuality"
 									       Height="19" Source="{Binding Icon, Converter={StaticResource ImageConv}}">
 										<Image.ToolTip>
 											<StackPanel>
@@ -282,7 +282,7 @@
 									</Image>
 
 									<TextBlock TextAlignment="Left" HorizontalAlignment="Left"
-									           Text="{Binding Nickname}" Margin="2,0,0,0" TextTrimming="CharacterEllipsis" />
+									           Text="{Binding Nickname}" Margin="2,0,0,0" TextTrimming="CharacterEllipsis" FontWeight="Normal" />
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -309,7 +309,7 @@
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
-									           Text="{Binding Ranking}" />
+									           Text="{Binding Ranking}" FontWeight="Medium" FontSize="13" />
 									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
 									           Text="{Binding RankingAfter}" FontWeight="SemiBold" />
 								</StackPanel>
@@ -321,7 +321,7 @@
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
-									           Text="{Binding TimePlayed}" />
+									           Text="{Binding TimePlayed}" FontWeight="Medium" FontSize="13" />
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>

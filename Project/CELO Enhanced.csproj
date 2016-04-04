@@ -275,6 +275,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\flags\gg.png" />
     <Resource Include="Resources\coh2_4.png" />
     <Resource Include="Resources\menu_018.png" />
     <Resource Include="Resources\flags\fail.png" />
@@ -603,9 +604,9 @@
     <Content Include="data\maps\coh2\unknown.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="data\news.txt">
+    <Content Include="data\news.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="disclaimer.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

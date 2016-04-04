@@ -39,6 +39,9 @@ namespace CELO_Enhanced
     public partial class MainWindow : Window
     {
         private readonly Utilities.INIFile cfg;
+        private long mysteamId = 0;
+        private bool isSteamIdSearch = false;
+        private bool isLocked = false;
 
         public MainWindow()
         {
@@ -291,13 +294,13 @@ namespace CELO_Enhanced
             logFile.WriteLine("MAIN WINDOW - Loading update timer");
             _updTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
             _updTimer.IsEnabled = _cfgCheckUpdates;
-            _updTimer.Interval = new TimeSpan(0, 10, 0);
+            _updTimer.Interval = new TimeSpan(0, 15, 0);
             _updTimer.Tick += _updTimer_Tick;
             logFile.WriteLine("MAIN WINDOW - Loaded update timer");
             logFile.WriteLine("MAIN WINDOW - Loading log timer");
             _logTimer = new DispatcherTimer(DispatcherPriority.ApplicationIdle);
             _logTimer.IsEnabled = true;
-            _logTimer.Interval = new TimeSpan(0, 0, 0, 30);
+            _logTimer.Interval = new TimeSpan(0, 0, 1, 0);
             _logTimer.Tick += _logTimer_Tick;
             logFile.WriteLine("MAIN WINDOW - Loaded log timer");
             logFile.WriteLine("MAIN WINDOW - Loading failsafe timer");
@@ -356,10 +359,10 @@ namespace CELO_Enhanced
         }
 
         private async void _logTimer_Tick(object sender, EventArgs e)
-        {
-            logFile.WriteLine("===== LOG TIMER START =====");
-            var temp = cpuCounter.NextValue();
+        { 
+            cpuCounter.NextValue();
             await TaskEx.Delay(1000);
+            logFile.WriteLine("===== LOG TIMER START =====");
             logFile.WriteLine("Total Memory: " + (((new ComputerInfo().TotalPhysicalMemory)/1024)/1024) + " MBytes");
             logFile.WriteLine("Used Memory: " + ((Process.GetCurrentProcess().WorkingSet64/1024)/1024) + " MBytes");
             logFile.WriteLine("Free Memory: " + ramCounter.NextValue() + " MBytes");
@@ -458,7 +461,7 @@ namespace CELO_Enhanced
                         }
                         break;
                     case 1:
-                        if (IsGameRunning(1))
+                        if (IsGameRunning(1) && !isLocked)
                         {
                             if (await CopyLog())
                             {
@@ -490,7 +493,6 @@ namespace CELO_Enhanced
                                     {
                                         _osdList.All(x => x.Hide());
                                         _osdList.Clear();
-                                        
                                     }
                                 }
                             }
@@ -506,9 +508,11 @@ namespace CELO_Enhanced
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logFile.WriteLine("EXCEPTION - READ TIMER: " + ex.ToString());
             }
+
         }
 
         #endregion
@@ -1005,9 +1009,11 @@ namespace CELO_Enhanced
 
                     btn_GameWatcher.Tag = "dis";
                     txt_GameWatcher.Text = "Stop Game Watcher";
+                    isLocked = false;
                 }
                 else
                 {
+                    isLocked = true;
                     _matchBeingPlayed = false;
                     _isListWritten = false;
                     isMakingList = false;
@@ -1068,6 +1074,7 @@ namespace CELO_Enhanced
         private Boolean isMakingList;
         private Boolean repeater = true;
         private int curFlag;
+        private int copyBuffer = 0;
 
         private Boolean IsGameRunning(int game)
         {
@@ -1331,14 +1338,49 @@ namespace CELO_Enhanced
                     _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
                     break;
                 case 1:
-                    if (_logContent.Count < 2800)
+                    if (isSteamIdSearch == false)
+                    {
+                        try
+                        {
+                            _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
+                            for (int i = 0; i < _logContent.Count; i++)
+                            {
+                                if (_logContent[i].Contains("Found profile: /steam/"))
+                                {
+                                    string[] str = Regex.Split(_logContent[i], @"/steam/");
+                                    mysteamId = Convert.ToInt64(str[1].ToString());
+                                    break;
+                                }
+                            }
+                            isSteamIdSearch = true;
+                            _logContent.Clear();
+                        }
+                        catch (Exception ex)
+                        { 
+                            logFile.WriteLine("EXCEPTION - Copy Log - " + ex.ToString());
+                        }
+                    }
+
+                    if (_logContent.Count < 3000)
                     {
                         _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
+                        if (_logContent.Count < 500)
+                        {
+                            copyBuffer = 0;
+                        }
                     }
                     else
                     {
-                        _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
-                        _logContent.RemoveRange(400, 350);
+                        try
+                        {
+                            copyBuffer += 500;
+                            _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
+                            _logContent.RemoveRange(0, copyBuffer);
+                        }
+                        catch (Exception ex)
+                        {
+                            logFile.WriteLine("EXCEPTION - Copy Log 2 - " + ex.ToString());
+                        }
                     }
                     break;
             }
@@ -1349,7 +1391,7 @@ namespace CELO_Enhanced
             switch (game)
             {
                 case 0:
-                    for (var i = 10; i < _logContent.Count; i++)
+                    for (var i = 0; i < _logContent.Count; i++)
                     {
                         var str = _logContent[i].Split('.')[0];
                         try
@@ -1373,14 +1415,15 @@ namespace CELO_Enhanced
                                 }
                             }
                         }
-                        catch (FormatException)
+                        catch (Exception ex)
                         {
+                            logFile.WriteLine("EXCEPTION - FIND MATCH - " + ex.ToString());
                         }
                     }
                     break;
                 case 1:
 
-                    for (var i = 10; i < _logContent.Count; i++)
+                    for (var i = 0; i < _logContent.Count; i++)
                     {
                         var str = _logContent[i].Split('.')[0];
                         try
@@ -1395,15 +1438,23 @@ namespace CELO_Enhanced
                                     {
                                         logFile.WriteLine("MAIN WINDOW - READER - Found a game match");
                                         await TaskEx.Delay(250);
-                                        _stopPoint = i - 135;
+                                        if (i > 100)
+                                        {
+                                            _stopPoint = i - 100;
+                                        }
+                                        else
+                                        {
+                                            _stopPoint = i - 30;
+                                        }
                                         ProcessLog(game);
                                         break;
                                     }
                                 }
                             }
                         }
-                        catch (FormatException)
+                        catch (Exception ex)
                         {
+                            logFile.WriteLine("EXCEPTION - FIND MATCH - " + ex.ToString());
                         }
                     }
 
@@ -1414,6 +1465,12 @@ namespace CELO_Enhanced
 
         private async void ProcessLog(int game)
         {
+            if (isLocked)
+            {
+                _readerTimer.IsEnabled = false;
+                return;
+            }
+
             _failsafeTimer.Start();
             logFile.WriteLine("MAIN WINDOW - Watcher - Processing Log data - START");
             ClearList();
@@ -1561,206 +1618,213 @@ namespace CELO_Enhanced
 
                     if (!_matchBeingPlayed)
                     {
-                        _lastLine = 0;
-                        var z = 0;
-                        var slot = 0;
-                        logFile.WriteLine("MAIN WINDOW - Watcher - First Step - START");
-                        for (var i = _stopPoint; i < _logContent.Count; i++)
+                        try
                         {
-                            #region FirstStep
-
-                            if (_logContent[i].Contains("Match Started")) // Setting race
+                            _lastLine = 0;
+                            var z = 0;
+                            var slot = 0;
+                            logFile.WriteLine("MAIN WINDOW - Watcher - First Step - START");
+                            for (var i = _stopPoint; i < _logContent.Count; i++)
                             {
-                                _matchBeingPlayed = true;
-                                _isListWritten = false;
-                                var sID = Convert.ToInt64(_logContent[i].Substring(56, 17)); // Gets Steam ID
-                                var rank = 0;
-                                try
+                                #region FirstStep
+
+                                if (_logContent[i].Contains("Match Started")) // Setting race
                                 {
-                                    var strArr =
-                                        Regex.Split(_logContent[i].Substring(87, _logContent[i].Length - 87), "=");
-                                    rank = Convert.ToInt32(strArr[1].Trim());
-                                }
-                                catch (Exception ex)
-                                {
-                                    logFile.WriteLine("EXCEPTION Processing log: " + ex);
-                                    rank = Convert.ToInt32(_logContent[i].Substring(96, 6).Trim());
-                                }
-
-                                var altSlot =
-                                    Int32.Parse(Regex.Split(_logContent[i], "slot =")[1].Substring(0, 3).Trim());
-                                _players.Insert(z, new Player
-                                {
-                                    Slot = altSlot,
-                                    Ranking = rank.ToString(),
-                                    SteamID = sID
-                                });
-
-
-                                z++;
-                                _lastLine = i;
-                            }
-
-                            #endregion
-                        }
-                        logFile.WriteLine("MAIN WINDOW - Watcher - First Step - ENDED");
-                        z = 0;
-                        await TaskEx.Delay(150);
-                        logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - START");
-                        for (var i = _stopPoint; i < _logContent.Count; i++)
-                        {
-                            #region SecondStep
-
-                            if (_logContent[i].Contains("GAME -- Human") || _logContent[i].Contains("GAME -- AI Player"))
-                            {
-                                _matchBeingPlayed = true;
-                                _isListWritten = false;
-                                var g_nick = "";
-                                var g_race = 0;
-                                var g_team = 0;
-
-                                var sl = Regex.Split(_logContent[i], "Player:")[1].Substring(0, 2).Trim();
-                                slot = Convert.ToInt32(sl);
-
-                                if (_logContent[i].Contains("GAME -- Human"))
-                                {
-                                    logFile.WriteLine("MAIN WINDOW - Watcher - Found Human");
-
-                                    #region Human
-
-                                    var str = _logContent[i].Substring(38, _logContent[i].Length - 38);
-                                    var rc = Regex.Split(str, " ");
-                                    var rc2 = rc[rc.Length - 1];
-
-                                    if (rc2.Equals("aef"))
-                                    {
-                                        g_race = 3;
-                                    }
-                                    else if (rc2.Equals("soviet"))
-                                    {
-                                        g_race = 1;
-                                    }
-                                    else if (rc2.Equals("west_german"))
-                                    {
-                                        g_race = 2;
-                                    }
-                                    else if (rc2.Equals("german"))
-                                    {
-                                        g_race = 0;
-                                    }
-                                    else if (rc2.Equals("british"))
-                                    {
-                                        g_race = 4;
-                                    }
-
+                                    _matchBeingPlayed = true;
+                                    _isListWritten = false;
+                                    var sID = Convert.ToInt64(_logContent[i].Substring(56, 17)); // Gets Steam ID
+                                    var rank = 0;
                                     try
                                     {
-                                        g_team = Int32.Parse(rc[rc.Length - 2]);
+                                        var strArr =
+                                            Regex.Split(_logContent[i].Substring(87, _logContent[i].Length - 87), "=");
+                                        rank = Convert.ToInt32(strArr[1].Trim());
                                     }
-                                    catch
+                                    catch (Exception ex)
                                     {
-                                        g_team = 0;
-                                    }
-                                    var unknown = rc[rc.Length - 3];
-                                    var nickArr = Regex.Split(str, unknown);
-                                    g_nick = nickArr[0].Trim();
-                                    Teams team;
-                                    if (g_race == 0 || g_race == 2)
-                                    {
-                                        team = Teams.Axis;
-                                    }
-                                    else
-                                    {
-                                        team = Teams.Allies;
+                                        logFile.WriteLine("EXCEPTION Processing log: " + ex);
+                                        rank = Convert.ToInt32(_logContent[i].Substring(96, 6).Trim());
                                     }
 
-                                    for (var index = 0; index < _players.Count; index++)
+                                    var altSlot =
+                                        Int32.Parse(Regex.Split(_logContent[i], "slot =")[1].Substring(0, 3).Trim());
+                                    _players.Insert(z, new Player
                                     {
-                                        var player = _players[index];
-                                        if (player.Slot == slot)
-                                        {
-                                            _players[index].Race = g_race;
-                                            _players[index].Nickname = g_nick;
-                                            _players[index].Team = team;
-                                        }
-                                    }
-
-                                    #endregion
-                                }
-                                else if (_logContent[i].Contains("GAME -- AI Player"))
-                                {
-                                    logFile.WriteLine("MAIN WINDOW - Watcher - Found A.I.");
-
-                                    #region Bots
-
-                                    var str = _logContent[i].Substring(35, _logContent[i].Length - 35);
-                                    var rc = Regex.Split(str, " ");
-                                    var rc2 = rc[rc.Length - 1];
-
-                                    if (rc2.Equals("aef"))
-                                    {
-                                        g_race = 3;
-                                    }
-                                    else if (rc2.Equals("soviet"))
-                                    {
-                                        g_race = 1;
-                                    }
-                                    else if (rc2.Equals("west_german"))
-                                    {
-                                        g_race = 2;
-                                    }
-                                    else if (rc2.Equals("german"))
-                                    {
-                                        g_race = 0;
-                                    }
-                                    else if (rc2.Equals("british"))
-                                    {
-                                        g_race = 4;
-                                    }
-
-                                    try
-                                    {
-                                        g_team = Int32.Parse(rc[rc.Length - 2]);
-                                    }
-                                    catch
-                                    {
-                                        g_team = 0;
-                                    }
-
-                                    var unknown = rc[rc.Length - 3];
-
-                                    var nickArr = Regex.Split(str, unknown);
-                                    g_nick = "AI Player - " + (nickArr[0].Trim());
-                                    Teams team;
-                                    if (g_race == 0 || g_race == 2)
-                                    {
-                                        team = Teams.Axis;
-                                    }
-                                    else
-                                    {
-                                        team = Teams.Allies;
-                                    }
-                                    _players.Add(new Player
-                                    {
-                                        Race = g_race,
-                                        Slot = slot,
-                                        Nickname = g_nick,
-                                        Team = team,
-                                        Ranking = "N/A",
-                                        Level = "N/A"
+                                        Slot = altSlot,
+                                        Ranking = rank.ToString(),
+                                        SteamID = sID
                                     });
 
-                                    #endregion
+
+                                    z++;
+                                    _lastLine = i;
                                 }
 
-
-                                z++;
-                                _lastLine = i;
+                                #endregion
                             }
+                            logFile.WriteLine("MAIN WINDOW - Watcher - First Step - ENDED");
+                            z = 0;
+                            await TaskEx.Delay(150);
+                            logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - START");
+                            for (var i = _stopPoint; i < _logContent.Count; i++)
+                            {
+                                #region SecondStep
 
-                            #endregion
+                                if (_logContent[i].Contains("GAME -- Human") || _logContent[i].Contains("GAME -- AI Player"))
+                                {
+                                    _matchBeingPlayed = true;
+                                    _isListWritten = false;
+                                    var g_nick = "";
+                                    var g_race = 0;
+                                    var g_team = 0;
+
+                                    var sl = Regex.Split(_logContent[i], "Player:")[1].Substring(0, 2).Trim();
+                                    slot = Convert.ToInt32(sl);
+
+                                    if (_logContent[i].Contains("GAME -- Human"))
+                                    {
+                                        logFile.WriteLine("MAIN WINDOW - Watcher - Found Human");
+
+                                        #region Human
+
+                                        var str = _logContent[i].Substring(38, _logContent[i].Length - 38);
+                                        var rc = Regex.Split(str, " ");
+                                        var rc2 = rc[rc.Length - 1];
+
+                                        if (rc2.Equals("aef"))
+                                        {
+                                            g_race = 3;
+                                        }
+                                        else if (rc2.Equals("soviet"))
+                                        {
+                                            g_race = 1;
+                                        }
+                                        else if (rc2.Equals("west_german"))
+                                        {
+                                            g_race = 2;
+                                        }
+                                        else if (rc2.Equals("german"))
+                                        {
+                                            g_race = 0;
+                                        }
+                                        else if (rc2.Equals("british"))
+                                        {
+                                            g_race = 4;
+                                        }
+
+                                        try
+                                        {
+                                            g_team = Int32.Parse(rc[rc.Length - 2]);
+                                        }
+                                        catch
+                                        {
+                                            g_team = 0;
+                                        }
+                                        var unknown = rc[rc.Length - 3];
+                                        var nickArr = Regex.Split(str, unknown);
+                                        g_nick = nickArr[0].Trim();
+                                        Teams team;
+                                        if (g_race == 0 || g_race == 2)
+                                        {
+                                            team = Teams.Axis;
+                                        }
+                                        else
+                                        {
+                                            team = Teams.Allies;
+                                        }
+
+                                        for (var index = 0; index < _players.Count; index++)
+                                        {
+                                            var player = _players[index];
+                                            if (player.Slot == slot)
+                                            {
+                                                _players[index].Race = g_race;
+                                                _players[index].Nickname = g_nick;
+                                                _players[index].Team = team;
+                                            }
+                                        }
+
+                                        #endregion
+                                    }
+                                    else if (_logContent[i].Contains("GAME -- AI Player"))
+                                    {
+                                        logFile.WriteLine("MAIN WINDOW - Watcher - Found A.I.");
+
+                                        #region Bots
+
+                                        var str = _logContent[i].Substring(35, _logContent[i].Length - 35);
+                                        var rc = Regex.Split(str, " ");
+                                        var rc2 = rc[rc.Length - 1];
+
+                                        if (rc2.Equals("aef"))
+                                        {
+                                            g_race = 3;
+                                        }
+                                        else if (rc2.Equals("soviet"))
+                                        {
+                                            g_race = 1;
+                                        }
+                                        else if (rc2.Equals("west_german"))
+                                        {
+                                            g_race = 2;
+                                        }
+                                        else if (rc2.Equals("german"))
+                                        {
+                                            g_race = 0;
+                                        }
+                                        else if (rc2.Equals("british"))
+                                        {
+                                            g_race = 4;
+                                        }
+
+                                        try
+                                        {
+                                            g_team = Int32.Parse(rc[rc.Length - 2]);
+                                        }
+                                        catch
+                                        {
+                                            g_team = 0;
+                                        }
+
+                                        var unknown = rc[rc.Length - 3];
+
+                                        var nickArr = Regex.Split(str, unknown);
+                                        g_nick = "AI Player - " + (nickArr[0].Trim());
+                                        Teams team;
+                                        if (g_race == 0 || g_race == 2)
+                                        {
+                                            team = Teams.Axis;
+                                        }
+                                        else
+                                        {
+                                            team = Teams.Allies;
+                                        }
+                                        _players.Add(new Player
+                                        {
+                                            Race = g_race,
+                                            Slot = slot,
+                                            Nickname = g_nick,
+                                            Team = team,
+                                            Ranking = "N/A",
+                                            Level = "N/A"
+                                        });
+
+                                        #endregion
+                                    }
+
+
+                                    z++;
+                                    _lastLine = i;
+                                }
+
+                                #endregion
+                            }
+                            logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - ENDED");
                         }
-                        logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - ENDED");
+                        catch (Exception ex)
+                        {
+                            logFile.WriteLine("EXCEPTION - Process Log - " + ex.ToString());
+                        }
                     }
 
 
@@ -1868,6 +1932,10 @@ namespace CELO_Enhanced
                             _players[i].Ranking = _players[i].Ranking;
                         }
 
+                        if (_players[i].SteamID == 0)
+                        {
+                            _players[i].Level = "No Level";
+                        }
 
                         switch (_players[i].Race)
                         {
@@ -2208,67 +2276,76 @@ namespace CELO_Enhanced
                             var ft = new Font(System.Drawing.FontFamily.GenericSansSerif, 13,
                                 System.Drawing.FontStyle.Bold);
 
-                            for (var i = 0; i < pl_Allies.Count; i++)
+                            try
                             {
-                                var slot = i;
-                                var height = 108 + (165*slot) + (25*slot);
-                                var nOsd = new FloatingOSDWindow();
+                                    for (var i = 0; i < pl_Allies.Count; i++)
+                                    {
+                                        var slot = i;
+                                        var height = 108 + (165 * slot) + (25 * slot);
+                                        var nOsd = new FloatingOSDWindow();
 
-                                var pointPos = new Point(210, height);
-                                var bd = new StringBuilder();
-                                if (_cfgOSDShowRank)
-                                {
-                                    bd.Append(" • Rank: " + pl_Allies[i].Ranking);
-                                }
-                                if (_cfgOSDShowLevel)
-                                {
-                                    bd.Append(" • Level: " + pl_Allies[i].Level);
-                                }
-                                if (_cfgOSDShowHours)
-                                {
-                                    bd.Append(" • Hours: " + pl_Allies[i].Ranking);
-                                }
-                                var text = bd.ToString();
-                                if (_cfgOSDUseAnimation == false)
-                                {
-                                    animeMs = 0;
-                                }
-                                nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
-                                    animeMs, text);
+                                        var pointPos = new Point(210, height);
+                                        var bd = new StringBuilder();
+                                        if (_cfgOSDShowRank)
+                                        {
+                                            bd.Append(" • Rank: " + pl_Allies[i].Ranking);
+                                        }
+                                        if (_cfgOSDShowLevel)
+                                        {
+                                            bd.Append(" • Level: " + pl_Allies[i].Level);
+                                        }
+                                        if (_cfgOSDShowHours)
+                                        {
+                                            bd.Append(" • Hours: " + pl_Allies[i].Ranking);
+                                        }
+                                        var text = bd.ToString();
+                                        if (_cfgOSDUseAnimation == false)
+                                        {
+                                            animeMs = 0;
+                                        }
+                                        nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
+                                            animeMs, text);
 
-                                _osdList.Add(nOsd);
-                                await TaskEx.Delay(300);
+                                        _osdList.Add(nOsd);
+                                        await TaskEx.Delay(300);
+                                    }
+                            
+
+                                for (var i = 0; i < pl_Axis.Count; i++)
+                                {
+                                    var slot = i;
+                                    var height = 108 + (165*slot) + (25*slot);
+                                    var nOsd = new FloatingOSDWindow();
+                                    var bd = new StringBuilder();
+                                    if (_cfgOSDShowRank)
+                                    {
+                                        bd.Append(" • Rank: " + pl_Axis[i].Ranking);
+                                    }
+                                    if (_cfgOSDShowLevel)
+                                    {
+                                        bd.Append(" • Level: " + pl_Axis[i].Level);
+                                    }
+                                    if (_cfgOSDShowHours)
+                                    {
+                                        bd.Append(" • Hours: " + pl_Axis[i].Ranking);
+                                    }
+                                    var text = bd.ToString();
+                                    if (_cfgOSDUseAnimation == false)
+                                    {
+                                        animeMs = 0;
+                                    }
+                                    var pointPos = new Point(1355, height);
+                                    nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
+                                        animeMs, text);
+
+                                    _osdList.Add(nOsd);
+                                    await TaskEx.Delay(300);
+                                }
+
                             }
-
-                            for (var i = 0; i < pl_Axis.Count; i++)
+                            catch (Exception ex)
                             {
-                                var slot = i;
-                                var height = 108 + (165*slot) + (25*slot);
-                                var nOsd = new FloatingOSDWindow();
-                                var bd = new StringBuilder();
-                                if (_cfgOSDShowRank)
-                                {
-                                    bd.Append(" • Rank: " + pl_Axis[i].Ranking);
-                                }
-                                if (_cfgOSDShowLevel)
-                                {
-                                    bd.Append(" • Level: " + pl_Axis[i].Level);
-                                }
-                                if (_cfgOSDShowHours)
-                                {
-                                    bd.Append(" • Hours: " + pl_Axis[i].Ranking);
-                                }
-                                var text = bd.ToString();
-                                if (_cfgOSDUseAnimation == false)
-                                {
-                                    animeMs = 0;
-                                }
-                                var pointPos = new Point(1355, height);
-                                nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
-                                    animeMs, text);
-
-                                _osdList.Add(nOsd);
-                                await TaskEx.Delay(300);
+                                logFile.WriteLine("EXCEPTION - OSD - " + ex.ToString());
                             }
                         }
                     }
@@ -2376,8 +2453,19 @@ namespace CELO_Enhanced
                         }
                         else
                         {
-                            _players[i].Country = SourceToImage("Resources/flags/" + z + ".png");
-                            _players[i].CountryName = z;
+                            try
+                            {
+                                _players[i].Country = SourceToImage("Resources/flags/" + z + ".png");
+                            }
+                            catch (Exception ex)
+                            {
+                                _players[i].Country = SourceToImage("Resources/flags/fail.png");
+                                logFile.WriteLine("EXCEPTION OCCURED (Flags)(1):\n" + ex.ToString());
+                            }
+                            finally
+                            {
+                                _players[i].CountryName = z;
+                            }
                         }
                         webFlags.Navigate("about:blank");
                     }
@@ -2500,20 +2588,25 @@ namespace CELO_Enhanced
                     }
 
                     if (File.Exists(_AssemblyDir + @"\lsd.ini") && new FileInfo(_AssemblyDir + @"\lsd.ini").Length > 5)
-                    {
+                    { 
+
                         var lsdcfg = new Utilities.INIFile(_AssemblyDir + @"\lsd.ini");
                         var outputFolder = _cfgLsdOutput;
+                        Teams myteam = Teams.Allies;
                         for (var i = 0; i < _players.Count; i++)
                         {
                             var pCont = lsdcfg.IniReadValue("Players", "P" + (i + 1));
                             if (!String.IsNullOrEmpty(pCont))
                             {
-                                var Pass1 = pCont.Replace("%NICK%", _players[i].Nickname)
-                                    .Replace("%RANK%", _players[i].Ranking);
-                                var Pass2 =
-                                    Pass1.Replace("%LEVEL%", _players[i].Level)
-                                        .Replace("%STEAMID%", _players[i].SteamID.ToString())
-                                        .Replace("%HOURS%", _players[i].TimePlayed.ToString());
+
+                                var Pass2 = pCont.Replace("%LEVEL%", _players[i].Level)
+                                                 .Replace("%STEAMID%", _players[i].SteamID.ToString())
+                                                 .Replace("%RANK%", _players[i].Ranking)
+                                                 .Replace("%NICK%", _players[i].Nickname)
+                                                 .Replace("%FACTION%", _players[i].RaceName.ToString())
+                                                 .Replace("%TEAM%", _players[i].Team.ToString())
+                                                 .Replace("%HOURS%", _players[i].TimePlayed.ToString());
+
                                 var output = Pass2;
                                 try
                                 {
@@ -2525,7 +2618,13 @@ namespace CELO_Enhanced
                                     logFile.WriteLine("EXCEPTION Rendering LSD: " + ex);
                                 }
                             }
+
+
                         }
+
+
+                        
+
                     }
                 }
             }
@@ -2533,10 +2632,12 @@ namespace CELO_Enhanced
 
         private async void FactorCreator()
         {
+            logFile.WriteLine("FACTOR CREATOR - START");
             try
             {
                 if (_cfgHistoryEnabled)
                 {
+                    await TaskEx.Delay(6500);
                     await GenerateMatchHistory();
                 }
                 if (_cfgLsdEnabled)
@@ -2552,34 +2653,43 @@ namespace CELO_Enhanced
             {
                 logFile.WriteLine("EXCEPTION Creating factors: " + ex);
             }
+            logFile.WriteLine("FACTOR CREATOR - END");
         }
 
         private Task GenerateMatchHistory()
         {
+            logFile.WriteLine("MHV: START");
             return Task.Factory.StartNew(() =>
             {
                 try
                 {
-                    Thread.Sleep(5000);
-
                     var dbFile = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
                     var repFolder = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\replays";
+                    logFile.WriteLine("MHV: DBFILE = " + dbFile);
+                    logFile.WriteLine("MHV: REPFOLDER = " + repFolder);
+
                     if (!File.Exists(dbFile))
                     {
+                        logFile.WriteLine("MHV: FILE NOT FOUND");
                         XmlWriter xWriter = new XmlTextWriter(new StreamWriter(dbFile));
                         xWriter.WriteStartElement("Matches");
+                        logFile.WriteLine("MHV: CREATING NEW FILE");
                     }
                     if (File.Exists(dbFile))
                     {
+                        logFile.WriteLine("MHV: FILE FOUND");
                         Directory.CreateDirectory(repFolder);
                         var ReplayFile = _cfgDocPath + @"\playback\temp.rec";
                         var ReplayCopy = Guid.NewGuid() + ".rec";
+                        logFile.WriteLine("MHV: REPLAY SAVE NAME = " + ReplayCopy);
                         File.Copy(ReplayFile, repFolder + @"\" + ReplayCopy, true);
                         var gameDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
                         var MapFileName = ReplayManager.RetrieveMap(repFolder + @"\" + ReplayCopy, _gameSelected);
 
                         var document = new XmlDocument();
+                        logFile.WriteLine("MHV: LOADING FILE FOR EDIT");
                         document.Load(dbFile);
+                        logFile.WriteLine("MHV: LOADED FILE");
                         XmlNode MatchNode = document.CreateElement("Match");
                         XmlNode ReplayNode = document.CreateElement("Replay");
                         ReplayNode.InnerText = ReplayCopy;
@@ -2590,12 +2700,14 @@ namespace CELO_Enhanced
                         XmlNode TypeNode = document.CreateElement("Type");
                         TypeNode.InnerText = (_players.Count/2).ToString();
                         XmlNode PlayersNode = document.CreateElement("Players");
+                        logFile.WriteLine("MHV: APPENDING ELEMENTS");
                         MatchNode.AppendChild(ReplayNode);
                         MatchNode.AppendChild(DateNode);
                         MatchNode.AppendChild(MapNode);
                         MatchNode.AppendChild(TypeNode);
                         MatchNode.AppendChild(PlayersNode);
-
+                        logFile.WriteLine("MHV: ELEMENTS ADDED");
+                        logFile.WriteLine("MHV: WRITING TO ELEMENTS");
                         for (var i = 0; i < _players.Count; i++)
                         {
                             XmlNode PLNode = document.CreateElement("Player");
@@ -2620,15 +2732,29 @@ namespace CELO_Enhanced
                             PLNode.AppendChild(TimeNode);
                             PLNode.AppendChild(SteamNode);
                         }
+                        logFile.WriteLine("MHV: ELEMENTS NOW HAVE VALUES");
                         document.DocumentElement.AppendChild(MatchNode);
-                        document.Save(dbFile);
+                        logFile.WriteLine("MHV: SAVING DB FILE");
+                        try
+                        {
+                            document.Save(dbFile);
+                            logFile.WriteLine("MHV: FILE SAVED");
+                        }
+                        catch (Exception ex)
+                        {
+                            logFile.WriteLine("EXCEPTION at XML save: " + ex.ToString());
+                        }
+                        
+
                     }
                 }
                 catch (Exception ex)
                 {
                     logFile.WriteLine("EXCEPTION writing to XML (MHV): " + ex);
                 }
+                logFile.WriteLine("MHV: END");
             });
+            
         }
 
         #endregion

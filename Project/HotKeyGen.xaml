@@ -5,194 +5,199 @@
         UseLayoutRounding="True" TextOptions.TextFormattingMode="Display" ResizeMode="NoResize"
         ScrollViewer.VerticalScrollBarVisibility="Disabled" Loaded="HotKey_Generator_Loaded" Icon="icon-modified.ico"
         SizeToContent="WidthAndHeight" MinWidth="619" MinHeight="406">
-	<Grid Margin="0,0,0,1">
-		<TabControl HorizontalAlignment="Left" Height="310" Margin="10,10,0,0" VerticalAlignment="Top" Width="587">
-			<TabItem Header="Orders">
-				<Grid>
-					<StackPanel Orientation="Vertical" UseLayoutRounding="True" Margin="15,15,0,10"
+    <Grid Margin="0,0,0,1">
+        <TabControl HorizontalAlignment="Left" Height="310" Margin="10,10,0,0" VerticalAlignment="Top" Width="587">
+            <TabItem Header="Orders">
+                <Grid>
+                    <StackPanel Orientation="Vertical" UseLayoutRounding="True" Margin="15,15,0,10"
 					            FlowDirection="RightToLeft" HorizontalAlignment="Left" Width="100">
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Attack Ground"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Attack Ground"
 						           FlowDirection="RightToLeft" Margin="0,3,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Attack Move"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Attack Move"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Place Charge"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Place Charge"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Repair"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Repair"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Retreat"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Retreat"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Reverse Move"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Reverse Move"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Stop"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Stop"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Unload"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Unload"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Reinforce"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Reinforce"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-					</StackPanel>
-					<ComboBox x:Name="cBox_o1" HorizontalAlignment="Left" Margin="130,18,0,0" VerticalAlignment="Top"
+                    </StackPanel>
+                    <ComboBox x:Name="cBox_o1" HorizontalAlignment="Left" Margin="130,18,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o8" HorizontalAlignment="Left" Margin="130,193,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o8" HorizontalAlignment="Left" Margin="130,193,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o7" HorizontalAlignment="Left" Margin="130,168,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o7" HorizontalAlignment="Left" Margin="130,168,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o6" HorizontalAlignment="Left" Margin="130,143,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o6" HorizontalAlignment="Left" Margin="130,143,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o5" HorizontalAlignment="Left" Margin="130,118,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o5" HorizontalAlignment="Left" Margin="130,118,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o4" HorizontalAlignment="Left" Margin="130,93,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o4" HorizontalAlignment="Left" Margin="130,93,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o3" HorizontalAlignment="Left" Margin="130,68,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o3" HorizontalAlignment="Left" Margin="130,68,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o2" HorizontalAlignment="Left" Margin="130,43,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o2" HorizontalAlignment="Left" Margin="130,43,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<ComboBox x:Name="cBox_o9" HorizontalAlignment="Left" Margin="130,219,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_o9" HorizontalAlignment="Left" Margin="130,219,0,0" VerticalAlignment="Top"
 					          Width="117" Height="22" />
-					<GroupBox Header="Information" HorizontalAlignment="Left" Margin="332,10,0,0"
+                    <GroupBox Header="Information" HorizontalAlignment="Left" Margin="332,10,0,0"
 					          VerticalAlignment="Top" Height="259" Width="239">
-						<Grid>
-							<TextBlock HorizontalAlignment="Left" Margin="8,10,0,0"
+                        <Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="8,10,0,0"
 							           Text="Hot-Key Creator creates simple AutoHotkey Scripts according to your configurations."
 							           VerticalAlignment="Top" Height="165" Width="217" FontWeight="Normal"
 							           FontSize="15" TextWrapping="Wrap" TextTrimming="WordEllipsis"
 							           TextOptions.TextFormattingMode="Display" />
-							<TextBlock HorizontalAlignment="Left" Margin="8,95,0,0"
+                            <TextBlock HorizontalAlignment="Left" Margin="8,95,0,0"
 							           Text="Simply Set up the the key-bindings as you like and click Generate script. Make sure you dont have the same hotkeys for the same command!"
 							           VerticalAlignment="Top" Height="131" Width="217" FontWeight="Normal"
 							           TextWrapping="Wrap" TextTrimming="WordEllipsis"
 							           TextOptions.TextFormattingMode="Display" />
-						</Grid>
-					</GroupBox>
-					<ComboBox x:Name="cBox_Helper_1_1" HorizontalAlignment="Left" Margin="252,18,0,0"
+                        </Grid>
+                    </GroupBox>
+                    <ComboBox x:Name="cBox_Helper_1_1" HorizontalAlignment="Left" Margin="252,18,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_7" HorizontalAlignment="Left" Margin="252,168,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_7" HorizontalAlignment="Left" Margin="252,168,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_6" HorizontalAlignment="Left" Margin="252,143,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_6" HorizontalAlignment="Left" Margin="252,143,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_5" HorizontalAlignment="Left" Margin="252,118,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_5" HorizontalAlignment="Left" Margin="252,118,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_4" HorizontalAlignment="Left" Margin="252,93,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_4" HorizontalAlignment="Left" Margin="252,93,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_3" HorizontalAlignment="Left" Margin="252,68,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_3" HorizontalAlignment="Left" Margin="252,68,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_2" HorizontalAlignment="Left" Margin="252,43,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_2" HorizontalAlignment="Left" Margin="252,43,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_8" HorizontalAlignment="Left" Margin="252,193,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_8" HorizontalAlignment="Left" Margin="252,193,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-					<ComboBox x:Name="cBox_Helper_1_9" HorizontalAlignment="Left" Margin="252,219,0,0"
+                    <ComboBox x:Name="cBox_Helper_1_9" HorizontalAlignment="Left" Margin="252,219,0,0"
 					          VerticalAlignment="Top" Width="75" Height="22" />
-				</Grid>
-			</TabItem>
-			<TabItem Header="Camera">
-				<Grid>
-					<StackPanel Orientation="Vertical" UseLayoutRounding="True" Margin="15,26,0,10"
+                </Grid>
+            </TabItem>
+            <TabItem Header="Camera">
+                <Grid>
+                    <StackPanel Orientation="Vertical" UseLayoutRounding="True" Margin="15,26,0,10"
 					            FlowDirection="RightToLeft" HorizontalAlignment="Left" Width="100">
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Default Camera"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Default Camera"
 						           FlowDirection="RightToLeft" Margin="0,3,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Zoom In"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Zoom In"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Zoom Out"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Zoom Out"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Left"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Left"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Right"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Right"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Up"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Up"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Down"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Move Down"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Orbit"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Orbit"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-						<TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Tactical Map"
+                        <TextBlock FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text=":Tactical Map"
 						           FlowDirection="RightToLeft" Margin="0,6,0,0" />
-					</StackPanel>
-					<ComboBox x:Name="cBox_c1" HorizontalAlignment="Left" Margin="127,25,0,0" VerticalAlignment="Top"
+                    </StackPanel>
+                    <ComboBox x:Name="cBox_c1" HorizontalAlignment="Left" Margin="127,25,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_c2" HorizontalAlignment="Left" Margin="127,52,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c2" HorizontalAlignment="Left" Margin="127,52,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_c3" HorizontalAlignment="Left" Margin="127,78,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c3" HorizontalAlignment="Left" Margin="127,78,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_c4" HorizontalAlignment="Left" Margin="127,103,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c4" HorizontalAlignment="Left" Margin="127,103,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_c5" HorizontalAlignment="Left" Margin="127,129,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c5" HorizontalAlignment="Left" Margin="127,129,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_c6" HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c6" HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_c7" HorizontalAlignment="Left" Margin="127,181,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c7" HorizontalAlignment="Left" Margin="127,181,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_c8" HorizontalAlignment="Left" Margin="127,208,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c8" HorizontalAlignment="Left" Margin="127,208,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<GroupBox Header="Information" HorizontalAlignment="Left" Margin="332,10,0,0"
+                    <GroupBox Header="Information" HorizontalAlignment="Left" Margin="332,10,0,0"
 					          VerticalAlignment="Top" Height="259" Width="239">
-						<Grid>
-							<TextBlock HorizontalAlignment="Left" Margin="8,10,0,0"
+                        <Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="8,10,0,0"
 							           Text="Hot-Key Creator creates simple AutoHotkey Scripts according to your configurations."
 							           VerticalAlignment="Top" Height="165" Width="217" FontWeight="Normal"
 							           FontSize="15" TextWrapping="Wrap" TextTrimming="WordEllipsis"
 							           TextOptions.TextFormattingMode="Display" />
-							<TextBlock HorizontalAlignment="Left" Margin="8,95,0,0"
+                            <TextBlock HorizontalAlignment="Left" Margin="8,95,0,0"
 							           Text="Simply Set up the the key-bindings as you like and click Generate script. Make sure you dont have the same hotkeys for the same command!"
 							           VerticalAlignment="Top" Height="131" Width="217" FontWeight="Normal"
 							           TextWrapping="Wrap" TextTrimming="WordEllipsis"
 							           TextOptions.TextFormattingMode="Display" />
-						</Grid>
-					</GroupBox>
-					<ComboBox x:Name="cBox_Helper_2_1" HorizontalAlignment="Left" Margin="247,25,0,0"
+                        </Grid>
+                    </GroupBox>
+                    <ComboBox x:Name="cBox_Helper_2_1" HorizontalAlignment="Left" Margin="247,25,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_7" HorizontalAlignment="Left" Margin="247,181,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_7" HorizontalAlignment="Left" Margin="247,181,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_6" HorizontalAlignment="Left" Margin="247,155,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_6" HorizontalAlignment="Left" Margin="247,155,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_5" HorizontalAlignment="Left" Margin="247,129,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_5" HorizontalAlignment="Left" Margin="247,129,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_4" HorizontalAlignment="Left" Margin="247,103,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_4" HorizontalAlignment="Left" Margin="247,103,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_3" HorizontalAlignment="Left" Margin="247,78,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_3" HorizontalAlignment="Left" Margin="247,78,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_2" HorizontalAlignment="Left" Margin="247,52,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_2" HorizontalAlignment="Left" Margin="247,52,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_8" HorizontalAlignment="Left" Margin="247,208,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_8" HorizontalAlignment="Left" Margin="247,208,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-					<ComboBox x:Name="cBox_c9" HorizontalAlignment="Left" Margin="127,233,0,0" VerticalAlignment="Top"
+                    <ComboBox x:Name="cBox_c9" HorizontalAlignment="Left" Margin="127,233,0,0" VerticalAlignment="Top"
 					          Width="115" Height="22" />
-					<ComboBox x:Name="cBox_Helper_2_9" HorizontalAlignment="Left" Margin="247,233,0,0"
+                    <ComboBox x:Name="cBox_Helper_2_9" HorizontalAlignment="Left" Margin="247,233,0,0"
 					          VerticalAlignment="Top" Width="80" Height="22" />
-				</Grid>
+                </Grid>
 
-			</TabItem>
-			<TabItem Header="Output folder">
-				<Grid>
-					<TextBox x:Name="tBoxOutput" HorizontalAlignment="Left" Height="20" Margin="27,46,0,0"
+            </TabItem>
+            <TabItem Header="Output folder">
+                <Grid>
+                    <TextBox x:Name="tBoxOutput" HorizontalAlignment="Left" Height="20" Margin="27,46,0,0"
 					         VerticalAlignment="Top" Width="190" VerticalContentAlignment="Center" IsReadOnly="True" />
-					<TextBlock HorizontalAlignment="Left" Margin="27,26,0,0" TextWrapping="Wrap"
+                    <TextBlock HorizontalAlignment="Left" Margin="27,26,0,0" TextWrapping="Wrap"
 					           Text="Script output path:" VerticalAlignment="Top" />
-					<Button x:Name="btnBrowseOutput" Content="Browse..." HorizontalAlignment="Left"
+                    <Button x:Name="btnBrowseOutput" Content="Browse..." HorizontalAlignment="Left"
 					        Margin="222,46,0,0" VerticalAlignment="Top" Width="85" Height="20"
 					        Click="btnBrowseOutput_Click" />
-					<GroupBox Header="Information" HorizontalAlignment="Left" Margin="332,10,0,0"
+                    <GroupBox Header="Information" HorizontalAlignment="Left" Margin="332,10,0,0"
 					          VerticalAlignment="Top" Height="259" Width="239">
-						<Grid>
-							<TextBlock HorizontalAlignment="Left" Margin="8,10,0,0"
+                        <Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="8,10,0,0"
 							           Text="Hot-Key Creator creates simple AutoHotkey Scripts according to your configurations."
 							           VerticalAlignment="Top" Height="165" Width="217" FontWeight="Normal"
 							           FontSize="15" TextWrapping="Wrap" TextTrimming="WordEllipsis"
 							           TextOptions.TextFormattingMode="Display" />
-							<TextBlock HorizontalAlignment="Left" Margin="8,95,0,0"
+                            <TextBlock HorizontalAlignment="Left" Margin="8,95,0,0"
 							           Text="Simply Set up the the key-bindings as you like and click Generate script. Make sure you dont have the same hotkeys for the same command!"
 							           VerticalAlignment="Top" Height="131" Width="217" FontWeight="Normal"
 							           TextWrapping="Wrap" TextTrimming="WordEllipsis"
 							           TextOptions.TextFormattingMode="Display" />
-						</Grid>
-					</GroupBox>
-				</Grid>
-			</TabItem>
-		</TabControl>
-		<Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="10,330,0,0"
+                        </Grid>
+                    </GroupBox>
+                    <ComboBox x:Name="cBox_sus" HorizontalAlignment="Left" Margin="59,117,0,0" VerticalAlignment="Top"
+						Width="115" Height="22" Tag="suspend" />
+                    <ComboBox x:Name="cBox_sus_1" HorizontalAlignment="Left" Margin="182,117,0,0"
+						VerticalAlignment="Top" Width="80" Height="22" />
+                    <Label x:Name="label" Content="Toggle Suspend Script:" HorizontalAlignment="Left" Margin="101,92,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="10,330,0,0"
 		        VerticalAlignment="Top" Width="80" Height="30" Click="btnClose_Click" />
-		<Button x:Name="btnGenerate" Content="Generate Script" HorizontalAlignment="Left" Margin="455,330,0,0"
+        <Button x:Name="btnGenerate" Content="Generate Script" HorizontalAlignment="Left" Margin="455,330,0,0"
 		        VerticalAlignment="Top" Width="142" Height="30" Click="btnGenerate_Click" />
-		<Button x:Name="btnDefault" Content="Reset" HorizontalAlignment="Left" Margin="95,330,0,0"
+        <Button x:Name="btnDefault" Content="Reset" HorizontalAlignment="Left" Margin="95,330,0,0"
 		        VerticalAlignment="Top" Width="90" Height="30" Click="btnDefault_Click" />
 
-	</Grid>
+    </Grid>
 </Window>

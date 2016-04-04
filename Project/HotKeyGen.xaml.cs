@@ -182,8 +182,16 @@ namespace CELO_Enhanced
                             }
                             if (!String.IsNullOrEmpty(key))
                             {
-                                content = key + "::" + duo.Value.Key;
-                                builder.AppendLine(content);
+                                if ((string) duo.Value.MainBox?.Tag.ToString() == "suspend")
+                                {
+                                    content = key + "::Suspend";
+                                    builder.AppendLine(content);
+                                }
+                                else
+                                {
+                                    content = key + "::" + duo.Value.Key;
+                                    builder.AppendLine(content);
+                                }
                             }
                         }
                         else
@@ -207,18 +215,28 @@ namespace CELO_Enhanced
                             }
                             if (!String.IsNullOrEmpty(key))
                             {
-                                content = key + "::" + duo.Value.Key;
-                                builder.AppendLine(content);
+                                if ((string) duo.Value.MainBox?.Tag.ToString() == "suspend")
+                                {
+                                    content = key + "::Suspend";
+                                    builder.AppendLine(content);
+                                }
+                                else
+                                {
+                                    content = key + "::" + duo.Value.Key;
+                                    builder.AppendLine(content);
+                                }
                             }
                         }
                     }
-                    var sc = new ScriptCompiler(OutputPath + @"\CoH_Keys.exe", ScriptCompilerPath, TempFileName, builder);
+                    Random rng = new Random();
+                    string rn = rng.Next(0, 99999).ToString();
+                    var sc = new ScriptCompiler(OutputPath + @"\CoH_Keys_" + rn + ".exe", ScriptCompilerPath, TempFileName, builder);
                     sc.ShowDialog();
                 }
             }
             catch (Exception ex)
             {
-                Console.Write(ex.ToString());
+                
             }
         }
 
@@ -267,6 +285,7 @@ namespace CELO_Enhanced
             cb1.Add(6, cBox_c7);
             cb1.Add(7, cBox_c8);
             cb1.Add(8, cBox_c9);
+            cb1.Add(9, cBox_sus);
             foreach (var comboBox in cb1)
             {
                 foreach (var possKey in possKeys)
@@ -317,6 +336,7 @@ namespace CELO_Enhanced
             cb3.Add(16, cBox_Helper_2_7);
             cb3.Add(17, cBox_Helper_2_8);
             cb3.Add(18, cBox_Helper_2_9);
+            cb3.Add(19, cBox_sus_1);
             foreach (var val in cb3)
             {
                 foreach (var helpKey in helpKeys)
@@ -448,6 +468,7 @@ namespace CELO_Enhanced
             defaultValues.Add(cBox_c7, "Down");
             defaultValues.Add(cBox_c8, "Alt");
             defaultValues.Add(cBox_c9, "Numpad 0");
+            defaultValues.Add(cBox_sus, "F11");
         }
 
         private void ApplyDefaults()
@@ -497,6 +518,8 @@ namespace CELO_Enhanced
                 new DuoCombos {MainBox = cBox_c8, HelperBox = cBox_Helper_2_8, DefaultKey = "Alt", Key = "Alt"});
             connectionBox.Add(17,
                 new DuoCombos {MainBox = cBox_c9, HelperBox = cBox_Helper_2_9, DefaultKey = "Numpad 0", Key = "Numpad0"});
+            connectionBox.Add(18,
+                new DuoCombos { MainBox = cBox_sus, HelperBox = cBox_sus_1, DefaultKey = "", Key = "F11" });
         }
 
         #endregion

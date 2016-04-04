@@ -144,23 +144,7 @@ namespace CELO_Enhanced
                 {
                     if (IsLoaded)
                     {
-                        if (Last != After)
-                        {
-                            if (
-                                MessageBox.Show(this,
-                                    "Changes have been made to the current player, are you sure you want to change without saving?",
-                                    "Player Selection Save", MessageBoxButton.YesNo, MessageBoxImage.Warning) ==
-                                MessageBoxResult.Yes)
-                            {
-                            }
-                            else
-                            {
-                                derp = true;
-                                playerListBox.SelectedIndex = A1;
-                                tBox_FileContent.Text = After;
-                                return;
-                            }
-                        }
+                        
                         for (var p = 0; p < PlayersContent.Length; p++)
                         {
                             PlayersContent[p] = cfg.IniReadValue("Players", "P" + (p + 1));
@@ -230,7 +214,7 @@ namespace CELO_Enhanced
 
         private void FixText()
         {
-            String[] Keys = {"RANK", "NICK", "STEAMID", "HOURS", "LEVEL"};
+            String[] Keys = {"RANK", "NICK", "STEAMID", "HOURS", "LEVEL", "TEAM", "FACTION"};
             foreach (var word in Keys)
             {
                 if (tBox_FileContent.Text.Contains("%" + word.ToLower() + "%"))

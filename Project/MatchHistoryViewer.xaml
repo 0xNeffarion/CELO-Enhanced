@@ -82,7 +82,7 @@
 									<Image x:Name="rpl" Source="Resources/replay_copy.png"
 									       RenderOptions.BitmapScalingMode="NearestNeighbor"
 									       RenderOptions.EdgeMode="Aliased"
-									       UseLayoutRounding="True" Height="20" ToolTip="Check saved replay"
+									       UseLayoutRounding="True" Height="20" ToolTip="Copy saved replay"
 									       MouseDown="rpl_MouseDown" />
 								</StackPanel>
 							</DataTemplate>
