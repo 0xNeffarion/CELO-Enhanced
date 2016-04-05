@@ -1361,27 +1361,16 @@ namespace CELO_Enhanced
                         }
                     }
 
-                    if (_logContent.Count < 3000)
+                    
+                    try
                     {
-                        _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
-                        if (_logContent.Count < 500)
-                        {
-                            copyBuffer = 0;
-                        }
+                        _logContent = File.ReadLines(_copyLogPath).Reverse().Take(1000).Reverse().ToList();
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        try
-                        {
-                            copyBuffer += 500;
-                            _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
-                            _logContent.RemoveRange(0, copyBuffer);
-                        }
-                        catch (Exception ex)
-                        {
-                            logFile.WriteLine("EXCEPTION - Copy Log 2 - " + ex.ToString());
-                        }
+                        logFile.WriteLine("EXCEPTION - Copy Log 2 - " + ex.ToString());
                     }
+                    
                     break;
             }
         }
@@ -1437,15 +1426,7 @@ namespace CELO_Enhanced
                                         _logContent[i].Contains("GAME -- AI Player"))
                                     {
                                         logFile.WriteLine("MAIN WINDOW - READER - Found a game match");
-                                        await TaskEx.Delay(250);
-                                        if (i > 100)
-                                        {
-                                            _stopPoint = i - 100;
-                                        }
-                                        else
-                                        {
-                                            _stopPoint = i - 30;
-                                        }
+                                        _stopPoint = i - 50;
                                         ProcessLog(game);
                                         break;
                                     }
@@ -2241,6 +2222,10 @@ namespace CELO_Enhanced
                                     }
                                 }
                             }
+                            catch (WebException)
+                            {
+                                _players[zed].Level = "Unavailable";
+                            }
                             catch (Exception ex)
                             {
                                 logFile.WriteLine("EXCEPTION Getting player level: " + ex);
@@ -2262,26 +2247,28 @@ namespace CELO_Enhanced
                 if (_cfgOSDEnabled)
                 {
                     var app = GetActiveWindowTitle();
-                    if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
+                    if (app != null)
                     {
-                        // 1080p ONLY
-                        if ((GetCOH2Width() == 1920 && GetCOH2Height() == 1080) || _cfgOSDForce == true)
+                        if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
                         {
-                            _osdList.Clear();
-                            var StopMS = 27000;
-                            uint animeMs = 2000;
-                            var pl_Allies = _players.Where(x => x.Team == Teams.Allies).ToList();
-                            var pl_Axis = _players.Where(x => x.Team == Teams.Axis).ToList();
-
-                            var ft = new Font(System.Drawing.FontFamily.GenericSansSerif, 13,
-                                System.Drawing.FontStyle.Bold);
-
-                            try
+                            // 1080p ONLY
+                            if ((GetCOH2Width() == 1920 && GetCOH2Height() == 1080) || _cfgOSDForce == true)
                             {
+                                _osdList.Clear();
+                                var StopMS = 27000;
+                                uint animeMs = 2000;
+                                var pl_Allies = _players.Where(x => x.Team == Teams.Allies).ToList();
+                                var pl_Axis = _players.Where(x => x.Team == Teams.Axis).ToList();
+
+                                var ft = new Font(System.Drawing.FontFamily.GenericSansSerif, 13,
+                                    System.Drawing.FontStyle.Bold);
+
+                                try
+                                {
                                     for (var i = 0; i < pl_Allies.Count; i++)
                                     {
                                         var slot = i;
-                                        var height = 108 + (165 * slot) + (25 * slot);
+                                        var height = 108 + (165*slot) + (25*slot);
                                         var nOsd = new FloatingOSDWindow();
 
                                         var pointPos = new Point(210, height);
@@ -2303,49 +2290,52 @@ namespace CELO_Enhanced
                                         {
                                             animeMs = 0;
                                         }
-                                        nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
+                                        nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS,
+                                            FloatingWindow.AnimateMode.Blend,
                                             animeMs, text);
 
                                         _osdList.Add(nOsd);
                                         await TaskEx.Delay(300);
                                     }
-                            
 
-                                for (var i = 0; i < pl_Axis.Count; i++)
-                                {
-                                    var slot = i;
-                                    var height = 108 + (165*slot) + (25*slot);
-                                    var nOsd = new FloatingOSDWindow();
-                                    var bd = new StringBuilder();
-                                    if (_cfgOSDShowRank)
-                                    {
-                                        bd.Append(" • Rank: " + pl_Axis[i].Ranking);
-                                    }
-                                    if (_cfgOSDShowLevel)
-                                    {
-                                        bd.Append(" • Level: " + pl_Axis[i].Level);
-                                    }
-                                    if (_cfgOSDShowHours)
-                                    {
-                                        bd.Append(" • Hours: " + pl_Axis[i].Ranking);
-                                    }
-                                    var text = bd.ToString();
-                                    if (_cfgOSDUseAnimation == false)
-                                    {
-                                        animeMs = 0;
-                                    }
-                                    var pointPos = new Point(1355, height);
-                                    nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS, FloatingWindow.AnimateMode.Blend,
-                                        animeMs, text);
 
-                                    _osdList.Add(nOsd);
-                                    await TaskEx.Delay(300);
+                                    for (var i = 0; i < pl_Axis.Count; i++)
+                                    {
+                                        var slot = i;
+                                        var height = 108 + (165*slot) + (25*slot);
+                                        var nOsd = new FloatingOSDWindow();
+                                        var bd = new StringBuilder();
+                                        if (_cfgOSDShowRank)
+                                        {
+                                            bd.Append(" • Rank: " + pl_Axis[i].Ranking);
+                                        }
+                                        if (_cfgOSDShowLevel)
+                                        {
+                                            bd.Append(" • Level: " + pl_Axis[i].Level);
+                                        }
+                                        if (_cfgOSDShowHours)
+                                        {
+                                            bd.Append(" • Hours: " + pl_Axis[i].Ranking);
+                                        }
+                                        var text = bd.ToString();
+                                        if (_cfgOSDUseAnimation == false)
+                                        {
+                                            animeMs = 0;
+                                        }
+                                        var pointPos = new Point(1355, height);
+                                        nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS,
+                                            FloatingWindow.AnimateMode.Blend,
+                                            animeMs, text);
+
+                                        _osdList.Add(nOsd);
+                                        await TaskEx.Delay(300);
+                                    }
+
                                 }
-
-                            }
-                            catch (Exception ex)
-                            {
-                                logFile.WriteLine("EXCEPTION - OSD - " + ex.ToString());
+                                catch (Exception ex)
+                                {
+                                    logFile.WriteLine("EXCEPTION - OSD - " + ex.ToString());
+                                }
                             }
                         }
                     }

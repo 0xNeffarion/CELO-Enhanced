@@ -621,6 +621,7 @@ B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\data\news.txt
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\disclaimer.txt
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\gpl.txt
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\license.txt
+B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\data\first.txt
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\data\history\coh1\mhv.xml
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\data\history\coh2\mhv.xml
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\data\maps\coh1\maps.data
@@ -747,6 +748,7 @@ B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\System.IO.xml
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\System.Runtime.xml
 B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\System.Threading.Tasks.xml
 B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\CELO Enhanced.csproj.App.config
+B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
 B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\About.baml
 B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\HotKeyGen.baml
 B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\InputBox.baml
@@ -790,4 +792,3 @@ B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\CELO_Enhanced.Propert
 B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\CELO Enhanced.csproj.GenerateResource.Cache
 B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\CELO.exe
 B:\Programming\CELO Enhanced\CELO Enhanced\obj\x86\Release\CELO.pdb
-B:\Programming\CELO Enhanced\CELO Enhanced\bin\x86\Release\data\first.txt
