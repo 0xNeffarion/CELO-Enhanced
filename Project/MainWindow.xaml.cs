@@ -1074,7 +1074,6 @@ namespace CELO_Enhanced
         private Boolean isMakingList;
         private Boolean repeater = true;
         private int curFlag;
-        private int copyBuffer = 0;
 
         private Boolean IsGameRunning(int game)
         {
@@ -1131,69 +1130,6 @@ namespace CELO_Enhanced
                 logFile.WriteLine("EXCEPTION Copying log: " + ex);
                 return false;
             }
-        }
-
-        private Boolean CheckNotifications()
-        {
-            if (notificationTooggle == 0)
-            {
-                for (var index = 0; index < _logContent.Count; index++)
-                {
-                    var log = _logContent[index];
-                    var str = log.Split('.')[0];
-                    try
-                    {
-                        if (Regex.IsMatch(str.Split(':')[0], @"^\d+$"))
-                        {
-                            if (CheckTime(Int32.Parse(str.Split(':')[0]),
-                                Int32.Parse(str.Split(':')[1])))
-                            {
-                                if (log.Contains("WorldwideNotifier.cpp"))
-                                {
-                                    notificationStop = index;
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    catch (FormatException)
-                    {
-                    }
-                }
-            }
-            return false;
-        }
-
-        private void ExecuteNotifications()
-        {
-            for (var i = notificationStop - 10; i < _logContent.Count; i++)
-            {
-                if (_logContent[i].Contains("RNT_StatsUpdate:"))
-                {
-                    long steamIDNotification = 0;
-                    var strArr1 = Regex.Split(_logContent[i], "],");
-                    var sID = strArr1[0].Split('/')[2];
-                    steamIDNotification = Int64.Parse(sID);
-                    var RankAfter = (Regex.Split(_logContent[i], "ranking=")[1]).Trim();
-                    var z = 0;
-                    foreach (var player in _players)
-                    {
-                        if (player.SteamID == steamIDNotification)
-                        {
-                            if (Int32.Parse(RankAfter) >= 1)
-                            {
-                                _players[z].RankingAfter = " ↦ " + RankAfter;
-                            }
-                            else
-                            {
-                                _players[z].RankingAfter = " ↦ " + "Unranked";
-                            }
-                        }
-                        z++;
-                    }
-                }
-            }
-            notificationTooggle = 1;
         }
 
         private Boolean CheckLoaded()
@@ -2535,8 +2471,6 @@ namespace CELO_Enhanced
 
             logFile.WriteLine("MAIN WINDOW - Watcher - Setting up info - ENDED");
         }
-
-        private int maxZ = 0;
 
         [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool InternetSetCookie(string lpszUrlName, string lpszCookieName, string lpszCookieData);

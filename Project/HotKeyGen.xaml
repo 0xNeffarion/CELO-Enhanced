@@ -187,7 +187,7 @@
                     <ComboBox x:Name="cBox_sus" HorizontalAlignment="Left" Margin="59,117,0,0" VerticalAlignment="Top"
 						Width="115" Height="22" Tag="suspend" />
                     <ComboBox x:Name="cBox_sus_1" HorizontalAlignment="Left" Margin="182,117,0,0"
-						VerticalAlignment="Top" Width="80" Height="22" />
+						VerticalAlignment="Top" Width="80" Height="22" Tag="suspend" />
                     <Label x:Name="label" Content="Toggle Suspend Script:" HorizontalAlignment="Left" Margin="101,92,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>

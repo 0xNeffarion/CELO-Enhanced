@@ -108,9 +108,7 @@ namespace CELO_Enhanced
                 Utilities.showError(this,
                     "Error occured while installing AutoHotKey Script Compiler\n" + exception.StackTrace);
             }
-            finally
-            {
-            }
+            
         }
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
@@ -182,7 +180,7 @@ namespace CELO_Enhanced
                             }
                             if (!String.IsNullOrEmpty(key))
                             {
-                                if ((string) duo.Value.MainBox?.Tag.ToString() == "suspend")
+                                if ((string) duo.Value?.MainBox?.Tag?.ToString() == "suspend")
                                 {
                                     content = key + "::Suspend";
                                     builder.AppendLine(content);
@@ -215,7 +213,7 @@ namespace CELO_Enhanced
                             }
                             if (!String.IsNullOrEmpty(key))
                             {
-                                if ((string) duo.Value.MainBox?.Tag.ToString() == "suspend")
+                                if ((string)duo.Value?.MainBox?.Tag?.ToString() == "suspend")
                                 {
                                     content = key + "::Suspend";
                                     builder.AppendLine(content);
@@ -236,7 +234,7 @@ namespace CELO_Enhanced
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine(ex.ToString());
             }
         }
 
