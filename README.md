@@ -1,3 +1,12 @@
+
+Download Windows Installer: [Link](https://www.neffware.com/downloads/celo/CELO_Setup.exe)
+
+Installer Hashes:
+MD5: 69D4B7A04A8D8F89E66D406C19D16C0D
+SHA1: A8B4E7F4D9BF7A38AEC1ECA0AAA681BAEC87782A
+
+___
+
 Company of ELO Enhanced (CELO) is a multi-purpose tool for the Company of Heroes franchise (CoH1 & CoH2) so that you can have more control of your game and be more organized.
 CELO has been made from scratch since the last release (beta) and is now much more improved and stable.
 
