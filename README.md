@@ -1,5 +1,5 @@
 
-Download Windows Installer: [Link](https://www.neffware.com/downloads/celo/CELO_Setup.exe)
+**Download Windows Installer: [Link](https://www.neffware.com/downloads/celo/CELO_Setup.exe)**
 
 Filesize: 25,134,411 Bytes
 
