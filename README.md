@@ -1,22 +1,10 @@
+# Company Of ELO Enhanced (CELO)
 
-**Download Windows Installer: [Link](https://github.com/0xNeffarion/CELO-Enhanced/releases/)**
+Open-Source multi-purpose tool for the Company of Heroes franchise (CoH1 & CoH2) so that you can have more information about your game and keep it more managed/organized.
 
-Filesize: 25,134,411 Bytes
+## Features
 
-Installer Hashes:
-
-MD5: 69D4B7A04A8D8F89E66D406C19D16C0D
-
-SHA1: A8B4E7F4D9BF7A38AEC1ECA0AAA681BAEC87782A
-
-___
-
-Company of ELO Enhanced (CELO) is a multi-purpose tool for the Company of Heroes franchise (CoH1 & CoH2) so that you can have more control of your game and be more organized.
-CELO has been made from scratch since the last release (beta) and is now much more improved and stable.
-
-Features
-
-Supports Company of Heroes 2 & Company of Heroes 1
+Supports Company of Heroes 2 & Company of Heroes 1.  
 Game Watcher - Detects matches and provides you with a whole lot of information about you and the players involved in it:
 
     Displays the Ladder Rank, Level, Hours Played and the SteamID & Nickname of all the players;
@@ -43,29 +31,25 @@ Livestream Displayer - A handy tool for live-streamers which want their viewers 
 
     Creates files to include in Open Broadcaster (or similar software) so that the stream will display the players information formatted as the user wants as soon a match starts.
 
-
 Hot-Key Creator - Lets you create AutoHotkey scripts with ease for Company of Heroes 2
 
 
+### Prerequisites
 
+* Microsoft Windows Vista or higher
+* [.NET Framework 4.0](https://www.microsoft.com/en-US/download/details.aspx?id=17851)
 
+## Libraries
 
+* [Global Mousekey Hook](https://github.com/gmamaladze/globalmousekeyhook)
+* [HTML Agility Pack](http://html-agility-pack.net)
+* [Newtonsoft JSON](https://www.newtonsoft.com/json)
+* [Ionic.Zip](https://dotnetzip.codeplex.com)
 
+## License
 
--------------------------------------------------------------------------------------------------------
-
-Company of ELO - Enhanced (CELO Enhanced) is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+This project is licensed under the GPL v3 license - see the [LICENSE](LICENSE) file for more details.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-------------------------------------------------------------------------------------------------------
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
