@@ -8,14 +8,13 @@ Supports Company of Heroes 2 & Company of Heroes 1.
 Game Watcher - Detects matches and provides you with a whole lot of information about you and the players involved in it:
 
     Displays the Ladder Rank, Level, Hours Played and the SteamID & Nickname of all the players;
-    CPM Counter (Clicks per Minute);
+    Your CPM Counter (Clicks per Minute);
     Players Factions;
-    Battle-Servers Ping.
+    Your Battle-Servers Ping.
 
+Replay Manager - Manage all your game replays and also do some cool stuff with them:
 
-Replay Manager - Manage all your game replays and also do some nasty stuff with them:
-
-    Replay ordering, deleting and renaming, filtering, all from a User-Interface;
+    Replay ordering, deleting and renaming, filtering, all from a easy to use User-Interface;
     Replay Version changing;
     Replay uploading directly to COH2.ORG (CoH2 only).
 
@@ -29,7 +28,8 @@ Match History Viewer - A complete list is created and maintained so you can have
 
 Livestream Displayer - A handy tool for live-streamers which want their viewers to be inside all the game's action:
 
-    Creates files to include in Open Broadcaster (or similar software) so that the stream will display the players information formatted as the user wants as soon a match starts.
+    Creates files to include in Open Broadcaster (or similar software). 
+    This way you can add to the stream the players information formatted as you want as soon a match starts.
 
 Hot-Key Creator - Lets you create AutoHotkey scripts with ease for Company of Heroes 2
 
