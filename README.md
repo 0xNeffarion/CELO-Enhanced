@@ -1,6 +1,6 @@
 # Company Of ELO Enhanced (CELO)
 
-Open-Source multi-purpose tool for the Company of Heroes franchise (CoH1 & CoH2) so that you can have more information about your game and keep it more managed/organized.
+Open-Source multi-purpose tool for the Company of Heroes franchise (CoH1 & CoH2) that allows you to have more information about your game and keep it more managed/organized.
 
 ## Features
 
