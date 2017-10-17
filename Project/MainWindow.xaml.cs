@@ -34,66 +34,52 @@ using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Drawing.Point;
 
-namespace CELO_Enhanced
-{
-    public partial class MainWindow : Window
-    {
+namespace CELO_Enhanced {
+    public partial class MainWindow : Window {
         private readonly Utilities.INIFile cfg;
         private long mysteamId = 0;
         private bool isSteamIdSearch = false;
         private bool isLocked = false;
 
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
             Application.Current.MainWindow = this;
             cfg = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
             globalHook = Hook.GlobalEvents();
             globalHook.KeyDown += GlobalHook_KeyDown;
             globalHook.MouseClick += GlobalHook_MouseClick;
-            
+
         }
 
-        private void GlobalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            if (isKeyboardHookEnabled)
-            {
-                if (e.KeyCode == Keys.F4)
-                {
-                    _warspoilTimeSpan = new TimeSpan(0,0,0,0);
-                    
+        private void GlobalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
+            if (isKeyboardHookEnabled) {
+                if (e.KeyCode == Keys.F4) {
+                    _warspoilTimeSpan = new TimeSpan(0, 0, 0, 0);
+
                 }
             }
         }
 
-        private void GlobalHook_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (isMouseHookEnabled)
-            {
-                try
-                {
+        private void GlobalHook_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) {
+            if (isMouseHookEnabled) {
+                try {
                     var app = GetActiveWindowTitle();
-                    if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
-                    {
+                    if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes")) {
                         clicks++;
                         game_cpmTotal.Content = "Clicks: " + clicks;
                     }
-                }
-                catch
-                {
+                } catch {
                 }
             }
 
         }
 
-        public ImageSource SourceToImage(string source)
-        {
+        public ImageSource SourceToImage(string source) {
             var bm = new BitmapImage(new Uri("pack://application:,,,/" + source, UriKind.Absolute));
             return bm;
         }
 
-        internal class Player : INotifyPropertyChanged
-        {
+        internal class Player : INotifyPropertyChanged {
             private ImageSource country;
             private string level;
             private string nickname;
@@ -101,26 +87,20 @@ namespace CELO_Enhanced
             private long steamid;
             private long timeplayed;
 
-            public long SteamID
-            {
+            public long SteamID {
                 get { return steamid; }
-                set
-                {
-                    if (steamid != value)
-                    {
+                set {
+                    if (steamid != value) {
                         steamid = value;
                         NotifyPropertyChanged("SteamID");
                     }
                 }
             }
 
-            public string Ranking
-            {
+            public string Ranking {
                 get { return ranking; }
-                set
-                {
-                    if (ranking != value)
-                    {
+                set {
+                    if (ranking != value) {
                         ranking = value;
                         NotifyPropertyChanged("Ranking");
                     }
@@ -129,13 +109,10 @@ namespace CELO_Enhanced
 
             public string RankingAfter { get; set; }
 
-            public ImageSource Country
-            {
+            public ImageSource Country {
                 get { return country; }
-                set
-                {
-                    if (country != value)
-                    {
+                set {
+                    if (country != value) {
                         country = value;
                         NotifyPropertyChanged("Country");
                     }
@@ -146,13 +123,10 @@ namespace CELO_Enhanced
             public int Race { get; set; }
             public int Slot { get; set; }
 
-            public string Nickname
-            {
+            public string Nickname {
                 get { return nickname; }
-                set
-                {
-                    if (nickname != value)
-                    {
+                set {
+                    if (nickname != value) {
                         nickname = value;
                         NotifyPropertyChanged("Nickname");
                     }
@@ -161,13 +135,10 @@ namespace CELO_Enhanced
 
             public string RaceName { get; set; }
 
-            public long TimePlayed
-            {
+            public long TimePlayed {
                 get { return timeplayed; }
-                set
-                {
-                    if (timeplayed != value)
-                    {
+                set {
+                    if (timeplayed != value) {
                         timeplayed = value;
                         NotifyPropertyChanged("TimePlayed");
                     }
@@ -176,13 +147,10 @@ namespace CELO_Enhanced
 
             public Teams Team { get; set; }
 
-            public string Level
-            {
+            public string Level {
                 get { return level; }
-                set
-                {
-                    if (level != value)
-                    {
+                set {
+                    if (level != value) {
                         level = value;
                         NotifyPropertyChanged("Level");
                     }
@@ -192,8 +160,7 @@ namespace CELO_Enhanced
             public string Icon { get; set; }
             public event PropertyChangedEventHandler PropertyChanged;
 
-            public void NotifyPropertyChanged(string propName)
-            {
+            public void NotifyPropertyChanged(string propName) {
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
@@ -217,38 +184,32 @@ namespace CELO_Enhanced
         [DllImport("user32.dll")]
         public static extern int GetWindowText(int hWnd, StringBuilder text, int count);
 
-        private string GetActiveWindowTitle()
-        {
+        private string GetActiveWindowTitle() {
             var activeWindowId = GetForegroundWindow();
-            if (activeWindowId.Equals(0))
-            {
+            if (activeWindowId.Equals(0)) {
                 return null;
             }
             int processId;
             GetWindowThreadProcessId(activeWindowId, out processId);
-            if (processId == 0)
-            {
+            if (processId == 0) {
                 return null;
             }
             var ps = Process.GetProcessById(processId);
             String title = null;
-            if (!string.IsNullOrEmpty(ps.MainWindowTitle))
-            {
+            if (!string.IsNullOrEmpty(ps.MainWindowTitle)) {
                 title = ps.MainWindowTitle;
             }
 
-            if (string.IsNullOrEmpty(title))
-            {
+            if (string.IsNullOrEmpty(title)) {
                 const int Count = 1024;
                 var sb = new StringBuilder(Count);
-                GetWindowText((int) activeWindowId, sb, Count);
+                GetWindowText((int)activeWindowId, sb, Count);
                 title = sb.ToString();
             }
             return title;
         }
 
-        private void Celo_Main_Closing(object sender, CancelEventArgs e)
-        {
+        private void Celo_Main_Closing(object sender, CancelEventArgs e) {
             Application.Current.Shutdown(0);
         }
 
@@ -269,9 +230,8 @@ namespace CELO_Enhanced
         private int ping;
         private Thread th;
 
-        private void LoadTimers()
-        {
-            
+        private void LoadTimers() {
+
             _cfgTimerInt = 2200;
             logFile.WriteLine("MAIN WINDOW - Loading reader timer");
             _readerTimer = new DispatcherTimer(DispatcherPriority.Background);
@@ -318,27 +278,20 @@ namespace CELO_Enhanced
 
         }
 
-        private void _warSpoilTimer_Tick(object sender, EventArgs e)
-        {
+        private void _warSpoilTimer_Tick(object sender, EventArgs e) {
             _warspoilTimeSpan = _warspoilTimeSpan.Add(new TimeSpan(0, 0, 0, 1, 0));
             TimeSpan resTm = tm.Subtract(_warspoilTimeSpan);
-            if (resTm.TotalSeconds > 0)
-            {
+            if (resTm.TotalSeconds > 0) {
                 match_drop.Text = "Approx. Warspoil countdown: " + resTm.ToString("c") + " (F4 Resets)";
-            }
-            else
-            {
+            } else {
                 match_drop.Text = "Approx. Warspoil countdown: Finished (F4 Resets)";
             }
 
         }
 
-        private void _failsafeTimer_Tick(object sender, EventArgs e)
-        {
-            if (_matchBeingPlayed && _isListWritten)
-            {
-                if (_players.Count <= 0 || playerList.Items.Count <= 0)
-                {
+        private void _failsafeTimer_Tick(object sender, EventArgs e) {
+            if (_matchBeingPlayed && _isListWritten) {
+                if (_players.Count <= 0 || playerList.Items.Count <= 0) {
                     logFile.WriteLine("FAILSAFE TRIGGERED");
                     _players.Clear();
                     _matchBeingPlayed = false;
@@ -358,30 +311,25 @@ namespace CELO_Enhanced
             _failsafeTimer.Stop();
         }
 
-        private async void _logTimer_Tick(object sender, EventArgs e)
-        { 
+        private async void _logTimer_Tick(object sender, EventArgs e) {
             cpuCounter.NextValue();
             await TaskEx.Delay(1000);
             logFile.WriteLine("===== LOG TIMER START =====");
-            logFile.WriteLine("Total Memory: " + (((new ComputerInfo().TotalPhysicalMemory)/1024)/1024) + " MBytes");
-            logFile.WriteLine("Used Memory: " + ((Process.GetCurrentProcess().WorkingSet64/1024)/1024) + " MBytes");
+            logFile.WriteLine("Total Memory: " + (((new ComputerInfo().TotalPhysicalMemory) / 1024) / 1024) + " MBytes");
+            logFile.WriteLine("Used Memory: " + ((Process.GetCurrentProcess().WorkingSet64 / 1024) / 1024) + " MBytes");
             logFile.WriteLine("Free Memory: " + ramCounter.NextValue() + " MBytes");
             logFile.WriteLine("CPU Usage: " + Math.Round(cpuCounter.NextValue()) + "% ");
             logFile.WriteLine("===== LOG TIMER ENDED =====");
         }
 
-        private void _updTimer_Tick(object sender, EventArgs e)
-        {
-            if (_cfgCheckUpdates)
-            {
-                if (mnuNewUpdate.Visibility != Visibility.Visible)
-                {
+        private void _updTimer_Tick(object sender, EventArgs e) {
+            if (_cfgCheckUpdates) {
+                if (mnuNewUpdate.Visibility != Visibility.Visible) {
                     logFile.WriteLine("MAIN WINDOW - UPDATE TIMER - Checking for updates");
                     var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
                     var version = Version.Parse(fvi.FileVersion);
                     var response = Updater.CheckForUpdates(version);
-                    if (response != null)
-                    {
+                    if (response != null) {
                         logFile.WriteLine("MAIN WINDOW - UPDATE TIMER - Update found!");
                         mnuNewUpdate.Visibility = Visibility.Visible;
                         mnuNewUpdate.Opacity = 1;
@@ -391,60 +339,43 @@ namespace CELO_Enhanced
             }
         }
 
-        private void _cpmTimer_Tick(object sender, EventArgs e)
-        {
+        private void _cpmTimer_Tick(object sender, EventArgs e) {
             ++mins;
-            if (_cfgShowCPM)
-            {
-                game_cpm.Content = "CPM: " + (clicks/mins);
-            }
-            else
-            {
+            if (_cfgShowCPM) {
+                game_cpm.Content = "CPM: " + (clicks / mins);
+            } else {
                 game_cpm.Content = "CPM: Disabled";
             }
         }
 
-        private void _pingTimer_Tick(object sender, EventArgs e)
-        {
-            if (_cfgShowPing)
-            {
+        private void _pingTimer_Tick(object sender, EventArgs e) {
+            if (_cfgShowPing) {
                 th = new Thread(RetrievePing);
                 th.Start();
-            }
-            else
-            {
+            } else {
                 game_ping.Content = "Battle-Servers Ping: Disabled";
             }
         }
 
-        private async void _readerTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                switch (_gameSelected)
-                {
+        private async void _readerTimer_Tick(object sender, EventArgs e) {
+            try {
+                switch (_gameSelected) {
                     case 0:
-                        if (IsGameRunning(0))
-                        {
-                            if (await CopyLog())
-                            {
-                                if (!_matchBeingPlayed)
-                                {
+                        if (IsGameRunning(0)) {
+                            if (await CopyLog()) {
+                                if (!_matchBeingPlayed) {
                                     setStatus("Waiting for a match to start");
                                     FindMatch(0);
                                 }
 
-                                if (_matchBeingPlayed && _isListWritten == false)
-                                {
+                                if (_matchBeingPlayed && _isListWritten == false) {
                                     setStatus("A match has been found");
                                     playerList.ItemsSource = _players;
                                     repeater = true;
                                     SetUpInfo(0, true);
                                 }
-                                if (_matchBeingPlayed && _isListWritten)
-                                {
-                                    if (CheckEnd(0))
-                                    {
+                                if (_matchBeingPlayed && _isListWritten) {
+                                    if (CheckEnd(0)) {
                                         setStatus("Current match ended");
                                         FactorCreator();
                                         SetUpInfo(0, false);
@@ -453,35 +384,27 @@ namespace CELO_Enhanced
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             setStatus("Company of Heroes is not running!");
                             setStatus("Waiting for the game to start");
                         }
                         break;
                     case 1:
-                        if (IsGameRunning(1) && !isLocked)
-                        {
-                            if (await CopyLog())
-                            {
-                                if (!_matchBeingPlayed)
-                                {
+                        if (IsGameRunning(1) && !isLocked) {
+                            if (await CopyLog()) {
+                                if (!_matchBeingPlayed) {
                                     setStatus("Waiting for a match to start");
                                     FindMatch(1);
                                 }
-                                if (_matchBeingPlayed && _isListWritten == false)
-                                {
+                                if (_matchBeingPlayed && _isListWritten == false) {
                                     _isListWritten = true;
                                     setStatus("A match has been found");
                                     playerList.ItemsSource = _players;
                                     SetUpInfo(1, true);
                                     setStatus("Information is being parsed...");
                                 }
-                                if (_matchBeingPlayed && _isListWritten)
-                                {
-                                    if (CheckEnd(1))
-                                    {
+                                if (_matchBeingPlayed && _isListWritten) {
+                                    if (CheckEnd(1)) {
                                         setStatus("Current match ended");
                                         FactorCreator();
                                         SetUpInfo(1, false);
@@ -489,16 +412,13 @@ namespace CELO_Enhanced
                                         notificationTooggle = 0;
                                         repeater = true;
                                     }
-                                    if (CheckLoaded())
-                                    {
+                                    if (CheckLoaded()) {
                                         _osdList.All(x => x.Hide());
                                         _osdList.Clear();
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             setStatus("Company of Heroes 2 is not running!");
                             setStatus("Waiting for the game to start");
                         }
@@ -507,9 +427,7 @@ namespace CELO_Enhanced
                         _gameSelected = 1;
                         break;
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION - READ TIMER: " + ex.ToString());
             }
 
@@ -541,35 +459,25 @@ namespace CELO_Enhanced
         private bool _cfgWindowTop;
         private int _gameSelected = 1;
 
-        private string ReadV(String section, String key)
-        {
-            try
-            {
+        private string ReadV(String section, String key) {
+            try {
                 return cfg.IniReadValue(section, key);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION Reading Config: " + ex);
             }
             return null;
         }
 
-        private void WriteV(String section, String key, String value)
-        {
-            try
-            {
+        private void WriteV(String section, String key, String value) {
+            try {
                 cfg.IniWriteValue(section, key, value);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION Writing Config: " + ex);
             }
         }
 
-        private Boolean GetConfigs()
-        {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini"))
-            {
+        private Boolean GetConfigs() {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini")) {
                 _gameSelected = Int32.Parse(ReadV("Essencial", "Game"));
                 _cfgDocPath = ReadV("Essencial", "CoH" + (_gameSelected + 1) + "_DocPath");
                 _cfgGamePath = ReadV("Essencial", "CoH" + (_gameSelected + 1) + "_GamePath");
@@ -586,25 +494,19 @@ namespace CELO_Enhanced
                 _cfgOSDShowHours = ReadV("OSD", "ShowHours").ToLower() == "true";
                 _cfgOSDForce = ReadV("OSD", "Force").ToLower() == "true";
                 _cfgOSDUseAnimation = ReadV("OSD", "UseAnimation").ToLower() == "true";
-                try
-                {
+                try {
                     _cfgOSDColor = Color.FromArgb(255, Byte.Parse(ReadV("OSD", "TextColorR")),
                         Byte.Parse(ReadV("OSD", "TextColorG")), Byte.Parse(ReadV("OSD", "TextColorB")));
-                }
-                catch (Exception)
-                {
+                } catch (Exception) {
                     _cfgOSDColor = Color.LimeGreen;
                 }
                 _cfgHistoryEnabled = ReadV("Match_History_Viewer", "Enabled").ToLower() == "true";
                 _cfgLsdEnabled = ReadV("Livestream_Displayer", "Enabled").ToLower() == "true";
                 _cfgLsdOutput = ReadV("Livestream_Displayer", "OutputFolder");
                 _cfgWindowTop = ReadV("Game_Watcher", "WindowTop").ToLower() == "true";
-                if (_cfgWindowTop)
-                {
+                if (_cfgWindowTop) {
                     mnuItemWindowTop.IsChecked = true;
-                }
-                else
-                {
+                } else {
                     mnuItemWindowTop.IsChecked = false;
                 }
                 return true;
@@ -612,15 +514,11 @@ namespace CELO_Enhanced
             return false;
         }
 
-        private int GetCOH2Height()
-        {
-            if (_gameSelected == 1)
-            {
+        private int GetCOH2Height() {
+            if (_gameSelected == 1) {
                 var FullText = File.ReadAllLines(_cfgDocPath + @"\configuration_system.lua");
-                for (var i = 0; i < FullText.Length; i++)
-                {
-                    if (FullText[i].Contains("height"))
-                    {
+                for (var i = 0; i < FullText.Length; i++) {
+                    if (FullText[i].Contains("height")) {
                         return Int32.Parse(Regex.Split(FullText[i + 1], " = ")[1].Replace(",", "").Trim());
                     }
                 }
@@ -628,15 +526,11 @@ namespace CELO_Enhanced
             return -1;
         }
 
-        private int GetCOH2Width()
-        {
-            if (_gameSelected == 1)
-            {
+        private int GetCOH2Width() {
+            if (_gameSelected == 1) {
                 var FullText = File.ReadAllLines(_cfgDocPath + @"\configuration_system.lua");
-                for (var i = 0; i < FullText.Length; i++)
-                {
-                    if (FullText[i].Contains("width"))
-                    {
+                for (var i = 0; i < FullText.Length; i++) {
+                    if (FullText[i].Contains("width")) {
                         return Int32.Parse(Regex.Split(FullText[i + 1], " = ")[1].Replace(",", "").Trim());
                     }
                 }
@@ -652,21 +546,18 @@ namespace CELO_Enhanced
         private readonly PerformanceCounter cpuCounter = new PerformanceCounter();
         private readonly PerformanceCounter ramCounter = new PerformanceCounter("Memory", "Available MBytes");
 
-        private void Load_Essential()
-        {
+        private void Load_Essential() {
             logFile.WriteLine("MAIN WINDOW - START Loading essential");
             pLoadpic.Image = Properties.Resources.preLoader;
             logFile.WriteLine("MAIN WINDOW - START Loading configs");
-            if (!GetConfigs())
-            {
+            if (!GetConfigs()) {
                 MessageBox.Show(this, "There was an error loading the configuration files",
                     "Error loading configuration",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 logFile.WriteLine("MAIN WINDOW - Configs ERROR");
             }
             logFile.WriteLine("MAIN WINDOW - Game: " + _gameSelected);
-            switch (_gameSelected)
-            {
+            switch (_gameSelected) {
                 case 0:
                     status_gameName.Content = "Company of Heroes";
                     status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh1_icon.png"));
@@ -682,8 +573,7 @@ namespace CELO_Enhanced
             LoadTimers();
             logFile.WriteLine("MAIN WINDOW - ENDED Loading timers");
 
-            if (_cfgStartGW)
-            {
+            if (_cfgStartGW) {
                 ToggleGW();
             }
 
@@ -694,37 +584,28 @@ namespace CELO_Enhanced
             logFile.WriteLine("MAIN WINDOW - ENDED Loading essential");
         }
 
-        private void Celo_Main_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void Celo_Main_Loaded(object sender, RoutedEventArgs e) {
             logFile.WriteLine("MAIN WINDOW - STARTED");
-            try
-            {
+            try {
                 logFile.WriteLine("MAIN WINDOW - Interface FPS => 60");
                 Timeline.DesiredFrameRateProperty.OverrideMetadata(
-                    typeof (Timeline),
-                    new FrameworkPropertyMetadata {DefaultValue = 30}
+                    typeof(Timeline),
+                    new FrameworkPropertyMetadata { DefaultValue = 30 }
                     );
                 logFile.WriteLine("MAIN WINDOW - Interface FPS => 30");
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION: " + ex);
             }
             Load_Essential();
 
-            try
-            {
-                if (File.Exists(_AssemblyDir + @"\data\news.txt"))
-                {
-                    if (Utilities.CheckInternet())
-                    {
+            try {
+                if (File.Exists(_AssemblyDir + @"\data\news.txt")) {
+                    if (Utilities.CheckInternet()) {
                         var wh = new WhatsNew();
                         wh.ShowDialog();
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION: " + ex);
             }
         }
@@ -733,187 +614,145 @@ namespace CELO_Enhanced
 
         #region Menus
 
-        private void mnuSendFb_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuSendFb_Click(object sender, RoutedEventArgs e) {
             Feedback fb = new Feedback();
             fb.ShowDialog();
         }
 
-        private void mnuDonate_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("http://www.neffware.com/index.php/support");
+        private void mnuDonate_Click(object sender, RoutedEventArgs e) {
+            Process.Start("https://www.neffware.com/about");
         }
 
-        private void mnuMHV_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuMHV_Click(object sender, RoutedEventArgs e) {
             var mhv = new MatchHistoryViewer(_gameSelected, "");
             mhv.ShowDialog();
         }
 
-        private void mnu_ahk_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnu_ahk_Click(object sender, RoutedEventArgs e) {
             var hk = new HotKeyGen();
             hk.ShowDialog();
         }
 
-        private void mnuHelp_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuHelp_Click(object sender, RoutedEventArgs e) {
             var bt = new About();
             bt.ShowDialog();
         }
 
-        private void mnuReplayManager_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuReplayManager_Click(object sender, RoutedEventArgs e) {
             var rep = new ReplayManager(_cfgDocPath, _cfgGamePath, _gameSelected);
             rep.ShowDialog();
         }
 
-        private void mnuRestart_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuRestart_Click(object sender, RoutedEventArgs e) {
             Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
 
-        private void mnuExit_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuExit_Click(object sender, RoutedEventArgs e) {
             Application.Current.Shutdown();
         }
 
-        private void mnuItemWindowTop_Click(object sender, RoutedEventArgs e)
-        {
-            if (mnuItemWindowTop.IsChecked)
-            {
+        private void mnuItemWindowTop_Click(object sender, RoutedEventArgs e) {
+            if (mnuItemWindowTop.IsChecked) {
                 Topmost = true;
                 WriteV("Game_Watcher", "WindowTop", "true");
-            }
-            else
-            {
+            } else {
                 Topmost = false;
                 WriteV("Game_Watcher", "WindowTop", "false");
             }
         }
 
-        private void playerList_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (playerList.Items.Count > 0 && playerList.SelectedIndex != -1)
-            {
+        private void playerList_MouseEnter(object sender, MouseEventArgs e) {
+            if (playerList.Items.Count > 0 && playerList.SelectedIndex != -1) {
                 mnu_p_Copy.IsEnabled = true;
                 mnu_p_Open.IsEnabled = true;
-            }
-            else
-            {
+            } else {
                 mnu_p_Copy.IsEnabled = false;
                 mnu_p_Open.IsEnabled = false;
             }
         }
 
-        private void mnu_p_copyNick_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_copyNick_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Clipboard.SetText(n.Nickname);
             }
         }
 
-        private void mnu_p_copyRank_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_copyRank_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Clipboard.SetText(n.Ranking);
             }
         }
 
-        private void mnu_p_copyTimePlayed_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_copyTimePlayed_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Clipboard.SetText(n.TimePlayed.ToString());
             }
         }
 
-        private void mnu_p_copyLevel_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_copyLevel_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Clipboard.SetText(n.Level);
             }
         }
 
-        private void mnu_p_copyID_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_copyID_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Clipboard.SetText(n.SteamID.ToString());
             }
         }
 
-        private void mnu_p_open_coh2org_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_open_coh2org_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Process.Start("http://www.coh2.org/ladders/playercard/steamid/" + n.SteamID);
             }
         }
 
-        private void playerList_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (playerList.Items.Count > 0 && playerList.SelectedIndex != -1)
-            {
+        private void playerList_MouseRightButtonDown(object sender, MouseButtonEventArgs e) {
+            if (playerList.Items.Count > 0 && playerList.SelectedIndex != -1) {
                 mnu_p_Copy.IsEnabled = true;
                 mnu_p_Open.IsEnabled = true;
-            }
-            else
-            {
+            } else {
                 mnu_p_Copy.IsEnabled = false;
                 mnu_p_Open.IsEnabled = false;
             }
         }
 
-        private void mnu_p_open_coh_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_open_coh_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Process.Start("http://www.companyofheroes.com/leaderboards#profile/steam/" + n.SteamID);
             }
         }
 
-        private void mnu_p_open_steampage_Click(object sender, RoutedEventArgs e)
-        {
-            if (playerList.SelectedIndex != -1)
-            {
-                var n = (Player) playerList.SelectedItem;
+        private void mnu_p_open_steampage_Click(object sender, RoutedEventArgs e) {
+            if (playerList.SelectedIndex != -1) {
+                var n = (Player)playerList.SelectedItem;
                 Process.Start("http://steamcommunity.com/profiles/" + n.SteamID);
             }
         }
 
-        private void playerList_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (playerList.Items.Count > 0 && playerList.SelectedIndex != -1)
-            {
+        private void playerList_MouseMove(object sender, MouseEventArgs e) {
+            if (playerList.Items.Count > 0 && playerList.SelectedIndex != -1) {
                 mnu_p_Copy.IsEnabled = true;
                 mnu_p_Open.IsEnabled = true;
-            }
-            else
-            {
+            } else {
                 mnu_p_Copy.IsEnabled = false;
                 mnu_p_Open.IsEnabled = false;
             }
         }
 
-        private void mnuPref_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuPref_Click(object sender, RoutedEventArgs e) {
             var pref = new Preferences();
             pref.ShowDialog();
             GetConfigs();
-            switch (_gameSelected)
-            {
+            switch (_gameSelected) {
                 case 0:
                     status_gameName.Content = "Company of Heroes";
                     status_gameIcon.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/coh1_icon.png"));
@@ -925,52 +764,41 @@ namespace CELO_Enhanced
             }
         }
 
-        private void mnuCheckUpd_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuCheckUpd_Click(object sender, RoutedEventArgs e) {
             var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             var version = Version.Parse(fvi.FileVersion);
             var response = Updater.CheckForUpdates(version);
-            if (response != null)
-            {
+            if (response != null) {
                 if (MessageBox.Show(this,
                     "A new version is available for download (" + response + ")\nDo you wish to update CELO?",
                     "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information) ==
-                    MessageBoxResult.Yes)
-                {
+                    MessageBoxResult.Yes) {
                     var dp = new Updater();
                     dp.ShowDialog();
                 }
-            }
-            else
-            {
+            } else {
                 Utilities.showMessage(this, "CELO Enhanced is up-to-date.", "Update not available");
             }
         }
 
-        private void mnuNewUpdate_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuNewUpdate_Click(object sender, RoutedEventArgs e) {
             var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             var version = Version.Parse(fvi.FileVersion);
             var response = Updater.CheckForUpdates(version);
-            if (response != null)
-            {
+            if (response != null) {
                 if (MessageBox.Show(this,
                     "A new version is available for download (" + response + ")\nDo you wish to update CELO?",
                     "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information) ==
-                    MessageBoxResult.Yes)
-                {
+                    MessageBoxResult.Yes) {
                     var dp = new Updater();
                     dp.ShowDialog();
                 }
-            }
-            else
-            {
+            } else {
                 Utilities.showMessage(this, "CELO Enhanced is up-to-date.", "Update not available");
             }
         }
 
-        private void mnuLogs_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnuLogs_Click(object sender, RoutedEventArgs e) {
             Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\logs");
         }
 
@@ -984,21 +812,16 @@ namespace CELO_Enhanced
         [DllImport("winmm.dll")]
         public static extern int waveOutSetVolume(IntPtr hwo, uint dwVolume);
 
-        private void btn_GameWatcher_Click(object sender, RoutedEventArgs e)
-        {
+        private void btn_GameWatcher_Click(object sender, RoutedEventArgs e) {
             ToggleGW();
         }
 
-        private void ToggleGW()
-        {
-            if (IsLoaded)
-            {
-                if (btn_GameWatcher.Tag.ToString() == "en")
-                {
-                    if (_cfgPlaySound)
-                    {
+        private void ToggleGW() {
+            if (IsLoaded) {
+                if (btn_GameWatcher.Tag.ToString() == "en") {
+                    if (_cfgPlaySound) {
                         var NewVolume = (1100);
-                        var NewVolumeAllChannels = (((uint) NewVolume & 0x0000ffff) | ((uint) NewVolume << 16));
+                        var NewVolumeAllChannels = (((uint)NewVolume & 0x0000ffff) | ((uint)NewVolume << 16));
                         waveOutSetVolume(IntPtr.Zero, NewVolumeAllChannels);
                         var uri = new Uri(@"pack://application:,,,/Resources/beep_01.wav");
                         var player = new SoundPlayer(Application.GetResourceStream(uri).Stream);
@@ -1010,9 +833,7 @@ namespace CELO_Enhanced
                     btn_GameWatcher.Tag = "dis";
                     txt_GameWatcher.Text = "Stop Game Watcher";
                     isLocked = false;
-                }
-                else
-                {
+                } else {
                     isLocked = true;
                     _matchBeingPlayed = false;
                     _isListWritten = false;
@@ -1036,15 +857,13 @@ namespace CELO_Enhanced
             }
         }
 
-        private void btn_ReplayManager_Click(object sender, RoutedEventArgs e)
-        {
+        private void btn_ReplayManager_Click(object sender, RoutedEventArgs e) {
             var rep = new ReplayManager(_cfgDocPath, _cfgGamePath, _gameSelected);
             rep.Owner = this;
             rep.ShowDialog();
         }
 
-        private void mnu_lsd_Click(object sender, RoutedEventArgs e)
-        {
+        private void mnu_lsd_Click(object sender, RoutedEventArgs e) {
             var lsd = new LivestreamDisplayer();
             lsd.ShowDialog();
         }
@@ -1053,8 +872,7 @@ namespace CELO_Enhanced
 
         #region Main Functions
 
-        public enum Teams
-        {
+        public enum Teams {
             Axis,
             Allies
         }
@@ -1075,34 +893,26 @@ namespace CELO_Enhanced
         private Boolean repeater = true;
         private int curFlag;
 
-        private Boolean IsGameRunning(int game)
-        {
-            switch (game)
-            {
+        private Boolean IsGameRunning(int game) {
+            switch (game) {
                 case 0:
 
-                    foreach (var process in Process.GetProcesses())
-                    {
-                        if (process.ProcessName.Equals("RelicCOH"))
-                        {
+                    foreach (var process in Process.GetProcesses()) {
+                        if (process.ProcessName.Equals("RelicCOH")) {
                             return true;
                         }
                     }
                     break;
                 case 1:
-                    foreach (var process in Process.GetProcesses())
-                    {
-                        if (process.ProcessName.Equals("RelicCoH2"))
-                        {
+                    foreach (var process in Process.GetProcesses()) {
+                        if (process.ProcessName.Equals("RelicCoH2")) {
                             return true;
                         }
                     }
                     break;
                 default:
-                    foreach (var process in Process.GetProcesses())
-                    {
-                        if (process.ProcessName.Equals("RelicCoH2"))
-                        {
+                    foreach (var process in Process.GetProcesses()) {
+                        if (process.ProcessName.Equals("RelicCoH2")) {
                             return true;
                         }
                     }
@@ -1111,37 +921,28 @@ namespace CELO_Enhanced
             return false;
         }
 
-        private async Task<Boolean> CopyLog()
-        {
+        private async Task<Boolean> CopyLog() {
             var res = await TaskEx.Run(() => CopyLogTask());
             return res;
         }
 
-        private Boolean CopyLogTask()
-        {
-            try
-            {
+        private Boolean CopyLogTask() {
+            try {
                 File.Copy(_cfgDocPath + @"\warnings.log", _copyLogPath, true);
                 setLogContents(_gameSelected);
                 return true;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION Copying log: " + ex);
                 return false;
             }
         }
 
-        private Boolean CheckLoaded()
-        {
-            for (var i = _lastLine; i < _logContent.Count; i++)
-            {
-                if (_logContent[i].Contains("GAME -- Recording game"))
-                {
+        private Boolean CheckLoaded() {
+            for (var i = _lastLine; i < _logContent.Count; i++) {
+                if (_logContent[i].Contains("GAME -- Recording game")) {
                     var str = _logContent[i].Split('.')[0];
                     var str2 = str.Split(':');
-                    if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
-                    {
+                    if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1]))) {
                         return true;
                     }
                 }
@@ -1149,60 +950,44 @@ namespace CELO_Enhanced
             return false;
         }
 
-        private void ClearList()
-        {
-            if (_players.Count > 0)
-            {
-                try
-                {
+        private void ClearList() {
+            if (_players.Count > 0) {
+                try {
                     _players.Clear();
-                    var view = (CollectionView) CollectionViewSource.GetDefaultView(playerList.ItemsSource);
+                    var view = (CollectionView)CollectionViewSource.GetDefaultView(playerList.ItemsSource);
                     if (view.GroupDescriptions != null)
                         view.GroupDescriptions.Clear();
                     if (view.SortDescriptions != null)
                         view.SortDescriptions.Clear();
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     logFile.WriteLine("EXCEPTION Clearing list: " + ex);
                 }
             }
         }
 
-        private Boolean CheckTime(int hour, int minute)
-        {
+        private Boolean CheckTime(int hour, int minute) {
             var currentTime = DateTime.Now.TimeOfDay;
             var gameTime = new TimeSpan(hour, minute, 00);
             var gameTimeLess = gameTime.Subtract(new TimeSpan(0, 2, 0));
             var gameTimeMore = gameTime.Add(new TimeSpan(0, 2, 0));
-            if (gameTimeLess <= currentTime && gameTimeMore >= currentTime)
-            {
+            if (gameTimeLess <= currentTime && gameTimeMore >= currentTime) {
                 return true;
             }
             return false;
         }
 
-        private void CleanLSD()
-        {
-            if (_cfgLsdOutput != "")
-            {
-                if (_cfgLsdEnabled)
-                {
-                    if (!Directory.Exists(_cfgLsdOutput))
-                    {
+        private void CleanLSD() {
+            if (_cfgLsdOutput != "") {
+                if (_cfgLsdEnabled) {
+                    if (!Directory.Exists(_cfgLsdOutput)) {
                         Directory.CreateDirectory(_cfgLsdOutput);
                     }
-                    for (var i = 0; i < 8; i++)
-                    {
+                    for (var i = 0; i < 8; i++) {
                         var path = _cfgLsdOutput + @"\player_" + (i + 1) + ".txt";
-                        if (File.Exists(path))
-                        {
-                            try
-                            {
+                        if (File.Exists(path)) {
+                            try {
                                 File.WriteAllText(path, " ", Encoding.UTF8);
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 logFile.WriteLine("EXCEPTION Cleaning LSD: " + ex);
                             }
                         }
@@ -1211,22 +996,17 @@ namespace CELO_Enhanced
             }
         }
 
-        private Boolean CheckEnd(int game)
-        {
-            switch (game)
-            {
+        private Boolean CheckEnd(int game) {
+            switch (game) {
                 case 0:
-                    for (var i = _lastLine; i < _logContent.Count; i++)
-                    {
-                        if (_logContent[i].Contains("APP -- Game Stop"))
-                        {
+                    for (var i = _lastLine; i < _logContent.Count; i++) {
+                        if (_logContent[i].Contains("APP -- Game Stop")) {
                             var str = _logContent[i].Split('.')[0];
                             var str2 = str.Split(':');
-                            if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
-                            {
+                            if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1]))) {
                                 _matchBeingPlayed = false;
                                 _pingTimer.IsEnabled = false;
-                               
+
                                 _cpmTimer.IsEnabled = false;
                                 CleanLSD();
                                 return true;
@@ -1235,20 +1015,17 @@ namespace CELO_Enhanced
                     }
                     break;
                 case 1:
-                    for (var i = _lastLine; i < _logContent.Count; i++)
-                    {
-                        if (_logContent[i].Contains("MOD -- Game Over at"))
-                        {
+                    for (var i = _lastLine; i < _logContent.Count; i++) {
+                        if (_logContent[i].Contains("MOD -- Game Over at")) {
                             var str = _logContent[i].Split('.')[0];
                             var str2 = str.Split(':');
-                            if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1])))
-                            {
+                            if (CheckTime(Int32.Parse(str2[0]), Int32.Parse(str2[1]))) {
                                 isMouseHookEnabled = false;
                                 _warSpoilTimer.IsEnabled = false;
                                 _matchBeingPlayed = false;
                                 PassAgeGateCookie();
                                 _pingTimer.IsEnabled = false;
-                              
+
                                 _cpmTimer.IsEnabled = false;
                                 CleanLSD();
                                 return true;
@@ -1261,28 +1038,21 @@ namespace CELO_Enhanced
             return false;
         }
 
-        private void setStatus(string text)
-        {
+        private void setStatus(string text) {
             Dispatcher.Invoke(new Action(() => status_cont_text.Text = text));
         }
 
-        private void setLogContents(int game)
-        {
-            switch (game)
-            {
+        private void setLogContents(int game) {
+            switch (game) {
                 case 0:
                     _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
                     break;
                 case 1:
-                    if (isSteamIdSearch == false)
-                    {
-                        try
-                        {
+                    if (isSteamIdSearch == false) {
+                        try {
                             _logContent = File.ReadAllLines(_copyLogPath, Encoding.UTF8).ToList();
-                            for (int i = 0; i < _logContent.Count; i++)
-                            {
-                                if (_logContent[i].Contains("Found profile: /steam/"))
-                                {
+                            for (int i = 0; i < _logContent.Count; i++) {
+                                if (_logContent[i].Contains("Found profile: /steam/")) {
                                     string[] str = Regex.Split(_logContent[i], @"/steam/");
                                     mysteamId = Convert.ToInt64(str[1].ToString());
                                     break;
@@ -1290,48 +1060,36 @@ namespace CELO_Enhanced
                             }
                             isSteamIdSearch = true;
                             _logContent.Clear();
-                        }
-                        catch (Exception ex)
-                        { 
+                        } catch (Exception ex) {
                             logFile.WriteLine("EXCEPTION - Copy Log - " + ex.ToString());
                         }
                     }
 
-                    
-                    try
-                    {
+
+                    try {
                         _logContent = File.ReadLines(_copyLogPath).Reverse().Take(1000).Reverse().ToList();
-                    }
-                    catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
                         logFile.WriteLine("EXCEPTION - Copy Log 2 - " + ex.ToString());
                     }
-                    
+
                     break;
             }
         }
 
-        private async void FindMatch(int game)
-        {
-            switch (game)
-            {
+        private async void FindMatch(int game) {
+            switch (game) {
                 case 0:
-                    for (var i = 0; i < _logContent.Count; i++)
-                    {
+                    for (var i = 0; i < _logContent.Count; i++) {
                         var str = _logContent[i].Split('.')[0];
-                        try
-                        {
-                            if (Regex.IsMatch(str.Split(':')[0], @"^\d+$"))
-                            {
+                        try {
+                            if (Regex.IsMatch(str.Split(':')[0], @"^\d+$")) {
                                 if (CheckTime(Int32.Parse(str.Split(':')[0]),
-                                    Int32.Parse(str.Split(':')[1])))
-                                {
+                                    Int32.Parse(str.Split(':')[1]))) {
                                     if (
                                         _logContent[i].Contains(
                                             "AutomatchInternal::OnStartComplete - detected successful game start") ||
                                         _logContent[i].Contains("RLINK -- Match Started") ||
-                                        _logContent[i].Contains("MOD - Setting player"))
-                                    {
+                                        _logContent[i].Contains("MOD - Setting player")) {
                                         logFile.WriteLine("MAIN WINDOW - READER - Found a game match");
                                         _stopPoint = i - 30;
                                         ProcessLog(game);
@@ -1339,28 +1097,21 @@ namespace CELO_Enhanced
                                     }
                                 }
                             }
-                        }
-                        catch (Exception ex)
-                        {
+                        } catch (Exception ex) {
                             logFile.WriteLine("EXCEPTION - FIND MATCH - " + ex.ToString());
                         }
                     }
                     break;
                 case 1:
 
-                    for (var i = 0; i < _logContent.Count; i++)
-                    {
+                    for (var i = 0; i < _logContent.Count; i++) {
                         var str = _logContent[i].Split('.')[0];
-                        try
-                        {
-                            if (Regex.IsMatch(str.Split(':')[0], @"^\d+$"))
-                            {
+                        try {
+                            if (Regex.IsMatch(str.Split(':')[0], @"^\d+$")) {
                                 if (CheckTime(Int32.Parse(str.Split(':')[0]),
-                                    Int32.Parse(str.Split(':')[1])))
-                                {
+                                    Int32.Parse(str.Split(':')[1]))) {
                                     if (_logContent[i].Contains("GAME -- Human") ||
-                                        _logContent[i].Contains("GAME -- AI Player"))
-                                    {
+                                        _logContent[i].Contains("GAME -- AI Player")) {
                                         logFile.WriteLine("MAIN WINDOW - READER - Found a game match");
                                         _stopPoint = i - 50;
                                         ProcessLog(game);
@@ -1368,9 +1119,7 @@ namespace CELO_Enhanced
                                     }
                                 }
                             }
-                        }
-                        catch (Exception ex)
-                        {
+                        } catch (Exception ex) {
                             logFile.WriteLine("EXCEPTION - FIND MATCH - " + ex.ToString());
                         }
                     }
@@ -1380,10 +1129,8 @@ namespace CELO_Enhanced
             }
         }
 
-        private async void ProcessLog(int game)
-        {
-            if (isLocked)
-            {
+        private async void ProcessLog(int game) {
+            if (isLocked) {
                 _readerTimer.IsEnabled = false;
                 return;
             }
@@ -1395,43 +1142,34 @@ namespace CELO_Enhanced
             pgBarLoading.IsIndeterminate = true;
             pgBarLoading.Value = 50;
             logFile.WriteLine("MAIN WINDOW - Watcher - Progressbar Enabled");
-            switch (game)
-            {
+            switch (game) {
                 case 0:
-                    if (!_matchBeingPlayed)
-                    {
+                    if (!_matchBeingPlayed) {
                         int matches = 0, mods = 0, order = 0, z = 0;
                         var isModFirst = false;
                         _lastLine = 0;
-                        for (var i = _stopPoint; i < _logContent.Count; i++)
-                        {
-                            if (_logContent[i].Contains("RLINK -- Match Started"))
-                            {
+                        for (var i = _stopPoint; i < _logContent.Count; i++) {
+                            if (_logContent[i].Contains("RLINK -- Match Started")) {
                                 isModFirst = false;
                                 logFile.WriteLine("MAIN WINDOW - Watcher - (COH1) Mod is NOT first");
                                 break;
                             }
-                            if (_logContent[i].Contains("MOD - Setting player"))
-                            {
+                            if (_logContent[i].Contains("MOD - Setting player")) {
                                 logFile.WriteLine("MAIN WINDOW - Watcher - (COH1) Mod is first");
                                 isModFirst = true;
                                 break;
                             }
                         }
-                        if (isModFirst)
-                        {
+                        if (isModFirst) {
                             logFile.WriteLine("MAIN WINDOW - Watcher - Finding players info");
-                            for (var i = _stopPoint; i < _logContent.Count; i++)
-                            {
+                            for (var i = _stopPoint; i < _logContent.Count; i++) {
                                 if (_logContent[i].Contains("MOD - Setting player") &&
-                                    Regex.IsMatch(_logContent[i], @"\d+(\.\d+)?$"))
-                                {
+                                    Regex.IsMatch(_logContent[i], @"\d+(\.\d+)?$")) {
                                     _matchBeingPlayed = true;
                                     _isListWritten = false;
 
                                     var str1 = _logContent[i].Substring(48, 1).Trim();
-                                    _players.Insert(z, new Player
-                                    {
+                                    _players.Insert(z, new Player {
                                         Race = Int32.Parse(str1),
                                         Ranking = "-1000",
                                         SteamID = -1000
@@ -1442,20 +1180,16 @@ namespace CELO_Enhanced
                                 }
                             }
                             z = 0;
-                            for (var i = _stopPoint; i < _logContent.Count; i++)
-                            {
+                            for (var i = _stopPoint; i < _logContent.Count; i++) {
                                 if (_logContent[i].Contains("RLINK -- Match Started")) // Setting race
                                 {
                                     _matchBeingPlayed = true;
                                     _isListWritten = false;
                                     var sID = Convert.ToInt64(_logContent[i].Substring(65, 17)); // Gets Steam ID
                                     var rank = 0;
-                                    try
-                                    {
+                                    try {
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 6).Trim());
-                                    }
-                                    catch (Exception ex)
-                                    {
+                                    } catch (Exception ex) {
                                         logFile.WriteLine("EXCEPTION Processing log: " + ex);
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 5).Trim());
                                     }
@@ -1470,28 +1204,22 @@ namespace CELO_Enhanced
                             }
                             _matchBeingPlayed = true;
                             _isListWritten = false;
-                        }
-                        else
-                        {
+                        } else {
                             z = 0;
-                            for (var i = _stopPoint; i < _logContent.Count; i++)
-                            {
+                            for (var i = _stopPoint; i < _logContent.Count; i++) {
                                 if (_logContent[i].Contains("RLINK -- Match Started")) // Setting race
                                 {
                                     var sID = Convert.ToInt64(_logContent[i].Substring(65, 17)); // Gets Steam ID
                                     var rank = 0;
-                                    try
-                                    {
+                                    try {
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 6).Trim());
-                                    }
-                                    catch (Exception ex)
-                                    {
+                                    } catch (Exception ex) {
                                         logFile.WriteLine("EXCEPTION Processing log: " + ex);
                                         rank = Convert.ToInt32(_logContent[i].Substring(105, 5).Trim());
                                     }
                                     // Gets Player Rank
                                     _players.Insert(z,
-                                        new Player {Race = -1000, Ranking = rank.ToString(), SteamID = sID});
+                                        new Player { Race = -1000, Ranking = rank.ToString(), SteamID = sID });
                                     matches++;
                                     order++;
                                     z++;
@@ -1499,8 +1227,7 @@ namespace CELO_Enhanced
                                 }
                             }
                             z = 0;
-                            for (var i = _stopPoint; i < _logContent.Count; i++)
-                            {
+                            for (var i = _stopPoint; i < _logContent.Count; i++) {
                                 if (_logContent[i].Contains("MOD - Setting player") &&
                                     Regex.IsMatch(_logContent[i], @"\d+(\.\d+)?$")) // Setting race
                                 {
@@ -1515,12 +1242,9 @@ namespace CELO_Enhanced
                                 }
                             }
                         }
-                        if (mods > matches)
-                        {
-                            if (isModFirst)
-                            {
-                                for (var i = matches; i < mods; i++)
-                                {
+                        if (mods > matches) {
+                            if (isModFirst) {
+                                for (var i = matches; i < mods; i++) {
                                     _players[order].Ranking = "0";
                                     _players[order].SteamID = 0;
                                     order++;
@@ -1533,16 +1257,13 @@ namespace CELO_Enhanced
                     break;
                 case 1:
 
-                    if (!_matchBeingPlayed)
-                    {
-                        try
-                        {
+                    if (!_matchBeingPlayed) {
+                        try {
                             _lastLine = 0;
                             var z = 0;
                             var slot = 0;
                             logFile.WriteLine("MAIN WINDOW - Watcher - First Step - START");
-                            for (var i = _stopPoint; i < _logContent.Count; i++)
-                            {
+                            for (var i = _stopPoint; i < _logContent.Count; i++) {
                                 #region FirstStep
 
                                 if (_logContent[i].Contains("Match Started")) // Setting race
@@ -1551,22 +1272,18 @@ namespace CELO_Enhanced
                                     _isListWritten = false;
                                     var sID = Convert.ToInt64(_logContent[i].Substring(56, 17)); // Gets Steam ID
                                     var rank = 0;
-                                    try
-                                    {
+                                    try {
                                         var strArr =
                                             Regex.Split(_logContent[i].Substring(87, _logContent[i].Length - 87), "=");
                                         rank = Convert.ToInt32(strArr[1].Trim());
-                                    }
-                                    catch (Exception ex)
-                                    {
+                                    } catch (Exception ex) {
                                         logFile.WriteLine("EXCEPTION Processing log: " + ex);
                                         rank = Convert.ToInt32(_logContent[i].Substring(96, 6).Trim());
                                     }
 
                                     var altSlot =
                                         Int32.Parse(Regex.Split(_logContent[i], "slot =")[1].Substring(0, 3).Trim());
-                                    _players.Insert(z, new Player
-                                    {
+                                    _players.Insert(z, new Player {
                                         Slot = altSlot,
                                         Ranking = rank.ToString(),
                                         SteamID = sID
@@ -1583,12 +1300,10 @@ namespace CELO_Enhanced
                             z = 0;
                             await TaskEx.Delay(150);
                             logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - START");
-                            for (var i = _stopPoint; i < _logContent.Count; i++)
-                            {
+                            for (var i = _stopPoint; i < _logContent.Count; i++) {
                                 #region SecondStep
 
-                                if (_logContent[i].Contains("GAME -- Human") || _logContent[i].Contains("GAME -- AI Player"))
-                                {
+                                if (_logContent[i].Contains("GAME -- Human") || _logContent[i].Contains("GAME -- AI Player")) {
                                     _matchBeingPlayed = true;
                                     _isListWritten = false;
                                     var g_nick = "";
@@ -1598,8 +1313,7 @@ namespace CELO_Enhanced
                                     var sl = Regex.Split(_logContent[i], "Player:")[1].Substring(0, 2).Trim();
                                     slot = Convert.ToInt32(sl);
 
-                                    if (_logContent[i].Contains("GAME -- Human"))
-                                    {
+                                    if (_logContent[i].Contains("GAME -- Human")) {
                                         logFile.WriteLine("MAIN WINDOW - Watcher - Found Human");
 
                                         #region Human
@@ -1608,53 +1322,36 @@ namespace CELO_Enhanced
                                         var rc = Regex.Split(str, " ");
                                         var rc2 = rc[rc.Length - 1];
 
-                                        if (rc2.Equals("aef"))
-                                        {
+                                        if (rc2.Equals("aef")) {
                                             g_race = 3;
-                                        }
-                                        else if (rc2.Equals("soviet"))
-                                        {
+                                        } else if (rc2.Equals("soviet")) {
                                             g_race = 1;
-                                        }
-                                        else if (rc2.Equals("west_german"))
-                                        {
+                                        } else if (rc2.Equals("west_german")) {
                                             g_race = 2;
-                                        }
-                                        else if (rc2.Equals("german"))
-                                        {
+                                        } else if (rc2.Equals("german")) {
                                             g_race = 0;
-                                        }
-                                        else if (rc2.Equals("british"))
-                                        {
+                                        } else if (rc2.Equals("british")) {
                                             g_race = 4;
                                         }
 
-                                        try
-                                        {
+                                        try {
                                             g_team = Int32.Parse(rc[rc.Length - 2]);
-                                        }
-                                        catch
-                                        {
+                                        } catch {
                                             g_team = 0;
                                         }
                                         var unknown = rc[rc.Length - 3];
                                         var nickArr = Regex.Split(str, unknown);
                                         g_nick = nickArr[0].Trim();
                                         Teams team;
-                                        if (g_race == 0 || g_race == 2)
-                                        {
+                                        if (g_race == 0 || g_race == 2) {
                                             team = Teams.Axis;
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             team = Teams.Allies;
                                         }
 
-                                        for (var index = 0; index < _players.Count; index++)
-                                        {
+                                        for (var index = 0; index < _players.Count; index++) {
                                             var player = _players[index];
-                                            if (player.Slot == slot)
-                                            {
+                                            if (player.Slot == slot) {
                                                 _players[index].Race = g_race;
                                                 _players[index].Nickname = g_nick;
                                                 _players[index].Team = team;
@@ -1662,9 +1359,7 @@ namespace CELO_Enhanced
                                         }
 
                                         #endregion
-                                    }
-                                    else if (_logContent[i].Contains("GAME -- AI Player"))
-                                    {
+                                    } else if (_logContent[i].Contains("GAME -- AI Player")) {
                                         logFile.WriteLine("MAIN WINDOW - Watcher - Found A.I.");
 
                                         #region Bots
@@ -1673,33 +1368,21 @@ namespace CELO_Enhanced
                                         var rc = Regex.Split(str, " ");
                                         var rc2 = rc[rc.Length - 1];
 
-                                        if (rc2.Equals("aef"))
-                                        {
+                                        if (rc2.Equals("aef")) {
                                             g_race = 3;
-                                        }
-                                        else if (rc2.Equals("soviet"))
-                                        {
+                                        } else if (rc2.Equals("soviet")) {
                                             g_race = 1;
-                                        }
-                                        else if (rc2.Equals("west_german"))
-                                        {
+                                        } else if (rc2.Equals("west_german")) {
                                             g_race = 2;
-                                        }
-                                        else if (rc2.Equals("german"))
-                                        {
+                                        } else if (rc2.Equals("german")) {
                                             g_race = 0;
-                                        }
-                                        else if (rc2.Equals("british"))
-                                        {
+                                        } else if (rc2.Equals("british")) {
                                             g_race = 4;
                                         }
 
-                                        try
-                                        {
+                                        try {
                                             g_team = Int32.Parse(rc[rc.Length - 2]);
-                                        }
-                                        catch
-                                        {
+                                        } catch {
                                             g_team = 0;
                                         }
 
@@ -1708,16 +1391,12 @@ namespace CELO_Enhanced
                                         var nickArr = Regex.Split(str, unknown);
                                         g_nick = "AI Player - " + (nickArr[0].Trim());
                                         Teams team;
-                                        if (g_race == 0 || g_race == 2)
-                                        {
+                                        if (g_race == 0 || g_race == 2) {
                                             team = Teams.Axis;
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             team = Teams.Allies;
                                         }
-                                        _players.Add(new Player
-                                        {
+                                        _players.Add(new Player {
                                             Race = g_race,
                                             Slot = slot,
                                             Nickname = g_nick,
@@ -1737,9 +1416,7 @@ namespace CELO_Enhanced
                                 #endregion
                             }
                             logFile.WriteLine("MAIN WINDOW - Watcher - Second Step - ENDED");
-                        }
-                        catch (Exception ex)
-                        {
+                        } catch (Exception ex) {
                             logFile.WriteLine("EXCEPTION - Process Log - " + ex.ToString());
                         }
                     }
@@ -1751,52 +1428,39 @@ namespace CELO_Enhanced
             _matchBeingPlayed = true;
         }
 
-        private void SetUpList(int game)
-        {
+        private void SetUpList(int game) {
             isMakingList = true;
             _isListWritten = true;
             currPlayer = 0;
             playerList.ItemsSource = null;
 
-            switch (game)
-            {
+            switch (game) {
                 case 0:
-                    for (var i = 0; i < _players.Count; i++)
-                    {
+                    for (var i = 0; i < _players.Count; i++) {
                         string final = null;
                         currPlayer = i;
 
 
-                        while (String.IsNullOrEmpty(final))
-                        {
-                            if (_players[i].SteamID != 0)
-                            {
+                        while (String.IsNullOrEmpty(final)) {
+                            if (_players[i].SteamID != 0) {
                                 final = Utilities.Steam.getNick(_players[i].SteamID);
-                            }
-                            else
-                            {
+                            } else {
                                 final = "Computer (CPU)";
                             }
                         }
                         _players[i].Nickname = final;
 
 
-                        if (_players[i].Ranking == "-1")
-                        {
+                        if (_players[i].Ranking == "-1") {
                             _players[i].Ranking = "Unranked (Placements)";
-                        }
-                        else if (_players[i].Ranking == "0")
-                        {
+                        } else if (_players[i].Ranking == "0") {
                             _players[i].Ranking = "Unranked (Custom Game)";
-                        }
-                        else
-                        {
+                        } else {
                             _players[i].Ranking = _players[i].Ranking;
                         }
 
 
-                        switch (_players[i].Race)
-                        {
+                        switch (_players[i].Race) {
                             case 0:
                                 _players[i].Icon = "Resources/coh1_0.png";
                                 _players[i].RaceName = "Commonwealth";
@@ -1831,8 +1495,7 @@ namespace CELO_Enhanced
                 case 1:
 
 
-                    for (var i = 0; i < _players.Count; i++)
-                    {
+                    for (var i = 0; i < _players.Count; i++) {
                         currPlayer = i;
 
                         _players[i].Country = SourceToImage("Resources/flags/fail.png");
@@ -1840,22 +1503,17 @@ namespace CELO_Enhanced
                         _players[i].Level = "Parsing...";
                         _players[i].RankingAfter = "";
 
-                        if (_players[i].Ranking == "-1" || _players[i].Ranking == "-2" || _players[i].Ranking == "0")
-                        {
+                        if (_players[i].Ranking == "-1" || _players[i].Ranking == "-2" || _players[i].Ranking == "0") {
                             _players[i].Ranking = "Unranked";
-                        }
-                        else
-                        {
+                        } else {
                             _players[i].Ranking = _players[i].Ranking;
                         }
 
-                        if (_players[i].SteamID == 0)
-                        {
+                        if (_players[i].SteamID == 0) {
                             _players[i].Level = "No Level";
                         }
 
-                        switch (_players[i].Race)
-                        {
+                        switch (_players[i].Race) {
                             case 0:
                                 _players[i].Icon = "Resources/coh2_0.png";
                                 _players[i].RaceName = "Wehrmacht";
@@ -1897,9 +1555,8 @@ namespace CELO_Enhanced
 
 
             playerList.ItemsSource = _players;
-            var view = (CollectionView) CollectionViewSource.GetDefaultView(playerList.ItemsSource);
-            if (view != null)
-            {
+            var view = (CollectionView)CollectionViewSource.GetDefaultView(playerList.ItemsSource);
+            if (view != null) {
                 view.GroupDescriptions.Clear();
                 var groupDescription = new PropertyGroupDescription("Team");
                 view.GroupDescriptions.Add(groupDescription);
@@ -1916,32 +1573,23 @@ namespace CELO_Enhanced
             var t1 = Task.Factory.StartNew(RetriveSecondaryInfo)
                 .ContinueWith(prevTask => RetrieveFlags(), TaskScheduler.FromCurrentSynchronizationContext());
 
-            if (_cfgLsdEnabled)
-            {
+            if (_cfgLsdEnabled) {
                 RenderLSD();
             }
         }
 
-        private void SetUpMatchInfo(int game)
-        {
-            switch (game)
-            {
+        private void SetUpMatchInfo(int game) {
+            switch (game) {
                 case 1:
-                    if (IsLoaded)
-                    {
-                        for (var i = 0; i < _logContent.Count; i++)
-                        {
-                            if (_logContent[i].Contains("GAME -- Scenario:"))
-                            {
+                    if (IsLoaded) {
+                        for (var i = 0; i < _logContent.Count; i++) {
+                            if (_logContent[i].Contains("GAME -- Scenario:")) {
                                 var scenarioName = (Regex.Split(_logContent[i], "scenarios")[1]);
                                 var MapData = File.ReadAllLines(_AssemblyDir + @"\data\maps\coh2\maps.data");
-                                foreach (var line in MapData)
-                                {
-                                    if (!line.StartsWith("#") || !line.Contains("#"))
-                                    {
+                                foreach (var line in MapData) {
+                                    if (!line.StartsWith("#") || !line.Contains("#")) {
                                         var mapf = (Regex.Split(line, "==")[1]);
-                                        if (mapf.Equals(scenarioName))
-                                        {
+                                        if (mapf.Equals(scenarioName)) {
                                             match_mapName.Text = Regex.Split(line, "==")[0];
                                             var mapFilename = mapf.Split('\\')[3];
                                             var bp =
@@ -1955,27 +1603,22 @@ namespace CELO_Enhanced
                                 }
                             }
                         }
-                        
-                        
+
+
                     }
 
                     break;
             }
-            if (_gameSelected == 1)
-            {
+            if (_gameSelected == 1) {
                 match_map.Content = "Map: " + match_mapName.Text;
-            }
-            else
-            {
+            } else {
                 match_mapName.Text = "Map: N/A";
             }
         }
 
-        private void SetUpGameInfo(int game)
-        {
+        private void SetUpGameInfo(int game) {
             logFile.WriteLine("MAIN WINDOW - Watcher - Setting game info - START");
-            try
-            {
+            try {
                 logFile.WriteLine("MAIN WINDOW - Watcher - Ping timer enabled");
                 _pingTimer.IsEnabled = true;
                 clicks = 0;
@@ -1990,13 +1633,11 @@ namespace CELO_Enhanced
                 game_cpm.Content = "CPM: 0";
                 game_cpmTotal.Content = "Clicks: 0";
 
-                switch (game)
-                {
+                switch (game) {
                     case 0:
 
                         var file1 = new FileInfo(_cfgGamePath + @"\RelicCoH.exe");
-                        if (file1.Exists)
-                        {
+                        if (file1.Exists) {
                             game_build.Content = "Game Build: 2.700.2.42";
                         }
                         logFile.WriteLine("MAIN WINDOW - Watcher - Game Build: " + game_build.Content);
@@ -2010,8 +1651,7 @@ namespace CELO_Enhanced
                         break;
                     case 1:
                         var file2 = new FileInfo(_cfgGamePath + @"\RelicCoH2.exe");
-                        if (file2.Exists)
-                        {
+                        if (file2.Exists) {
                             var version = FileVersionInfo.GetVersionInfo(_cfgGamePath + @"\RelicCoH2.exe");
                             game_build.Content = "Game Build: " + version.FileVersion;
                         }
@@ -2026,51 +1666,34 @@ namespace CELO_Enhanced
 
                         break;
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION Setting up game info: " + ex);
             }
         }
 
-        private void RetrieveSteamID(int game)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                for (var i = 0; i < _players.Count - 1; i++)
-                {
+        private void RetrieveSteamID(int game) {
+            Task.Factory.StartNew(() => {
+                for (var i = 0; i < _players.Count - 1; i++) {
                     long y1 = -1;
-                    try
-                    {
-                        y1 = (Utilities.Steam.getTimePlayed(_players[i].SteamID, game))/60;
-                    }
-                    catch (Exception ex)
-                    {
+                    try {
+                        y1 = (Utilities.Steam.getTimePlayed(_players[i].SteamID, game)) / 60;
+                    } catch (Exception ex) {
                         y1 = -1;
                         logFile.WriteLine("EXCEPTION Setting up list: " + ex);
-                    }
-                    finally
-                    {
+                    } finally {
                         _players[i].TimePlayed = y1;
                     }
                 }
 
-                if (_players.Any(x => x.TimePlayed == 0))
-                {
-                    for (var i = 0; i < _players.Count - 1; i++)
-                    {
+                if (_players.Any(x => x.TimePlayed == 0)) {
+                    for (var i = 0; i < _players.Count - 1; i++) {
                         long y1 = -1;
-                        try
-                        {
-                            y1 = (Utilities.Steam.getTimePlayed(_players[i].SteamID, game))/60;
-                        }
-                        catch (Exception ex)
-                        {
+                        try {
+                            y1 = (Utilities.Steam.getTimePlayed(_players[i].SteamID, game)) / 60;
+                        } catch (Exception ex) {
                             y1 = -1;
                             logFile.WriteLine("EXCEPTION Setting up list: " + ex);
-                        }
-                        finally
-                        {
+                        } finally {
                             _players[i].TimePlayed = y1;
                         }
                     }
@@ -2078,34 +1701,25 @@ namespace CELO_Enhanced
             });
         }
 
-        private void RetriveSecondaryInfo()
-        {
+        private void RetriveSecondaryInfo() {
             var x1 = false;
             long y1 = -1;
-            switch (_gameSelected)
-            {
+            switch (_gameSelected) {
                 case 0:
 
-                    if (_players[currPlayer].SteamID > 1)
-                    {
-                        while (!x1)
-                        {
-                            try
-                            {
-                                y1 = (Utilities.Steam.getTimePlayed(_players[currPlayer].SteamID, 231430))/60;
+                    if (_players[currPlayer].SteamID > 1) {
+                        while (!x1) {
+                            try {
+                                y1 = (Utilities.Steam.getTimePlayed(_players[currPlayer].SteamID, 231430)) / 60;
                                 x1 = true;
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 logFile.WriteLine("EXCEPTION Getting time played (coh1) " + ex);
                                 x1 = false;
                             }
                         }
                         _players[currPlayer].TimePlayed = y1;
                         _players[currPlayer].Level = "Unavailable";
-                    }
-                    else
-                    {
+                    } else {
                         _players[currPlayer].TimePlayed = 0;
                         _players[currPlayer].Level = "Unavailable";
                     }
@@ -2114,19 +1728,15 @@ namespace CELO_Enhanced
                 case 1:
 
 
-                    if (!Utilities.CheckWebSiteLoad("http://www.coh2.org", 3000))
-                    {
+                    if (!Utilities.CheckWebSiteLoad("http://www.coh2.org", 3000)) {
                         logFile.WriteLine("ERROR: No response from coh2.org");
                         return;
                     }
                     var zed = 0;
                     var max = _players.Count;
-                    for (var i = 0; i < max; i++)
-                    {
-                        if (_players[i].SteamID > 1)
-                        {
-                            try
-                            {
+                    for (var i = 0; i < max; i++) {
+                        if (_players[i].SteamID > 1) {
+                            try {
                                 var web = new HtmlWeb();
 
                                 var htmlDoc = new HtmlDocument();
@@ -2136,13 +1746,11 @@ namespace CELO_Enhanced
                                                    _players[i].SteamID);
 
                                 _players[zed].Level = "Unavailable";
-                                if (htmlDoc.DocumentNode != null)
-                                {
+                                if (htmlDoc.DocumentNode != null) {
                                     var bodyNode =
                                         htmlDoc.DocumentNode.SelectSingleNode("//div[@class='playerxp']");
 
-                                    if (bodyNode != null)
-                                    {
+                                    if (bodyNode != null) {
                                         var z = bodyNode.InnerText;
                                         var zArr = Regex.Split(z, "Prestige:");
                                         var PrestigeNum = zArr[1].Substring(0, 3).Trim();
@@ -2150,20 +1758,15 @@ namespace CELO_Enhanced
                                         Level = Level.Replace("&", "");
                                         var FinalLevel = String.Format("Prestige {0} ({1})", PrestigeNum,
                                             Level);
-                                        if (FinalLevel == "Prestige 3 (33)")
-                                        {
+                                        if (FinalLevel == "Prestige 3 (33)") {
                                             FinalLevel = "Prestige 3 (MAX)";
                                         }
                                         _players[zed].Level = FinalLevel;
                                     }
                                 }
-                            }
-                            catch (WebException)
-                            {
+                            } catch (WebException) {
                                 _players[zed].Level = "Unavailable";
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 logFile.WriteLine("EXCEPTION Getting player level: " + ex);
                                 _players[zed].Level = "Unavailable";
                             }
@@ -2176,20 +1779,14 @@ namespace CELO_Enhanced
             }
         }
 
-        private async void CreateOSD()
-        {
-            if (_gameSelected == 1)
-            {
-                if (_cfgOSDEnabled)
-                {
+        private async void CreateOSD() {
+            if (_gameSelected == 1) {
+                if (_cfgOSDEnabled) {
                     var app = GetActiveWindowTitle();
-                    if (app != null)
-                    {
-                        if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes"))
-                        {
+                    if (app != null) {
+                        if (app.Contains("Company Of Heroes 2") || app.Contains("Company Of Heroes")) {
                             // 1080p ONLY
-                            if ((GetCOH2Width() == 1920 && GetCOH2Height() == 1080) || _cfgOSDForce == true)
-                            {
+                            if ((GetCOH2Width() == 1920 && GetCOH2Height() == 1080) || _cfgOSDForce == true) {
                                 _osdList.Clear();
                                 var StopMS = 27000;
                                 uint animeMs = 2000;
@@ -2199,31 +1796,25 @@ namespace CELO_Enhanced
                                 var ft = new Font(System.Drawing.FontFamily.GenericSansSerif, 13,
                                     System.Drawing.FontStyle.Bold);
 
-                                try
-                                {
-                                    for (var i = 0; i < pl_Allies.Count; i++)
-                                    {
+                                try {
+                                    for (var i = 0; i < pl_Allies.Count; i++) {
                                         var slot = i;
-                                        var height = 108 + (165*slot) + (25*slot);
+                                        var height = 108 + (165 * slot) + (25 * slot);
                                         var nOsd = new FloatingOSDWindow();
 
                                         var pointPos = new Point(210, height);
                                         var bd = new StringBuilder();
-                                        if (_cfgOSDShowRank)
-                                        {
+                                        if (_cfgOSDShowRank) {
                                             bd.Append(" • Rank: " + pl_Allies[i].Ranking);
                                         }
-                                        if (_cfgOSDShowLevel)
-                                        {
+                                        if (_cfgOSDShowLevel) {
                                             bd.Append(" • Level: " + pl_Allies[i].Level);
                                         }
-                                        if (_cfgOSDShowHours)
-                                        {
+                                        if (_cfgOSDShowHours) {
                                             bd.Append(" • Hours: " + pl_Allies[i].Ranking);
                                         }
                                         var text = bd.ToString();
-                                        if (_cfgOSDUseAnimation == false)
-                                        {
+                                        if (_cfgOSDUseAnimation == false) {
                                             animeMs = 0;
                                         }
                                         nOsd.Show(pointPos, 245, _cfgOSDColor, ft, StopMS,
@@ -2235,27 +1826,22 @@ namespace CELO_Enhanced
                                     }
 
 
-                                    for (var i = 0; i < pl_Axis.Count; i++)
-                                    {
+                                    for (var i = 0; i < pl_Axis.Count; i++) {
                                         var slot = i;
-                                        var height = 108 + (165*slot) + (25*slot);
+                                        var height = 108 + (165 * slot) + (25 * slot);
                                         var nOsd = new FloatingOSDWindow();
                                         var bd = new StringBuilder();
-                                        if (_cfgOSDShowRank)
-                                        {
+                                        if (_cfgOSDShowRank) {
                                             bd.Append(" • Rank: " + pl_Axis[i].Ranking);
                                         }
-                                        if (_cfgOSDShowLevel)
-                                        {
+                                        if (_cfgOSDShowLevel) {
                                             bd.Append(" • Level: " + pl_Axis[i].Level);
                                         }
-                                        if (_cfgOSDShowHours)
-                                        {
+                                        if (_cfgOSDShowHours) {
                                             bd.Append(" • Hours: " + pl_Axis[i].Ranking);
                                         }
                                         var text = bd.ToString();
-                                        if (_cfgOSDUseAnimation == false)
-                                        {
+                                        if (_cfgOSDUseAnimation == false) {
                                             animeMs = 0;
                                         }
                                         var pointPos = new Point(1355, height);
@@ -2267,9 +1853,7 @@ namespace CELO_Enhanced
                                         await TaskEx.Delay(300);
                                     }
 
-                                }
-                                catch (Exception ex)
-                                {
+                                } catch (Exception ex) {
                                     logFile.WriteLine("EXCEPTION - OSD - " + ex.ToString());
                                 }
                             }
@@ -2279,10 +1863,8 @@ namespace CELO_Enhanced
             }
         }
 
-        private void RetrievePing()
-        {
-            if (Utilities.CheckInternet())
-            {
+        private void RetrievePing() {
+            if (Utilities.CheckInternet()) {
                 var info = new ProcessStartInfo(_AssemblyDir + @"\data\assemblies\paping.exe");
                 var RelicServerIp = "54.209.64.161"; // RELIC Battle Server IP
                 info.Arguments = "--nocolor -c 3 -p 27020 " + RelicServerIp;
@@ -2295,75 +1877,61 @@ namespace CELO_Enhanced
                 var pr = new Process();
                 pr.StartInfo = info;
                 var outputList = new List<String>();
-                if (pr.Start())
-                {
+                if (pr.Start()) {
                     var sum = 0;
-                    while (!pr.StandardOutput.EndOfStream)
-                    {
+                    while (!pr.StandardOutput.EndOfStream) {
                         outputList.Add(pr.StandardOutput.ReadLine());
                     }
-                    foreach (var line in outputList)
-                    {
-                        if (line.StartsWith("Connected to"))
-                        {
+                    foreach (var line in outputList) {
+                        if (line.StartsWith("Connected to")) {
                             var t1 = Regex.Split(line, "=");
                             var t2 = Regex.Split(t1[1], "ms");
                             var millis = Int32.Parse(t2[0].Split('.')[0]);
                             sum += millis;
                         }
                     }
-                    ping = sum/3;
+                    ping = sum / 3;
                     Dispatcher.Invoke(
                         DispatcherPriority.Normal,
-                        (MethodInvoker) delegate { game_ping.Content = "Battle-Servers Ping: " + ping + " ms"; });
+                        (MethodInvoker)delegate { game_ping.Content = "Battle-Servers Ping: " + ping + " ms"; });
                 }
             }
         }
 
-        private async void RetrieveFlags()
-        {
-            if (_gameSelected != 1)
-            {
+        private async void RetrieveFlags() {
+            if (_gameSelected != 1) {
                 return;
             }
 
             setStatus("Getting players countries");
 
-            if (!Utilities.CheckWebSiteLoad("http://www.companyofheroes.com", 4000))
-            {
+            if (!Utilities.CheckWebSiteLoad("http://www.companyofheroes.com", 4000)) {
                 logFile.WriteLine("ERROR: No response from companyofheroes.com");
                 return;
             }
 
 
-            for (var i = 0; i < _players.Count; i++)
-            {
-                if (_players[i].SteamID > 0 && _players[i].CountryName == "Unavailable")
-                {
+            for (var i = 0; i < _players.Count; i++) {
+                if (_players[i].SteamID > 0 && _players[i].CountryName == "Unavailable") {
                     webFlags.Navigate("http://www.companyofheroes.com/leaderboards#profile/steam/" +
                                       _players[i].SteamID);
 
 
-                    while (webFlags.ReadyState != WebBrowserReadyState.Complete)
-                    {
+                    while (webFlags.ReadyState != WebBrowserReadyState.Complete) {
                         await TaskEx.Delay(350);
                     }
                     await TaskEx.Delay(3500);
 
 
                     var doc = webFlags.Document;
-                    if (doc != null)
-                    {
+                    if (doc != null) {
                         var elements = doc.GetElementsByTagName("span");
                         var z = "";
                         var k = 0;
-                        while (string.IsNullOrEmpty(z) && k < 10)
-                        {
-                            foreach (HtmlElement element in elements)
-                            {
+                        while (string.IsNullOrEmpty(z) && k < 10) {
+                            foreach (HtmlElement element in elements) {
                                 var className = element.GetAttribute("className");
-                                if (Regex.IsMatch(className, "flag .."))
-                                {
+                                if (Regex.IsMatch(className, "flag ..")) {
                                     z = className.Split(' ')[1];
                                     break;
                                 }
@@ -2372,24 +1940,16 @@ namespace CELO_Enhanced
                             k++;
                         }
 
-                        if (string.IsNullOrEmpty(z) || z.Length != 2 || k >= 20)
-                        {
+                        if (string.IsNullOrEmpty(z) || z.Length != 2 || k >= 20) {
                             _players[i].Country = SourceToImage("Resources/flags/fail.png");
                             _players[i].CountryName = "Unavailable";
-                        }
-                        else
-                        {
-                            try
-                            {
+                        } else {
+                            try {
                                 _players[i].Country = SourceToImage("Resources/flags/" + z + ".png");
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 _players[i].Country = SourceToImage("Resources/flags/fail.png");
                                 logFile.WriteLine("EXCEPTION OCCURED (Flags)(1):\n" + ex.ToString());
-                            }
-                            finally
-                            {
+                            } finally {
                                 _players[i].CountryName = z;
                             }
                         }
@@ -2399,10 +1959,8 @@ namespace CELO_Enhanced
             }
 
             curFlag++;
-            if (_players.Any(x => x.CountryName == "Unavailable" && x.SteamID > 0))
-            {
-                if (curFlag > 3)
-                {
+            if (_players.Any(x => x.CountryName == "Unavailable" && x.SteamID > 0)) {
+                if (curFlag > 3) {
                     pgBarLoading.IsEnabled = false;
                     pgBarLoading.IsIndeterminate = false;
                     pgBarLoading.Value = 0;
@@ -2429,37 +1987,27 @@ namespace CELO_Enhanced
             setStatus("Information listed");
         }
 
-        private void SetUpInfo(int game, bool setting)
-        {
+        private void SetUpInfo(int game, bool setting) {
             logFile.WriteLine("MAIN WINDOW - Watcher - Setting up info - START");
-            if (setting)
-            {
-                try
-                {
+            if (setting) {
+                try {
                     logFile.WriteLine("MAIN WINDOW - Watcher - Setting up list - START");
                     SetUpList(game);
                     logFile.WriteLine("MAIN WINDOW - Watcher - Setting up list - ENDED");
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     logFile.WriteLine("EXCEPTION Setting up list: " + ex);
                 }
                 setStatus("Parsing information");
                 LoadFormHost.Visibility = Visibility.Visible;
                 SetUpGameInfo(game);
-                try
-                {
+                try {
                     logFile.WriteLine("MAIN WINDOW - Watcher - Setting up Match Info - START");
                     SetUpMatchInfo(game);
                     logFile.WriteLine("MAIN WINDOW - Watcher - Setting up Match Info - ENDED");
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     logFile.WriteLine("EXCEPTION Setting up Match info: " + ex);
                 }
-            }
-            else
-            {
+            } else {
                 _matchBeingPlayed = false;
                 _isListWritten = true;
                 _lastLine = 0;
@@ -2475,8 +2023,7 @@ namespace CELO_Enhanced
         [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool InternetSetCookie(string lpszUrlName, string lpszCookieName, string lpszCookieData);
 
-        private async void PassAgeGateCookie()
-        {
+        private async void PassAgeGateCookie() {
             webFlags = null;
             webFlags = new WebBrowser();
             webFlags.AllowWebBrowserDrop = false;
@@ -2500,28 +2047,21 @@ namespace CELO_Enhanced
 
         #region CoH Functions
 
-        private void RenderLSD()
-        {
-            if (_cfgLsdOutput != "")
-            {
-                if (_cfgLsdEnabled)
-                {
-                    if (!Directory.Exists(_cfgLsdOutput))
-                    {
+        private void RenderLSD() {
+            if (_cfgLsdOutput != "") {
+                if (_cfgLsdEnabled) {
+                    if (!Directory.Exists(_cfgLsdOutput)) {
                         Directory.CreateDirectory(_cfgLsdOutput);
                     }
 
-                    if (File.Exists(_AssemblyDir + @"\lsd.ini") && new FileInfo(_AssemblyDir + @"\lsd.ini").Length > 5)
-                    { 
+                    if (File.Exists(_AssemblyDir + @"\lsd.ini") && new FileInfo(_AssemblyDir + @"\lsd.ini").Length > 5) {
 
                         var lsdcfg = new Utilities.INIFile(_AssemblyDir + @"\lsd.ini");
                         var outputFolder = _cfgLsdOutput;
                         Teams myteam = Teams.Allies;
-                        for (var i = 0; i < _players.Count; i++)
-                        {
+                        for (var i = 0; i < _players.Count; i++) {
                             var pCont = lsdcfg.IniReadValue("Players", "P" + (i + 1));
-                            if (!String.IsNullOrEmpty(pCont))
-                            {
+                            if (!String.IsNullOrEmpty(pCont)) {
 
                                 var Pass2 = pCont.Replace("%LEVEL%", _players[i].Level)
                                                  .Replace("%STEAMID%", _players[i].SteamID.ToString())
@@ -2532,13 +2072,10 @@ namespace CELO_Enhanced
                                                  .Replace("%HOURS%", _players[i].TimePlayed.ToString());
 
                                 var output = Pass2;
-                                try
-                                {
+                                try {
                                     File.WriteAllText(outputFolder + @"\player_" + (i + 1) + ".txt", output,
                                         Encoding.UTF8);
-                                }
-                                catch (Exception ex)
-                                {
+                                } catch (Exception ex) {
                                     logFile.WriteLine("EXCEPTION Rendering LSD: " + ex);
                                 }
                             }
@@ -2547,60 +2084,48 @@ namespace CELO_Enhanced
                         }
 
 
-                        
+
 
                     }
                 }
             }
         }
 
-        private async void FactorCreator()
-        {
+        private async void FactorCreator() {
             logFile.WriteLine("FACTOR CREATOR - START");
-            try
-            {
-                if (_cfgHistoryEnabled)
-                {
+            try {
+                if (_cfgHistoryEnabled) {
                     await TaskEx.Delay(6500);
                     await GenerateMatchHistory();
                 }
-                if (_cfgLsdEnabled)
-                {
+                if (_cfgLsdEnabled) {
                     CleanLSD();
                 }
-                if (_cfgCleanList)
-                {
+                if (_cfgCleanList) {
                     ClearList();
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 logFile.WriteLine("EXCEPTION Creating factors: " + ex);
             }
             logFile.WriteLine("FACTOR CREATOR - END");
         }
 
-        private Task GenerateMatchHistory()
-        {
+        private Task GenerateMatchHistory() {
             logFile.WriteLine("MHV: START");
-            return Task.Factory.StartNew(() =>
-            {
-                try
-                {
+            return Task.Factory.StartNew(() => {
+                try {
                     var dbFile = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\mhv.xml";
                     var repFolder = _AssemblyDir + @"\data\history\coh" + (_gameSelected + 1) + @"\replays";
                     logFile.WriteLine("MHV: DBFILE = " + dbFile);
                     logFile.WriteLine("MHV: REPFOLDER = " + repFolder);
 
-                    if (!File.Exists(dbFile))
-                    {
+                    if (!File.Exists(dbFile)) {
                         logFile.WriteLine("MHV: FILE NOT FOUND");
                         XmlWriter xWriter = new XmlTextWriter(new StreamWriter(dbFile));
                         xWriter.WriteStartElement("Matches");
                         logFile.WriteLine("MHV: CREATING NEW FILE");
                     }
-                    if (File.Exists(dbFile))
-                    {
+                    if (File.Exists(dbFile)) {
                         logFile.WriteLine("MHV: FILE FOUND");
                         Directory.CreateDirectory(repFolder);
                         var ReplayFile = _cfgDocPath + @"\playback\temp.rec";
@@ -2622,7 +2147,7 @@ namespace CELO_Enhanced
                         XmlNode MapNode = document.CreateElement("Map");
                         MapNode.InnerText = MapFileName;
                         XmlNode TypeNode = document.CreateElement("Type");
-                        TypeNode.InnerText = (_players.Count/2).ToString();
+                        TypeNode.InnerText = (_players.Count / 2).ToString();
                         XmlNode PlayersNode = document.CreateElement("Players");
                         logFile.WriteLine("MHV: APPENDING ELEMENTS");
                         MatchNode.AppendChild(ReplayNode);
@@ -2632,8 +2157,7 @@ namespace CELO_Enhanced
                         MatchNode.AppendChild(PlayersNode);
                         logFile.WriteLine("MHV: ELEMENTS ADDED");
                         logFile.WriteLine("MHV: WRITING TO ELEMENTS");
-                        for (var i = 0; i < _players.Count; i++)
-                        {
+                        for (var i = 0; i < _players.Count; i++) {
                             XmlNode PLNode = document.CreateElement("Player");
 
                             XmlNode NickNode = document.CreateElement("Nickname");
@@ -2659,26 +2183,21 @@ namespace CELO_Enhanced
                         logFile.WriteLine("MHV: ELEMENTS NOW HAVE VALUES");
                         document.DocumentElement.AppendChild(MatchNode);
                         logFile.WriteLine("MHV: SAVING DB FILE");
-                        try
-                        {
+                        try {
                             document.Save(dbFile);
                             logFile.WriteLine("MHV: FILE SAVED");
-                        }
-                        catch (Exception ex)
-                        {
+                        } catch (Exception ex) {
                             logFile.WriteLine("EXCEPTION at XML save: " + ex.ToString());
                         }
-                        
+
 
                     }
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     logFile.WriteLine("EXCEPTION writing to XML (MHV): " + ex);
                 }
                 logFile.WriteLine("MHV: END");
             });
-            
+
         }
 
         #endregion

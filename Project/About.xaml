@@ -5,55 +5,55 @@
         WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         SizeToContent="WidthAndHeight" Icon="icon-modified.ico" MinWidth="344" MinHeight="559"
         Loaded="aboutWindow_Loaded" KeyDown="aboutWindow_KeyDown">
-	<Grid>
-		<GroupBox Header="Information" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"
+    <Grid>
+        <GroupBox Header="Information" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"
 		          Height="108" Width="310">
-			<Grid>
-				<Label Content="Name: Company of ELO - [CELO]" HorizontalAlignment="Left" Margin="10,10,0,0"
+            <Grid>
+                <Label Content="Name: Company of ELO - [CELO]" HorizontalAlignment="Left" Margin="10,10,0,0"
 				       VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
-				<Label Content="Developer: Neffware [0xNeffarion]" HorizontalAlignment="Left" Margin="10,34,0,0"
+                <Label Content="Developer: Neffware [0xNeffarion]" HorizontalAlignment="Left" Margin="10,34,0,0"
 				       VerticalAlignment="Top" Height="24" Width="278" FontWeight="SemiBold" />
-				<Label Content="Version: 1.0.9.9 - 07-04-2016" HorizontalAlignment="Left" Margin="10,58,0,0"
+                <Label Content="Version: 1.1.0.0 - 17-10-2017" HorizontalAlignment="Left" Margin="10,58,0,0"
 				       VerticalAlignment="Top"
 				       Height="24" Width="278" FontWeight="SemiBold" x:Name="txt_version" />
-			</Grid>
-		</GroupBox>
-		<Image x:Name="imgCELO" HorizontalAlignment="Left" Height="92" Margin="10,10,0,0" VerticalAlignment="Top"
+            </Grid>
+        </GroupBox>
+        <Image x:Name="imgCELO" HorizontalAlignment="Left" Height="92" Margin="10,10,0,0" VerticalAlignment="Top"
 		       Width="310"
 		       Source="Resources/StartWindow Logo.png" MouseEnter="imgCELO_MouseEnter" KeyDown="imgCELO_KeyDown" />
-		<GroupBox Header="Content used:" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top"
+        <GroupBox Header="Content used:" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top"
 		          Height="150" Width="310">
-			<Grid>
-				<Label Content="Icons: FamFamFam &amp; IconFinder.com" HorizontalAlignment="Left" Margin="10,10,0,0"
+            <Grid>
+                <Label Content="Icons: FamFamFam &amp; IconFinder.com" HorizontalAlignment="Left" Margin="10,10,0,0"
 				       VerticalAlignment="Top" Width="264" FontWeight="SemiBold" />
-				<Label Content="Executables: Paping, AHK Compiler" HorizontalAlignment="Left" Margin="10,35,0,0"
+                <Label Content="Executables: Paping, AHK Compiler" HorizontalAlignment="Left" Margin="10,35,0,0"
 				       VerticalAlignment="Top" Width="264" FontWeight="SemiBold" />
-				<Label
+                <Label
 					Content="Libraries: HtmlAgilityPack, Newtonsoft JSON,&#x0a;MouseKeyHook 5.3, Ionic.Zip"
 					HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="278"
 					FontWeight="SemiBold" Height="64" FontSize="13" />
 
 
-			</Grid>
-		</GroupBox>
-		<GroupBox Header="Other" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Height="160"
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Other" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Height="160"
 		          Width="310">
-			<Grid>
-				<Image x:Name="imgNeffware" HorizontalAlignment="Left" Height="48" Margin="8,10,0,0"
+            <Grid>
+                <Image x:Name="imgNeffware" HorizontalAlignment="Left" Height="48" Margin="8,10,0,0"
 				       VerticalAlignment="Top" Width="151" Source="Resources/s5_logo.png" Cursor="Hand"
 				       MouseLeftButtonDown="imgNeffware_MouseLeftButtonDown" />
-				<Label
+                <Label
 					Content="Please visit my website! If you really like my software&#x0a;consider donating in order to support all my work.
                        &#x0a;Thank you all for using my application"
 					HorizontalAlignment="Left" Margin="3,74,0,0" VerticalAlignment="Top" Height="75" Width="291"
 					HorizontalContentAlignment="Center" FontWeight="SemiBold" />
-				<Image x:Name="imgDonate" HorizontalAlignment="Left" Height="64" Margin="159,10,0,0"
+                <Image x:Name="imgDonate" HorizontalAlignment="Left" Height="64" Margin="159,10,0,0"
 				       VerticalAlignment="Top" Width="135" Source="Resources/paypaldonate.png" Cursor="Hand"
 				       MouseLeftButtonDown="imgDonate_MouseLeftButtonDown" />
 
-			</Grid>
+            </Grid>
 
-		</GroupBox>
+        </GroupBox>
 
-	</Grid>
+    </Grid>
 </Window>

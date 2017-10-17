@@ -34,6 +34,7 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/8p_sittard_summer.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/8p_west_wall.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/maps/coh2/unknown.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/news.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("disclaimer.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("gpl.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("license.txt")]

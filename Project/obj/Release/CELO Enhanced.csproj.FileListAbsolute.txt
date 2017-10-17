@@ -720,3 +720,203 @@ S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CE
 S:\Programming\Visual Studio Projects\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
 S:\Programming\C#\Visual Studio\CELO Enhanced\CELO Enhanced\bin\Release\CELO.exe.config
 S:\Programming\C#\Visual Studio\CELO Enhanced\CELO Enhanced\obj\Release\CELO.pdb
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\unknown.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_angoville_farms.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_arnhem_checkpoint.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_cheneux.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_karelia.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_sturzdorf.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_bystraya_voda.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_dusseldorf.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_ecliptic_fields.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_einhoven_country.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_enhoven_country.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_gelsenkirchen_refinery.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_heidelberg_crossings.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_across_the_rhine.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_montherme.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_pavlovs_house.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_wolfs_lair.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_achelous_river.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_essen_steelworks.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_lorch_assault.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_port_of_hamburg.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_redball_express.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_sittard_2.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_sittard_summer.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_west_wall.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\unknown.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\news.txt
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\disclaimer.txt
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\gpl.txt
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\license.txt
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\first.txt
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\history\coh1\mhv.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\history\coh2\mhv.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\maps.data
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\(2-4)_compound.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4_6_lemberg_fall.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_mud_valley.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_swamps.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6_8_brody.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_general_mud.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_narva_v2.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\maps.data
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\assemblies\paping.exe
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\overgrowth.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\volga_timber_yard.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\unknown.png
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_angermuende.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_coh2_city_17_winter_battlefield.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_coh2_city_17_spring_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_crossing_in_the_woods.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_don_river_v2.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_ettelbruck_station.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4_6_rostov.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_faymonville_approach.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_hill_331.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_hurtgen_forest.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_battlefield.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_kholodnaya_ferma_spring_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_la_gleize.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2-4_langres_winter.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\langres.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\6p_lazenrath_ambush.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\anotherstalingrad.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_lienne_forest.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_minsk_pocket_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_moscow_outskirts_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_moscow_outskirts_fall_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_coh2_okariver_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_prypiat_winter_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_prypiat_battlefield.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_rails_and_metal.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_road_to_kharkov.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_rzhev_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_rzhev_summer_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_semois_winter.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_semois.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_coh2_resistance.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\8p_coh2_thesteppes_frontline.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\2p_terek_lines.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_trois_pont.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh2\4p_vaux_farmlands.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_angoville farms.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_beach_assault.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_beaux lowlands.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_bernieres-sur-mer.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_best.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_carpiquet.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_circle_wall.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_duclair v1-3.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_egletons.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_flooded_plains.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_industrial riverbed.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_langres.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_lyon.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_ruins_of_rouen.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_semois.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_sturzdorf.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_st_mere_dumont.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_verrieres_ridge.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_verrieres_ridge_no_bunkers.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\2p_wrecked_train.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_achelous river.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_alsace moselle.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_bedum.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_coastal_harbour.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_duclair.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_ecliptic_fields.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_etavaux.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_linden.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_lorraine.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_lyon.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_mcgechaens war.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_point_du_hoc.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_rails and metal.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_road_to_montherme.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_st hilaire.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_vire river valley.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\4p_wolfheze.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_close_river_combat.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_drekplaats.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_hedgerow_siege.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_hill 331.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_montherme.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_red_ball_express.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_refinery.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_seine_river_docks.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_villers_bocage.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\6p_vimoutiers.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_best.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_king_of_the_hill.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_montargis region.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_route_n13.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\data\maps\coh1\8p_steel pact.jpg
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\CELO.exe.config
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\CELO.exe
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\CELO.pdb
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Gma.System.MouseKeyHook.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\HtmlAgilityPack.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Ionic.Zip.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Microsoft.Threading.Tasks.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Microsoft.Threading.Tasks.Extensions.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Microsoft.VisualBasic.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Newtonsoft.Json.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\System.IO.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\System.Runtime.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\System.Threading.Tasks.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\WpfAnimatedGif.dll
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\HtmlAgilityPack.pdb
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\HtmlAgilityPack.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\Newtonsoft.Json.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\System.IO.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\System.Runtime.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\System.Threading.Tasks.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\bin\Release\WpfAnimatedGif.xml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO Enhanced.csprojResolveAssemblyReference.cache
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\About.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\HotKeyGen.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\InputBox.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\LivestreamDisplayer.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\LoadingScreen.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\MatchHistoryViewer.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Preferences.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Replay Uploader.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\ReplayManager.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\ScriptCompiler.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\StartWindow.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Updater.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\VersionChanger.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\About.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Feedback.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\HotKeyGen.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\InputBox.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\LivestreamDisplayer.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\LoadingScreen.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\MainWindow.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\MatchHistoryViewer.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Preferences.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Replay Uploader.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\ReplayManager.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\ScriptCompiler.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\StartWindow.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Updater.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\VersionChanger.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\WhatsNew.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\App.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO_Content.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\GeneratedInternalTypeHelper.g.cs
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO_MarkupCompile.cache
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO_MarkupCompile.lref
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\App.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\Feedback.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\MainWindow.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\WhatsNew.baml
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO.g.resources
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO_Enhanced.Properties.Resources.resources
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO Enhanced.csproj.GenerateResource.Cache
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO Enhanced.csproj.CoreCompileInputs.cache
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO.exe
+H:\Programming\GitHub\CELO-Enhanced\Project\obj\Release\CELO.pdb

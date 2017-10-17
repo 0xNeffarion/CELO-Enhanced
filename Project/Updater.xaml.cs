@@ -12,8 +12,8 @@ namespace CELO_Enhanced
 {
     public partial class Updater : Window
     {
-        private static readonly string xmlUrl = "http://www.neffware.com/downloads/celo/app.xml";
-        private readonly string baseDownloadURL = "http://www.neffware.com/downloads/celo/CELO_Enhanced_Setup.exe";
+        private static readonly string xmlUrl = "https://www.neffware.com/downloads/celo/app.xml";
+        private readonly string baseDownloadURL = "https://www.neffware.com/downloads/celo/CELO_Enhanced_Setup.exe";
         private readonly WebClient webDownloader = new WebClient();
         private string FileName = "";
 
