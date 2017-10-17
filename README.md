@@ -41,7 +41,7 @@ Hot-Key Creator - Lets you create AutoHotkey scripts with ease for Company of He
 
 ## Libraries
 
-* [Global Mousekey Hook](https://github.com/gmamaladze/globalmousekeyhook)
+* [Global Mousekey Hook](https://github.com/gmamaladze/globalmousekeyhook) (Used for CPM)
 * [HTML Agility Pack](http://html-agility-pack.net)
 * [Newtonsoft JSON](https://www.newtonsoft.com/json)
 * [Ionic.Zip](https://dotnetzip.codeplex.com)
