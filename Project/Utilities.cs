@@ -16,6 +16,13 @@ namespace CELO_Enhanced
 {
     public static class Utilities
     {
+        public static string reverseString(String str)
+        {
+            char[] arr = str.ToCharArray();
+            Array.Reverse(arr);
+            return new string(arr);
+        }
+
         /// <summary>
         ///     Check for internet connection
         /// </summary>
@@ -617,6 +624,8 @@ namespace CELO_Enhanced
                 }
                 return null;
             }
+
+            
         }
     }
 }

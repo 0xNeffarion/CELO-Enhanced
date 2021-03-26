@@ -13,26 +13,26 @@
 	ShowActivated="False" TextOptions.TextFormattingMode="Display" ScrollViewer.VerticalScrollBarVisibility="Disabled"
 	WindowStartupLocation="CenterScreen" UseLayoutRounding="True"
 	IsHitTestVisible="True" IsTabStop="True" Loaded="Celo_Main_Loaded" FontSize="13" Closing="Celo_Main_Closing">
-	<Window.Resources>
-		<celoEnhanced:Converters x:Key="ImageConv" />
-	</Window.Resources>
-	<Grid x:Name="grdMain">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="366*" />
-			<ColumnDefinition Width="307*" />
-			<ColumnDefinition Width="194*" />
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="25" />
-			<RowDefinition Height="89*" />
-			<RowDefinition Height="100*" />
-			<RowDefinition Height="174*" />
-			<RowDefinition Height="134*" />
-			<RowDefinition Height="23*" />
-		</Grid.RowDefinitions>
+    <Window.Resources>
+        <celoEnhanced:Converters x:Key="ImageConv" />
+    </Window.Resources>
+    <Grid x:Name="grdMain">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="366*" />
+            <ColumnDefinition Width="307*" />
+            <ColumnDefinition Width="194*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="89*" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="174*" />
+            <RowDefinition Height="134*" />
+            <RowDefinition Height="23*" />
+        </Grid.RowDefinitions>
 
-		<DockPanel x:Name="docPanName" LastChildFill="False" Grid.ColumnSpan="3">
-			<Menu x:Name="menuMain" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" BorderThickness="0,0,0,1"
+        <DockPanel x:Name="docPanName" LastChildFill="False" Grid.ColumnSpan="3">
+            <Menu x:Name="menuMain" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" BorderThickness="0,0,0,1"
 			      FontFamily="Roboto" Margin="2,1,0,0" Padding="1,2,0,0"
 			      Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
                 <Menu.ItemsPanel>
@@ -41,57 +41,57 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <MenuItem x:Name="mnuFile" Header="File" TabIndex="1">
-					<MenuItem x:Name="mnuRestart" Header="Restart CELO" Click="mnuRestart_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_02.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<Separator />
-					<MenuItem x:Name="mnuExit" Header="Exit" Click="mnuExit_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_01.png" />
-						</MenuItem.Icon>
+                    <MenuItem x:Name="mnuRestart" Header="Restart CELO" Click="mnuRestart_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_02.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem x:Name="mnuExit" Header="Exit" Click="mnuExit_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_01.png" />
+                        </MenuItem.Icon>
 
-					</MenuItem>
+                    </MenuItem>
 
-				</MenuItem>
-				<MenuItem x:Name="mnuView" Header="View" TabIndex="2">
-					<MenuItem x:Name="mnuItemWindowTop" Header="Window always on top" Click="mnuItemWindowTop_Click"
+                </MenuItem>
+                <MenuItem x:Name="mnuView" Header="View" TabIndex="2">
+                    <MenuItem x:Name="mnuItemWindowTop" Header="Window always on top" Click="mnuItemWindowTop_Click"
 					          IsCheckable="True">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_03.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-				</MenuItem>
-				<MenuItem x:Name="mnuTools" Header="Tools" TabIndex="3">
-					<MenuItem x:Name="mnuReplayManager" Header="Replay Manager" Click="mnuReplayManager_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_04.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="mnuMHV" Header="Match History Viewer" Click="mnuMHV_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_05.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="mnu_lsd" Header="Livestream Displayer" Click="mnu_lsd_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/vidcap.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="mnu_ahk" Header="Hot-Key Generator" Click="mnu_ahk_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_017.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-				</MenuItem>
-				<MenuItem x:Name="mnuSettings" Header="Settings" TabIndex="4">
-					<MenuItem x:Name="mnuPref" Header="Preferences" Click="mnuPref_Click">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_06.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-					</MenuItem>
-				</MenuItem>
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_03.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem x:Name="mnuTools" Header="Tools" TabIndex="3">
+                    <MenuItem x:Name="mnuReplayManager" Header="Replay Manager" Click="mnuReplayManager_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_04.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnuMHV" Header="Match History Viewer" Click="mnuMHV_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_05.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnu_lsd" Header="Livestream Displayer" Click="mnu_lsd_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/vidcap.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnu_ahk" Header="Hot-Key Generator" Click="mnu_ahk_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_017.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem x:Name="mnuSettings" Header="Settings" TabIndex="4">
+                    <MenuItem x:Name="mnuPref" Header="Preferences" Click="mnuPref_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_06.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
                 <MenuItem x:Name="mnuHelp" Header="Help" TabIndex="5">
                     <MenuItem x:Name="mnuCheckUpd" Header="Check for Updates" Click="mnuCheckUpd_Click">
                         <MenuItem.Icon>
@@ -116,303 +116,256 @@
 				          IsTabStop="False" />
 
 
-                    
-                    <MenuItem x:Name="mnuDonate"  Header="Donate" TabIndex="5" Click="mnuDonate_Click" HorizontalAlignment="Right" />
-                    <MenuItem x:Name="mnuSendFb" Header="Send feedback" TabIndex="6" Click="mnuSendFb_Click" Width="95" HorizontalAlignment="Right" />
-                
+
+                <MenuItem x:Name="mnuDonate"  Header="Donate" TabIndex="5" Click="mnuDonate_Click" HorizontalAlignment="Right" />
+                <MenuItem x:Name="mnuSendFb" Header="Send feedback" TabIndex="6" Click="mnuSendFb_Click" Width="95" HorizontalAlignment="Right" />
+
             </Menu>
-            
+
         </DockPanel>
 
-		<GroupBox x:Name="groupMatchInfo" Header="Match Information" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"
+        <GroupBox x:Name="groupMatchInfo" Header="Match Information" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"
 		          Margin="6,6,13,6">
-			<Grid>
-				<StackPanel Margin="2">
+            <Grid>
+                <StackPanel Margin="2">
                     <TextBlock x:Name="match_drop" Text="Approx. Warspoil countdown: 03:00:00 (F4 Resets)"
 					       Height="38" FontSize="11" TextOptions.TextFormattingMode="Display" TextWrapping="Wrap" TextAlignment="Center" Margin="0,2,0,0"  />
-					<Label x:Name="match_map" Content="Map: N/A"
+                    <Label x:Name="match_map" Content="Map: N/A"
 					       Height="25" FontSize="11" TextOptions.TextFormattingMode="Display" HorizontalContentAlignment="Stretch"
 					       VerticalContentAlignment="Stretch" />
-					<Image x:Name="match_mapImg" Height="75" RenderOptions.BitmapScalingMode="HighQuality"
+                    <Image x:Name="match_mapImg" Height="75" RenderOptions.BitmapScalingMode="HighQuality"
 					       RenderOptions.EdgeMode="Aliased"
 					       UseLayoutRounding="True" Margin="6,1,6,6">
-						<Image.ToolTip>
-							<StackPanel Orientation="Vertical">
-								<Image x:Name="match_imgTooltip" RenderOptions.BitmapScalingMode="NearestNeighbor"
+                        <Image.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <Image x:Name="match_imgTooltip" RenderOptions.BitmapScalingMode="NearestNeighbor"
 								       RenderOptions.EdgeMode="Aliased"
 								       UseLayoutRounding="True" Stretch="Uniform" Height="250" />
-								<TextBlock x:Name="match_mapName" FontSize="14" Foreground="Black"
+                                <TextBlock x:Name="match_mapName" FontSize="14" Foreground="Black"
 								           HorizontalAlignment="Center" FontWeight="SemiBold"
 								           Padding="0,2" />
-							</StackPanel>
-						</Image.ToolTip>
-					</Image>
-				</StackPanel>
+                            </StackPanel>
+                        </Image.ToolTip>
+                    </Image>
+                </StackPanel>
 
-			</Grid>
-		</GroupBox>
-		<GroupBox x:Name="groupGameInfo" Header="Game Information" Grid.Row="3" Margin="6,6,13,6" Grid.Column="2">
-			<StackPanel>
-				<Label x:Name="game_build" Content="Game Build: N/A" Margin="1" Height="25" FontSize="11"
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupGameInfo" Header="Game Information" Grid.Row="3" Margin="6,6,13,6" Grid.Column="2">
+            <StackPanel>
+                <Label x:Name="game_build" Content="Game Build: N/A" Margin="1" Height="25" FontSize="11"
 				       TextOptions.TextFormattingMode="Display" />
-				<Label x:Name="game_ping" Content="Battle-Servers Ping: N/A" Height="25" Margin="1" FontSize="11"
+                <Label x:Name="game_ping" Content="Battle-Servers Ping: N/A" Height="25" Margin="1" FontSize="11"
 				       TextOptions.TextFormattingMode="Display" />
-				<Label x:Name="game_replaysCount" Content="Replays Recorded: N/A" Margin="1" Height="25" FontSize="11"
+                <Label x:Name="game_replaysCount" Content="Replays Recorded: N/A" Margin="1" Height="25" FontSize="11"
 				       TextOptions.TextFormattingMode="Display" />
-				<Label x:Name="game_cpm" Content="CPM: N/A" Height="25" Margin="1" FontSize="11"
+                <Label x:Name="game_cpm" Content="CPM: N/A" Height="25" Margin="1" FontSize="11"
 				       TextOptions.TextFormattingMode="Display" />
-				<Label x:Name="game_cpmTotal" Content="Clicks: N/A" Height="25" Margin="1" FontSize="11"
+                <Label x:Name="game_cpmTotal" Content="Clicks: N/A" Height="25" Margin="1" FontSize="11"
 				       TextOptions.TextFormattingMode="Display" />
-			</StackPanel>
-		</GroupBox>
-		<ListView x:Name="playerList" Grid.Row="2" SelectionMode="Single" FontSize="13"
+            </StackPanel>
+        </GroupBox>
+        <ListView x:Name="playerList" Grid.Row="2" SelectionMode="Single" FontSize="13"
 		          BorderBrush="#FF343434" Foreground="Black" BorderThickness="1" IsTextSearchEnabled="False"
 		          ScrollViewer.HorizontalScrollBarVisibility="Visible" MouseEnter="playerList_MouseEnter"
 		          ScrollViewer.CanContentScroll="True"
 		          MouseRightButtonDown="playerList_MouseRightButtonDown" MouseMove="playerList_MouseMove" Grid.RowSpan="3"
 		          Grid.ColumnSpan="2" Margin="12,5,5,3" TabIndex="8">
 
-			<ListView.ContextMenu>
-				<ContextMenu>
-					<MenuItem x:Name="mnu_p_Copy" Header="Copy" IsEnabled="False">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_09.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-						<MenuItem x:Name="mnu_p_copyNick" Header="Nickname" Click="mnu_p_copyNick_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/menu_011.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem x:Name="mnu_p_copyRank" Header="Ladder Rank" Click="mnu_p_copyRank_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/menu_012.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem x:Name="mnu_p_copyTimePlayed" Header="Hours Played"
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="mnu_p_Copy" Header="Copy" IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_09.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                        <MenuItem x:Name="mnu_p_copyNick" Header="Nickname" Click="mnu_p_copyNick_Click">
+                            <MenuItem.Icon>
+                                <Image Source="Resources/menu_011.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="mnu_p_copyRank" Header="Ladder Rank" Click="mnu_p_copyRank_Click">
+                            <MenuItem.Icon>
+                                <Image Source="Resources/menu_012.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="mnu_p_copyTimePlayed" Header="Hours Played"
 						          Click="mnu_p_copyTimePlayed_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/menu_013.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem x:Name="mnu_p_copyLevel" Header="Level" Click="mnu_p_copyLevel_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/menu_016.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem x:Name="mnu_p_copyID" Header="Steam ID" Click="mnu_p_copyID_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/menu_014.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-					</MenuItem>
-					<MenuItem x:Name="mnu_p_Open" Header="Open" IsEnabled="False">
-						<MenuItem.Icon>
-							<Image Source="Resources/menu_010.png" Height="16" Width="16" Stretch="Fill" />
-						</MenuItem.Icon>
-						<MenuItem x:Name="mnu_p_open_coh2org" Header="CoH2.org Player Card"
+                            <MenuItem.Icon>
+                                <Image Source="Resources/menu_013.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="mnu_p_copyLevel" Header="Level" Click="mnu_p_copyLevel_Click">
+                            <MenuItem.Icon>
+                                <Image Source="Resources/menu_016.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="mnu_p_copyID" Header="Steam ID" Click="mnu_p_copyID_Click">
+                            <MenuItem.Icon>
+                                <Image Source="Resources/menu_014.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem x:Name="mnu_p_Open" Header="Open" IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image Source="Resources/menu_010.png" Height="16" Width="16" Stretch="Fill" />
+                        </MenuItem.Icon>
+                        <MenuItem x:Name="mnu_p_open_coh2org" Header="CoH2.org Player Card"
 						          Click="mnu_p_open_coh2org_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/coh2org.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem x:Name="mnu_p_open_coh" Header="Companyofheroes.com Player Card"
+                            <MenuItem.Icon>
+                                <Image Source="Resources/coh2org.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="mnu_p_open_coh" Header="Companyofheroes.com Player Card"
 						          Click="mnu_p_open_coh_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/coh2_icon.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem x:Name="mnu_p_open_steampage" Header="Steam Profile"
+                            <MenuItem.Icon>
+                                <Image Source="Resources/coh2_icon.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="mnu_p_open_steampage" Header="Steam Profile"
 						          Click="mnu_p_open_steampage_Click">
-							<MenuItem.Icon>
-								<Image Source="Resources/steam.png" Height="16" Width="16" Stretch="Fill" />
-							</MenuItem.Icon>
-						</MenuItem>
-					</MenuItem>
-				</ContextMenu>
-			</ListView.ContextMenu>
+                            <MenuItem.Icon>
+                                <Image Source="Resources/steam.png" Height="16" Width="16" Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
 
-			<ListView.ItemContainerStyle>
-				<Style TargetType="ListViewItem">
-					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
 
-				</Style>
-			</ListView.ItemContainerStyle>
-			<ListView.GroupStyle>
-				<GroupStyle>
-					<GroupStyle.ContainerStyle>
-						<Style TargetType="{x:Type GroupItem}">
-							<Setter Property="Template">
-								<Setter.Value>
-									<ControlTemplate>
-										<Expander IsExpanded="True" BorderBrush="#FFB8B8B8" BorderThickness="0,0,0,1">
-											<Expander.Header>
-												<StackPanel Orientation="Horizontal">
-													<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="11.75"
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True" BorderBrush="#FFB8B8B8" BorderThickness="0,0,0,1">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="11.75"
 													           VerticalAlignment="Bottom" />
-												</StackPanel>
-											</Expander.Header>
-											<ItemsPresenter />
-										</Expander>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-						</Style>
-					</GroupStyle.ContainerStyle>
-				</GroupStyle>
-			</ListView.GroupStyle>
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
 
 
-			<ListView.View>
+            <ListView.View>
 
-				<GridView>
-					<GridView.ColumnHeaderContextMenu>
-						<ContextMenu />
-					</GridView.ColumnHeaderContextMenu>
-					<GridViewColumn Width="185" Header="Steam Nickname">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <GridView>
+                    <GridView.ColumnHeaderContextMenu>
+                        <ContextMenu />
+                    </GridView.ColumnHeaderContextMenu>
+                    <GridViewColumn Width="250" Header="Steam Nickname">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image HorizontalAlignment="Left" Width="19" RenderOptions.BitmapScalingMode="HighQuality"
 									       Height="19" Source="{Binding Icon, Converter={StaticResource ImageConv}}">
-										<Image.ToolTip>
-											<StackPanel>
-												<TextBlock Text="{Binding RaceName}" />
-											</StackPanel>
-										</Image.ToolTip>
-									</Image>
+                                        <Image.ToolTip>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding RaceName}" />
+                                            </StackPanel>
+                                        </Image.ToolTip>
+                                    </Image>
 
-									<TextBlock TextAlignment="Left" HorizontalAlignment="Left"
+                                    <TextBlock TextAlignment="Left" HorizontalAlignment="Left"
 									           Text="{Binding Nickname}" Margin="2,0,0,0" TextTrimming="CharacterEllipsis" FontWeight="Normal" />
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-
-					<GridViewColumn Width="70" Header="Country">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<Image RenderOptions.BitmapScalingMode="HighQuality"
-								       RenderOptions.EdgeMode="Aliased" HorizontalAlignment="Center" Margin="2,0,0,0" Width="16"
-								       Height="11" Source="{Binding Country, Converter={StaticResource ImageConv}}">
-									<Image.ToolTip>
-										<StackPanel>
-											<TextBlock Text="{Binding CountryName}" />
-										</StackPanel>
-									</Image.ToolTip>
-								</Image>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-
-					</GridViewColumn>
-					<GridViewColumn Width="145" Header="Ladder Rank">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="300" Header="Ladder Rank">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center"
 									           Text="{Binding Ranking}" FontWeight="Medium" FontSize="13" />
-									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
+                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center"
 									           Text="{Binding RankingAfter}" FontWeight="SemiBold" />
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Width="105" Header="Hours Played">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
-									           Text="{Binding TimePlayed}" FontWeight="Medium" FontSize="13" />
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Width="150" Header="Level">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
-									           Text="{Binding Level}" />
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Width="190" Header="Steam ID">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-									<TextBlock TextAlignment="Center" HorizontalAlignment="Center"
-									           Text="{Binding SteamID}" />
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-				</GridView>
-			</ListView.View>
+                </GridView>
+            </ListView.View>
 
 
-		</ListView>
-		<GroupBox x:Name="groupWatcher" Header="Game Watcher" Grid.Row="1" Grid.Column="0" Margin="12,5,5,5">
-			<Grid>
-				<WindowsFormsHost x:Name="LoadFormHost" Height="20" Width="20" VerticalAlignment="Center"
+        </ListView>
+        <GroupBox x:Name="groupWatcher" Header="Game Watcher" Grid.Row="1" Grid.Column="0" Margin="12,5,5,5">
+            <Grid>
+                <WindowsFormsHost x:Name="LoadFormHost" Height="20" Width="20" VerticalAlignment="Center"
 				                  HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Hidden">
-					<Forms:PictureBox x:Name="pLoadpic" Enabled="True" Size="20, 20" SizeMode="Zoom" WaitOnLoad="True" />
-				</WindowsFormsHost>
-				<Button x:Name="btn_GameWatcher" Click="btn_GameWatcher_Click" Tag="en" Margin="10,10,57,10" TabIndex="6">
-					<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-						<Image Source="Resources/GameWatcherPic.png" Stretch="None" Width="27"
+                    <Forms:PictureBox x:Name="pLoadpic" Enabled="True" Size="20, 20" SizeMode="Zoom" WaitOnLoad="True" />
+                </WindowsFormsHost>
+                <Button x:Name="btn_GameWatcher" Click="btn_GameWatcher_Click" Tag="en" Margin="10,10,57,10" TabIndex="6">
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image Source="Resources/GameWatcherPic.png" Stretch="None" Width="27"
 						       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
 						       UseLayoutRounding="True" />
-						<TextBlock x:Name="txt_GameWatcher" Text="Start Game Watcher" VerticalAlignment="Center"
+                        <TextBlock x:Name="txt_GameWatcher" Text="Start Game Watcher" VerticalAlignment="Center"
 						           TextOptions.TextFormattingMode="Display" FontFamily="Roboto" />
-					</DockPanel>
+                    </DockPanel>
 
-				</Button>
+                </Button>
 
-			</Grid>
-		</GroupBox>
-		<GroupBox x:Name="groupReplays" Header="Replays" Grid.Row="1" Grid.Column="1" Margin="5">
-			<Button x:Name="btn_ReplayManager" Click="btn_ReplayManager_Click" Margin="10" TabIndex="7">
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupReplays" Header="Replays" Grid.Row="1" Grid.Column="1" Margin="5">
+            <Button x:Name="btn_ReplayManager" Click="btn_ReplayManager_Click" Margin="10" TabIndex="7">
 
-				<DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-					<Image Source="Resources/ReplayManager.png" Stretch="None" Width="36"
+                <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image Source="Resources/ReplayManager.png" Stretch="None" Width="36"
 					       RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased"
 					       UseLayoutRounding="True" />
-					<TextBlock x:Name="txt_ReplayManager" Text="Replay Manager" VerticalAlignment="Center"
+                    <TextBlock x:Name="txt_ReplayManager" Text="Replay Manager" VerticalAlignment="Center"
 					           TextOptions.TextFormattingMode="Display" />
-				</DockPanel>
+                </DockPanel>
 
-			</Button>
-		</GroupBox>
-		<Expander x:Name="statusExpander" Header="Status" Grid.Row="4" Margin="6,6,13,6" BorderBrush="{x:Null}"
+            </Button>
+        </GroupBox>
+        <Expander x:Name="statusExpander" Header="Status" Grid.Row="4" Margin="6,6,13,6" BorderBrush="{x:Null}"
 		          IsExpanded="True" Grid.Column="2" Grid.RowSpan="2">
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="40*" />
-					<RowDefinition Height="100*" />
-				</Grid.RowDefinitions>
-				<Border BorderBrush="#FF8D8D8D" Margin="5" BorderThickness="1" Grid.Row="0" Grid.Column="0">
-					<Grid>
-						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-							<Image x:Name="status_gameIcon" RenderOptions.BitmapScalingMode="NearestNeighbor"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="#FF8D8D8D" Margin="5" BorderThickness="1" Grid.Row="0" Grid.Column="0">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image x:Name="status_gameIcon" RenderOptions.BitmapScalingMode="NearestNeighbor"
 							       RenderOptions.EdgeMode="Aliased" UseLayoutRounding="True" Height="16"
 							       Width="16" Stretch="None" Margin="5,0,0,0" />
-							<Label x:Name="status_gameName" Content="" Height="25" FontSize="11" HorizontalContentAlignment="Stretch"
+                            <Label x:Name="status_gameName" Content="" Height="25" FontSize="11" HorizontalContentAlignment="Stretch"
 							       VerticalContentAlignment="Stretch" />
-						</StackPanel>
-					</Grid>
-				</Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
 
 
-				<Label x:Name="status_cont" Margin="8" Background="{x:Null}" BorderBrush="#FF8D8D8D" BorderThickness="1"
+                <Label x:Name="status_cont" Margin="8" Background="{x:Null}" BorderBrush="#FF8D8D8D" BorderThickness="1"
 				       FontSize="11" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-					<AccessText TextAlignment="Center" x:Name="status_cont_text" TextWrapping="Wrap" Text="Idle" />
-				</Label>
+                    <AccessText TextAlignment="Center" x:Name="status_cont_text" TextWrapping="Wrap" Text="Idle" />
+                </Label>
 
-			</Grid>
-		</Expander>
-		<ProgressBar x:Name="pgBarLoading" Grid.Row="5" Foreground="#FF1C951C" IsEnabled="False" Grid.ColumnSpan="2"
+            </Grid>
+        </Expander>
+        <ProgressBar x:Name="pgBarLoading" Grid.Row="5" Foreground="#FF1C951C" IsEnabled="False" Grid.ColumnSpan="2"
 		             Margin="12,6,5,7" />
-	</Grid>
+    </Grid>
 
 </Window>

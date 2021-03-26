@@ -64,9 +64,6 @@ namespace CELO_Enhanced
                             wb.DownloadFileAsync(
                                 new Uri("http://www.neffware.com/downloads/celo/data/AHK_Compiler.zip"), filename);
                         }
-                        var ls = new LoadingScreen(this, "Downloading & Installing AutoHotkey Script Compiler...",
-                            CheckAutoHotKey);
-                        ls.ShowDialog();
                     }
                     catch (Exception ex)
                     {
@@ -78,6 +75,7 @@ namespace CELO_Enhanced
                 else
                 {
                     Close();
+                    return;
                 }
             }
             FillKeys();

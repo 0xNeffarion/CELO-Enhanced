@@ -19,11 +19,11 @@ namespace CELO_Enhanced {
         public static extern void FreeConsole();
 
         private void imgDonate_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            Process.Start("https://www.neffware.com/about");
+            Process.Start("https://www.neffware.com");
         }
 
         private void imgNeffware_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            Process.Start("https://www.neffware.com/myprojects/celo");
+            Process.Start("https://github.com/0xNeffarion/CELO-Enhanced");
         }
 
         private void aboutWindow_Loaded(object sender, RoutedEventArgs e) {

@@ -553,7 +553,7 @@ namespace CELO_Enhanced
             try
             {
                 var dir = new DirectoryInfo(Essential_tBoxGamesPath.Text);
-                Boolean test1 = false, test2 = false, test3 = false;
+                Boolean test1 = false, test2 = false;
                 switch (_SelectedGame)
                 {
                     case 0:
@@ -570,13 +570,9 @@ namespace CELO_Enhanced
                                 {
                                     test2 = true;
                                 }
-                                if (file.Name.Contains("steam_api.dll"))
-                                {
-                                    test3 = true;
-                                }
                             }
 
-                            if (test1 && test2 && test3)
+                            if (test1 && test2)
                             {
                                 Essential_txtValidateGame.Foreground = new SolidColorBrush(Colors.ForestGreen);
                                 Essential_txtValidateGame.Text = "Path Validated!";
@@ -611,13 +607,9 @@ namespace CELO_Enhanced
                                 {
                                     test2 = true;
                                 }
-                                if (file.Name.Contains("steam_api.dll"))
-                                {
-                                    test3 = true;
-                                }
                             }
 
-                            if (test1 && test2 && test3)
+                            if (test1 && test2)
                             {
                                 Essential_txtValidateGame.Foreground = new SolidColorBrush(Colors.ForestGreen);
                                 Essential_txtValidateGame.Text = "Path Validated!";

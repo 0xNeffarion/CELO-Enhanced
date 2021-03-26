@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Management;
+using System.Net;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
@@ -25,7 +26,9 @@ namespace CELO_Enhanced
             Current.Exit += Current_Exit;
             cfgFile = new Utilities.INIFile(AppDomain.CurrentDomain.BaseDirectory + @"\config.ini");
             logFile.CreateNew();
-            
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 
             logFile.WriteLine("CELO - STARTED");
             logFile.WriteLine("CELO VERSION: " + Assembly.GetExecutingAssembly().GetName().Version);
